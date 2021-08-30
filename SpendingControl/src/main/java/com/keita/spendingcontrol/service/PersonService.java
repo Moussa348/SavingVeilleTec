@@ -33,20 +33,8 @@ public class PersonService {
         return false;
     }
 
-    public PersonDetail getPersonDetail(Long id){
-        return new PersonDetail(findPersonById(id));
-    }
-
-    public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {
-        httpServletResponse.setContentType("image/jpeg");
-
-        InputStream inputStream = new ByteArrayInputStream(findPersonById(id).getPicture());
-
-        IOUtils.copy(inputStream, httpServletResponse.getOutputStream());
-    }
-
     public void setPicture(Long id, MultipartFile multipartFile) throws IOException {
-        Person person = findPersonById(id);
+        Person person = getPersonById(id);
         //TODO --> check if multipartFile is really an image or else throw IOException
         if (FileUtil.isFileAnImage(Objects.requireNonNull(multipartFile.getOriginalFilename()))) {
 
@@ -57,9 +45,30 @@ public class PersonService {
             throw new IOException("This file is not an image");
     }
 
-    private Person findPersonById(Long id){
+    public void disableAccount(Long id){
+        Person person = getPersonById(id);
+
+        person.setActive(false);
+
+        personRepository.save(person);
+
+    }
+
+    public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.setContentType("image/jpeg");
+
+        InputStream inputStream = new ByteArrayInputStream(getPersonById(id).getPicture());
+
+        IOUtils.copy(inputStream, httpServletResponse.getOutputStream());
+    }
+
+    public Person getPersonById(Long id){
         return personRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find person with id: " + id));
     }
 
+
+    public PersonDetail getPersonDetail(Long id){
+        return new PersonDetail(getPersonById(id));
+    }
 
 }

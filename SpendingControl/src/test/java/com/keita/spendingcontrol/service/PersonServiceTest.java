@@ -3,7 +3,6 @@ package com.keita.spendingcontrol.service;
 import com.keita.spendingcontrol.model.dto.PersonDetail;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.PersonRepository;
-import com.keita.spendingcontrol.util.FileUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -46,21 +45,36 @@ public class PersonServiceTest {
         assertFalse(person2HasBeenCreated);
     }
 
+
     @Test
-    void getPersonDetail(){
+    void setPicture() throws IOException {
         //ARRANGE
+        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("file.jpg", "file.jpg", "image/jpeg", "taaa".getBytes());
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
 
         Person person2 = Person.builder().id(2L).email("dasdads@gmail.com").build();
-        when(personRepository.findById(person2.getId())).thenReturn(Optional.empty());
+        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("file.py", "file.py", "image/jpeg", "taaa".getBytes());
+        when(personRepository.findById(person2.getId())).thenReturn(Optional.of(person2));
 
         //ACT
-        PersonDetail personDetail1 = personService.getPersonDetail(person1.getId());
+        personService.setPicture(person1.getId(), mockMultipartFile1);
+
+        //Assert
+        assertThrows(IOException.class, () -> personService.setPicture(person2.getId(), mockMultipartFile2));
+    }
+
+    @Test
+    void disableAccount(){
+        //ARRANGE
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").active(true).build();
+        when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+
+        //ACT
+        personService.disableAccount(person1.getId());
 
         //ASSERT
-        assertNotNull(personDetail1);
-        assertThrows(ResponseStatusException.class,() -> personService.getPersonDetail(person2.getId()));
+        assertFalse(person1.isActive());
     }
 
     @Test
@@ -80,20 +94,32 @@ public class PersonServiceTest {
     }
 
     @Test
-    void setPicture() throws IOException {
+    void getPersonById(){
         //ARRANGE
-        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("file.jpg", "file.jpg", "image/jpeg", "taaa".getBytes());
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
 
         Person person2 = Person.builder().id(2L).email("dasdads@gmail.com").build();
-        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("file.py", "file.py", "image/jpeg", "taaa".getBytes());
-        when(personRepository.findById(person2.getId())).thenReturn(Optional.of(person2));
+        when(personRepository.findById(person2.getId())).thenReturn(Optional.empty());
 
         //ACT
-        personService.setPicture(person1.getId(), mockMultipartFile1);
+        Person person = personService.getPersonById(person1.getId());
 
-        //Assert
-        assertThrows(IOException.class, () -> personService.setPicture(person2.getId(), mockMultipartFile2));
+        //ASSERT
+        assertNotNull(person);
+        assertThrows(ResponseStatusException.class,() -> personService.getPersonById(person2.getId()));
+    }
+
+    @Test
+    void getPersonDetail(){
+        //ARRANGE
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
+        when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+
+        //ACT
+        PersonDetail personDetail1 = personService.getPersonDetail(person1.getId());
+
+        //ASSERT
+        assertEquals(person1.getEmail(),personDetail1.getEmail());
     }
 }

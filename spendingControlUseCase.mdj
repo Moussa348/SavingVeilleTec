@@ -1255,7 +1255,7 @@
 											"top": 579.5,
 											"width": 117,
 											"height": 13,
-											"text": "deActivateAccount"
+											"text": "disableAccount"
 										},
 										{
 											"_type": "LabelView",
@@ -1288,7 +1288,7 @@
 									"font": "Arial;13;0",
 									"left": 706.5,
 									"top": 572.5,
-									"width": 127.7490234375,
+									"width": 127,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF7hM8ICXGl+iU="
@@ -10220,7 +10220,7 @@
 					"_parent": {
 						"$ref": "AAAAAAF7hM4cu3Ay3KY="
 					},
-					"name": "deActivateAccount",
+					"name": "disableAccount",
 					"ownedElements": [
 						{
 							"_type": "UMLExtend",
