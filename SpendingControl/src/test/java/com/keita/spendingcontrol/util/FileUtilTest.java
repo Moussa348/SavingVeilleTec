@@ -16,4 +16,19 @@ public class FileUtilTest {
         //ASSERT
         assertNotNull(pictureInBytes);
     }
+
+    @Test
+    void isFileAnImage(){
+        //ARRANGE
+        String fileName1 = "dsadasdasd.jpg";
+        String fileName2 = "dasdasd.py";
+
+        //ACT
+        boolean fileIsAnImage = FileUtil.isFileAnImage(fileName1);
+        boolean fileIsNotAnImage = FileUtil.isFileAnImage(fileName2);
+
+        //ASSERT
+        assertTrue(fileIsAnImage);
+        assertFalse(fileIsNotAnImage);
+    }
 }

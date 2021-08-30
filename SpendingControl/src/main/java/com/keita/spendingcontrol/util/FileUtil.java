@@ -9,4 +9,10 @@ public abstract class FileUtil {
         FileInputStream fileInputStream = new FileInputStream("./docs/noUser.jpg");
         return fileInputStream.readAllBytes();
     }
+
+    public static boolean isFileAnImage(String fileName){
+        return fileName.split("\\.")[1].equalsIgnoreCase("jpg") ||
+                fileName.split("\\.")[1].equalsIgnoreCase("jpeg") ||
+                fileName.split("\\.")[1].equalsIgnoreCase("png");
+    }
 }
