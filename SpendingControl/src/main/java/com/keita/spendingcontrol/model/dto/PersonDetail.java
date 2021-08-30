@@ -4,12 +4,13 @@ import com.keita.spendingcontrol.model.entity.Person;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 public class PersonDetail implements Serializable {
     private Long id;
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
     private String firstName,lastName,email;
 
     public PersonDetail(){}
