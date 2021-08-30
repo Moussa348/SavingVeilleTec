@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -76,5 +77,23 @@ public class PersonServiceTest {
 
         //ACT
         personService.getPicture(person1.getId(), mockHttpServletResponse);
+    }
+
+    @Test
+    void setPicture() throws IOException {
+        //ARRANGE
+        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("file.jpg", "file.jpg", "image/jpeg", "taaa".getBytes());
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
+        when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+
+        Person person2 = Person.builder().id(2L).email("dasdads@gmail.com").build();
+        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("file.py", "file.py", "image/jpeg", "taaa".getBytes());
+        when(personRepository.findById(person2.getId())).thenReturn(Optional.of(person2));
+
+        //ACT
+        personService.setPicture(person1.getId(), mockMultipartFile1);
+
+        //Assert
+        assertThrows(IOException.class, () -> personService.setPicture(person2.getId(), mockMultipartFile2));
     }
 }
