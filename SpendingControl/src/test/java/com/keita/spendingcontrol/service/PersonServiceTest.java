@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -59,6 +60,21 @@ public class PersonServiceTest {
         //ASSERT
         assertNotNull(personDetail1);
         assertThrows(ResponseStatusException.class,() -> personService.getPersonDetail(person2.getId()));
+    }
 
+    @Test
+    void getPicture() throws IOException {
+        //ARRANGE
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
+        person1.setPicture("sadasd".getBytes());
+
+        MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
+
+        mockHttpServletResponse.setContentType("image/jpeg");
+
+        when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+
+        //ACT
+        personService.getPicture(person1.getId(), mockHttpServletResponse);
     }
 }
