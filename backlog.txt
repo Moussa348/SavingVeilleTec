@@ -1,0 +1,40 @@
+/----------------------------------
+	BackLog
+------------------------------------/
+
+-------
+=>MVP
+-------
+
+*En tant que personne, je veux pouvoir m'inscrire
+
+*En tant que personne, je veux pouvoir modifier mes informations de compte
+
+*En tant que système, je veux pouvoir créer une dépense
+
+*En tant que personne, je veux pouvoir ajouter un article à ma dépense de la journée
+
+*En tant que personne, je veux voir les détails de mes dépenses par journée
+
+
+--------------
+=>NiceToHave
+--------------
+
+*En tant que personne, je veux pouvoir enregistrer un objectif à ne pas dépasser
+
+*En tant que personne, je veux pouvoir annuler un objectif
+
+*En tant que personne, je veux pouvoir voir mes objectifs
+
+*En tant que personne, je veux pouvoir voir le quota des objectifs atteint/non-atteint pour une certaine période de temps
+
+*En tant que système, je veux pouvoir notifier la personne si l'objectif est atteint ou pas
+
+*En tant que système, je veux notifier la personne si jamais l'objectif se rapproche de l'échec
+
+*En tant que personne, je veux pouvoir voir le quota d'importance des articles que j'ai acheté pour une certaine période de temps
+
+*En tant que système, je veux pouvoir proposer certains articles à ne pas acheté selon les information que je possède
+
+*En tant que personne, je veux pouvoir recevoir une copie de l'analyse de mes dépenses
