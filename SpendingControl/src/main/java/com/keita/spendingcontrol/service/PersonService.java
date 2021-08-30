@@ -45,13 +45,20 @@ public class PersonService {
             throw new IOException("This file is not an image");
     }
 
+    //TODO --> send encryptedPassword
+    public void setPassword(Long id, String password){
+        Person person = getPersonById(id);
+
+        person.setPassword(password);
+
+        personRepository.save(person);
+    }
     public void disableAccount(Long id){
         Person person = getPersonById(id);
 
         person.setActive(false);
 
         personRepository.save(person);
-
     }
 
     public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {

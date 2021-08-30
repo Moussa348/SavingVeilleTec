@@ -78,6 +78,20 @@ public class PersonServiceTest {
     }
 
     @Test
+    void setPassword(){
+        //ARRANGE
+        String newPassword = "taaa";
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araaa").active(true).build();
+        when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+
+        //ACT
+        personService.setPassword(person1.getId(),newPassword);
+
+        //ASSERT
+        assertEquals(newPassword,person1.getPassword());
+    }
+
+    @Test
     void getPicture() throws IOException {
         //ARRANGE
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();

@@ -961,7 +961,7 @@
 											"top": 483.5,
 											"width": 106,
 											"height": 13,
-											"text": "changePassword"
+											"text": "setPassword"
 										},
 										{
 											"_type": "LabelView",
@@ -994,7 +994,7 @@
 									"font": "Arial;13;0",
 									"left": 704.5,
 									"top": 476.5,
-									"width": 116.92626953125,
+									"width": 116,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF7hM7hgHFlHvg="
@@ -10197,7 +10197,7 @@
 					"_parent": {
 						"$ref": "AAAAAAF7hM4cu3Ay3KY="
 					},
-					"name": "changePassword",
+					"name": "setPassword",
 					"ownedElements": [
 						{
 							"_type": "UMLExtend",
