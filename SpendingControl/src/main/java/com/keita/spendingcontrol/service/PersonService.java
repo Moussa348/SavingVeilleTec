@@ -28,6 +28,7 @@ public class PersonService {
         if(!personRepository.existsByEmail(person.getEmail())){
             person.setRegistrationDate(LocalDate.now());
             person.setPicture(FileUtil.setDefaultProfilePicture());
+            personRepository.save(person);
             return true;
         }
         return false;

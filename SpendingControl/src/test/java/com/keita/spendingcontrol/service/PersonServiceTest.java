@@ -67,7 +67,7 @@ public class PersonServiceTest {
     @Test
     void disableAccount(){
         //ARRANGE
-        Person person1 = Person.builder().id(1L).email("araa@gmail.com").active(true).build();
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
 
         //ACT
@@ -81,7 +81,7 @@ public class PersonServiceTest {
     void setPassword(){
         //ARRANGE
         String newPassword = "taaa";
-        Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araaa").active(true).build();
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araaa").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
 
         //ACT

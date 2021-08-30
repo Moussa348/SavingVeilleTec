@@ -24,15 +24,15 @@ public class Person implements Serializable {
     public Person(){}
 
     @Builder
-    public Person(Long id, byte[] picture, LocalDate registrationDate, String firstName, String lastName, String email, String password, String roles, boolean active) {
+    public Person(Long id, byte[] picture, String firstName, String lastName, String email, String password, String roles) {
         this.id = id;
         this.picture = picture;
-        this.registrationDate = registrationDate;
+        this.registrationDate = LocalDate.now();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
-        this.active = active;
+        this.active = false;
     }
 }
