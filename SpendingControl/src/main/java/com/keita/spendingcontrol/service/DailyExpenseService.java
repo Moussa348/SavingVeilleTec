@@ -17,8 +17,8 @@ public class DailyExpenseService {
     @Autowired
     private PersonService personService;
 
-    public void createDailyExperienceForEveryPerson(){
-        personService.getListPerson().forEach(person -> dailyExpenseRepository.save(new DailyExpense(person)));
+    public Long createDailyExperienceForEveryPerson(){
+        return personService.getListPerson().stream().map(person -> dailyExpenseRepository.save(new DailyExpense(person))).count();
     }
 
 }

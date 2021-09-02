@@ -143,14 +143,16 @@ public class PersonServiceTest {
     void getListPerson(){
         //ARRANGE
         List<Person> persons = Arrays.asList(
+                Person.builder().email("francois@gmail.com").build(),
+                Person.builder().email("francois@gmail.com").build(),
                 Person.builder().email("francois@gmail.com").build()
         );
-        when(personRepository.findAll()).thenReturn(persons);
+        when(personRepository.findAllByActiveTrue()).thenReturn(persons);
 
         //ACT
         List<Person> listPersons = personService.getListPerson();
 
         //ASSERT
-        assertEquals(1,listPersons.size());
+        assertEquals(3,listPersons.size());
     }
 }

@@ -34,16 +34,16 @@ public class DailyExpenseServiceTest {
     void createDailyExperienceForEveryPerson(){
         //ARRANGE
         List<Person> persons = Arrays.asList(
-                new Person(),
-                new Person(),
-                new Person()
+                Person.builder().build(),
+                Person.builder().build(),
+                Person.builder().build()
         );
         when(personService.getListPerson()).thenReturn(persons);
 
         //ACT
-        dailyExpenseService.createDailyExperienceForEveryPerson();
+        Long nbrOfDailyExpenseCreated = dailyExpenseService.createDailyExperienceForEveryPerson();
 
         //ASSERT
-
+        assertEquals(persons.size(),nbrOfDailyExpenseCreated);
     }
 }

@@ -81,6 +81,6 @@ public class PersonService {
     }
 
     public List<Person> getListPerson(){
-        return personRepository.findAll();
+        return personRepository.findAllByActiveTrue();
     }
 }
