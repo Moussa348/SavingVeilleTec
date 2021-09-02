@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -79,4 +80,7 @@ public class PersonService {
         return new PersonDetail(getPersonById(id));
     }
 
+    public List<Person> getListPerson(){
+        return personRepository.findAll();
+    }
 }

@@ -13,6 +13,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -135,5 +137,20 @@ public class PersonServiceTest {
 
         //ASSERT
         assertEquals(person1.getEmail(),personDetail1.getEmail());
+    }
+
+    @Test
+    void getListPerson(){
+        //ARRANGE
+        List<Person> persons = Arrays.asList(
+                Person.builder().email("francois@gmail.com").build()
+        );
+        when(personRepository.findAll()).thenReturn(persons);
+
+        //ACT
+        List<Person> listPersons = personService.getListPerson();
+
+        //ASSERT
+        assertEquals(1,listPersons.size());
     }
 }
