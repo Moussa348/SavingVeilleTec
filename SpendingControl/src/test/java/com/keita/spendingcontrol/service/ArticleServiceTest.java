@@ -3,6 +3,7 @@ package com.keita.spendingcontrol.service;
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
+import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,16 +45,17 @@ public class ArticleServiceTest {
         Long id = 1L;
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
         List<Article> articles = Arrays.asList(
-                Article.builder().dailyExpense(dailyExpense).build(),
-                Article.builder().dailyExpense(dailyExpense).build(),
-                Article.builder().dailyExpense(dailyExpense).build()
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.MEDIUM).build()
         );
         when(articleRepository.findAllByDailyExpenseId(dailyExpense.getId())).thenReturn(articles);
 
         //ACT
-        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyExpense(dailyExpense.getId());
+        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyExpense(dailyExpense.getId(), DegreeOfUtility.LOW);
 
         //ASSERT
-        assertEquals(articles.size(), articleDetails.size());
+        assertEquals(3, articleDetails.size());
     }
 }

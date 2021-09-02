@@ -3,6 +3,7 @@ package com.keita.spendingcontrol.service;
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
+import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,10 @@ public class ArticleService {
          return new Article(articleDetail,dailyExpense);
     }
 
-    public List<ArticleDetail> getListArticleDetailForDailyExpense(Long id){
-        return articleRepository.findAllByDailyExpenseId(id).stream().map(ArticleDetail::new).collect(Collectors.toList());
+    public List<ArticleDetail> getListArticleDetailForDailyExpense(Long id, DegreeOfUtility degreeOfUtility){
+        return articleRepository.findAllByDailyExpenseId(id)
+                .stream()
+                .filter(article -> article.getDegreeOfUtility().equals(degreeOfUtility))
+                .map(ArticleDetail::new).collect(Collectors.toList());
     }
 }
