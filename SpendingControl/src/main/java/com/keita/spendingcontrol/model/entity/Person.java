@@ -33,6 +33,6 @@ public class Person implements Serializable {
         this.email = email;
         this.password = password;
         this.roles = roles;
-        this.active = false;
+        this.active = true;
     }
 }

@@ -12,8 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -27,8 +26,13 @@ public class PersonRepositoryTest {
     @BeforeEach()
     void init(){
         List<Person> persons = Arrays.asList(
-                Person.builder().email("francois@gmail.com").build()
+                Person.builder().email("francois@gmail.com").build(),
+                Person.builder().email("dsadasd@gmail.com").build(),
+                Person.builder().email("erwwerwer@gmail.com").build()
         );
+
+        persons.get(1).setActive(false);
+        persons.get(2).setActive(false);
 
         personRepository.saveAll(persons);
     }
@@ -46,5 +50,14 @@ public class PersonRepositoryTest {
         //ASSERT
         assertTrue(personExistWithEmail1);
         assertFalse(personExistWithEmail2);
+    }
+
+    @Test
+    void findAllByActiveTrue(){
+        //ACT
+        List<Person> persons = personRepository.findAllByActiveTrue();
+
+        //ASSERT
+        assertEquals(1,persons.size());
     }
 }

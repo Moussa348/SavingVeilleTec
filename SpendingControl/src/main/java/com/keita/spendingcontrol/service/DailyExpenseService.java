@@ -14,8 +14,11 @@ public class DailyExpenseService {
     @Autowired
     private ArticleService articleService;
 
-    public void createDailyExperience(){
-        dailyExpenseRepository.save(new DailyExpense());
+    @Autowired
+    private PersonService personService;
+
+    public void createDailyExperienceForEveryPerson(){
+        personService.getListPerson().forEach(person -> dailyExpenseRepository.save(new DailyExpense(person)));
     }
 
 }

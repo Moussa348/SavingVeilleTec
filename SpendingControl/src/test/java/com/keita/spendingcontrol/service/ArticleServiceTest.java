@@ -26,13 +26,13 @@ public class ArticleServiceTest {
     ArticleService articleService;
 
     @Test
-    void createArticle() {
+    void createArticleForDailyExperience() {
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
         ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
 
         //ACT
-        Article newArticle = articleService.createArticle(articleDetail, dailyExpense);
+        Article newArticle = articleService.createArticleForDailyExperience(articleDetail, dailyExpense);
 
         //ASSERT
         assertEquals(dailyExpense.getId(), newArticle.getDailyExpense().getId());
