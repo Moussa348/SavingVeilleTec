@@ -1,6 +1,7 @@
 package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
+import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
@@ -53,17 +54,22 @@ public class DailyExpenseServiceTest {
     @Test
     void getDailyExpenseByDateForPerson(){
         //ARRANGE
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
-        Map<DegreeOfUtility,Integer> mapArticleUtility = new HashMap<>();
+        Long id = 1L;
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).build();
 
-        mapArticleUtility.put(DegreeOfUtility.LOW,2);
-        mapArticleUtility.put(DegreeOfUtility.MEDIUM,3);
-        mapArticleUtility.put(DegreeOfUtility.HIGH,0);
+        dailyExpense.setArticles(Arrays.asList(
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.MEDIUM).build()
+        ));
+        when(dailyExpenseRepository.findByPersonIdAndDate(id,dailyExpense.getDate())).thenReturn(Optional.of(dailyExpense));
 
         //ACT
+        DailyExpenseDetail dailyExpenseDetail = dailyExpenseService.getDailyExpenseByDateForPerson(id,dailyExpense.getDate());
 
         //ASSERT
-
+        assertNotNull(dailyExpenseDetail);
     }
 
     @Test

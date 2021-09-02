@@ -31,8 +31,8 @@ public class DailyExpenseService {
         return personService.getListPerson().stream().map(person -> dailyExpenseRepository.save(new DailyExpense(person))).count();
     }
 
-    public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id,LocalDate localDate){
-        DailyExpense dailyExpense = findDailyExpenseById(id);
+    public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id,LocalDate date){
+        DailyExpense dailyExpense = findDailyExpenseByIdAndDate(id,date);
         return new DailyExpenseDetail(dailyExpense,articleService.mapListArticleByDegreeOfUtility(dailyExpense.getArticles()));
     }
 
@@ -45,11 +45,15 @@ public class DailyExpenseService {
     }
 
     public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start,LocalDate end){
-        return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end).stream().map(DailyExpense::getTotal).reduce(0.0f,(subTotal,total) -> subTotal + total);
+        return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end).stream().map(DailyExpense::getTotal).reduce(0.0f, Float::sum);
     }
 
     private DailyExpense findDailyExpenseById(Long id){
         return dailyExpenseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find daily expense with id : " + id));
+    }
+
+    private DailyExpense findDailyExpenseByIdAndDate(Long id,LocalDate date){
+        return dailyExpenseRepository.findByPersonIdAndDate(id,date).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find daily expense with id : " + id + " ,and date : " + date));
     }
 
 }
