@@ -4,6 +4,7 @@ import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
+import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,9 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -49,6 +48,22 @@ public class DailyExpenseServiceTest {
 
         //ASSERT
         assertEquals(persons.size(),nbrOfDailyExpenseCreated);
+    }
+
+    @Test
+    void getDailyExpenseByDateForPerson(){
+        //ARRANGE
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
+        Map<DegreeOfUtility,Integer> mapArticleUtility = new HashMap<>();
+
+        mapArticleUtility.put(DegreeOfUtility.LOW,2);
+        mapArticleUtility.put(DegreeOfUtility.MEDIUM,3);
+        mapArticleUtility.put(DegreeOfUtility.HIGH,0);
+
+        //ACT
+
+        //ASSERT
+
     }
 
     @Test

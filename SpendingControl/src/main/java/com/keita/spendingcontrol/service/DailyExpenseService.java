@@ -33,7 +33,7 @@ public class DailyExpenseService {
 
     public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id,LocalDate localDate){
         DailyExpense dailyExpense = findDailyExpenseById(id);
-        return null;
+        return new DailyExpenseDetail(dailyExpense,articleService.mapListArticleByDegreeOfUtility(dailyExpense.getArticles()));
     }
 
     public void addArticleToDailyExpense(ArticleDetail articleDetail){
@@ -47,7 +47,6 @@ public class DailyExpenseService {
     public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start,LocalDate end){
         return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end).stream().map(DailyExpense::getTotal).reduce(0.0f,(subTotal,total) -> subTotal + total);
     }
-
 
     private DailyExpense findDailyExpenseById(Long id){
         return dailyExpenseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find daily expense with id : " + id));

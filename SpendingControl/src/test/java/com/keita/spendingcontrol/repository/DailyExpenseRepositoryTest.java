@@ -38,9 +38,9 @@ public class DailyExpenseRepositoryTest {
 
         List<DailyExpense> dailyExpenses = Arrays.asList(
                 DailyExpense.builder().date(LocalDate.now()).person(person).build(),
-                DailyExpense.builder().date(LocalDate.now()).person(person).build(),
-                DailyExpense.builder().date(LocalDate.now()).person(person).build(),
-                DailyExpense.builder().date(LocalDate.now()).person(person).build()
+                DailyExpense.builder().date(LocalDate.now().plusDays(1)).person(person).build(),
+                DailyExpense.builder().date(LocalDate.now().plusDays(2)).person(person).build(),
+                DailyExpense.builder().date(LocalDate.now().plusDays(3)).person(person).build()
         );
 
         dailyExpenses.get(3).setDate(LocalDate.now().minusWeeks(3));
@@ -60,5 +60,18 @@ public class DailyExpenseRepositoryTest {
 
         //ASSERT
         assertEquals(3,dailyExpenses.size());
+    }
+
+    @Test
+    void findByPersonIdAndDate(){
+        //ARRANGE
+        Long id = 1L;
+        LocalDate date1 = LocalDate.now();
+
+        //ACT
+        boolean dailyExpenseFounded = dailyExpenseRepository.findByPersonIdAndDate(id,date1).isPresent();
+
+        //ASSERT
+        assertTrue(dailyExpenseFounded);
     }
 }
