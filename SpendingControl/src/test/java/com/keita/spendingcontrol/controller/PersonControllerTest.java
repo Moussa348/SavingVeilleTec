@@ -103,7 +103,6 @@ public class PersonControllerTest {
 
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
-
     }
 
     @Test

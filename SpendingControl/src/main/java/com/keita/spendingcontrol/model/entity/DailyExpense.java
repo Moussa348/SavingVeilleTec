@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,8 +18,8 @@ public class DailyExpense implements Serializable {
     private LocalDate date;
     private Float total;
 
-    @ManyToOne
-    private DailyExpense dailyExpense;
+    @OneToMany(mappedBy = "dailyExpense")
+    private List<Article> articles;
 
     public DailyExpense(){}
 
