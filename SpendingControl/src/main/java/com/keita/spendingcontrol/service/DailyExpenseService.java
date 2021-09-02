@@ -1,8 +1,10 @@
 package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
+import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
+import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class DailyExpenseService {
@@ -25,6 +29,11 @@ public class DailyExpenseService {
 
     public Long createDailyExpenseForEveryPerson(){
         return personService.getListPerson().stream().map(person -> dailyExpenseRepository.save(new DailyExpense(person))).count();
+    }
+
+    public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id,LocalDate localDate){
+        DailyExpense dailyExpense = findDailyExpenseById(id);
+        return null;
     }
 
     public void addArticleToDailyExpense(ArticleDetail articleDetail){
