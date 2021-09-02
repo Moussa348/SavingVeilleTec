@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -63,5 +64,26 @@ public class DailyExpenseServiceTest {
 
         //ASSERT
         assertEquals(1,dailyExpense.getArticles().size());
+    }
+
+    @Test
+    void getTotalExpenseBetweenDatesForPerson(){
+        //ARRANGE
+        Person person = Person.builder().id(1L).email("francois@gmail.com").build();
+        LocalDate start = LocalDate.now();
+        LocalDate end = start.plusDays(2);
+        List<DailyExpense> dailyExpenses = Arrays.asList(
+                DailyExpense.builder().date(start).total(20.0f).person(person).build(),
+                DailyExpense.builder().date(start).total(20.0f).person(person).build(),
+                DailyExpense.builder().date(end).total(20.0f).person(person).build(),
+                DailyExpense.builder().date(end.minusDays(1)).total(20.0f).person(person).build()
+        );
+        when(dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end)).thenReturn(dailyExpenses);
+
+        //ACT
+        Float subTotal = dailyExpenseService.getTotalExpenseBetweenDatesForPerson(person,start,end);
+
+        //ASSERT
+        assertEquals(80.0f,subTotal);
     }
 }

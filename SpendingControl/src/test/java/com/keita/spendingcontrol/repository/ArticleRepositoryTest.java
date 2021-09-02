@@ -2,7 +2,6 @@ package com.keita.spendingcontrol.repository;
 
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
-import com.keita.spendingcontrol.model.entity.Person;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

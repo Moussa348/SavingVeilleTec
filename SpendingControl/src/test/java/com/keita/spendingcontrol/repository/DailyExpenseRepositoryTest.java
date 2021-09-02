@@ -1,0 +1,64 @@
+package com.keita.spendingcontrol.repository;
+
+
+import com.keita.spendingcontrol.model.entity.DailyExpense;
+import com.keita.spendingcontrol.model.entity.Person;
+import lombok.extern.java.Log;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
+@Log
+public class DailyExpenseRepositoryTest {
+
+    @Autowired
+    DailyExpenseRepository dailyExpenseRepository;
+
+    @Autowired
+    PersonRepository personRepository;
+
+
+    @BeforeEach
+    void init(){
+        Person person = Person.builder().id(1L).email("francois@gmail.com").build();
+
+        personRepository.save(person);
+
+        List<DailyExpense> dailyExpenses = Arrays.asList(
+                DailyExpense.builder().date(LocalDate.now()).person(person).build(),
+                DailyExpense.builder().date(LocalDate.now()).person(person).build(),
+                DailyExpense.builder().date(LocalDate.now()).person(person).build(),
+                DailyExpense.builder().date(LocalDate.now()).person(person).build()
+        );
+
+        dailyExpenses.get(3).setDate(LocalDate.now().minusWeeks(3));
+
+        dailyExpenseRepository.saveAll(dailyExpenses);
+    }
+
+    @Test
+    void findAllByPersonIdAndDateBetween(){
+        //ARRANGE
+        Long id = 1L;
+        LocalDate date1 = LocalDate.now();
+        LocalDate date2 = LocalDate.now().plusDays(3);
+
+        //ACT
+        List<DailyExpense> dailyExpenses = dailyExpenseRepository.findAllByPersonIdAndDateBetween(id,date1,date2);
+
+        //ASSERT
+        assertEquals(3,dailyExpenses.size());
+    }
+}

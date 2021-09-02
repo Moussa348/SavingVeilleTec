@@ -34,9 +34,10 @@ public class DailyExpense implements Serializable {
     }
 
     @Builder
-    public DailyExpense(Long id, LocalDate date, Float total) {
+    public DailyExpense(Long id, LocalDate date, Float total,Person person) {
         this.id = id;
         this.date = date;
         this.total = total;
+        this.person = person;
     }
 }

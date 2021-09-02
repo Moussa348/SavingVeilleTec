@@ -2,11 +2,14 @@ package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
+import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDate;
 
 @Service
 public class DailyExpenseService {
@@ -31,6 +34,11 @@ public class DailyExpenseService {
 
         dailyExpenseRepository.save(dailyExpense);
     }
+
+    public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start,LocalDate end){
+        return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end).stream().map(DailyExpense::getTotal).reduce(0.0f,(subTotal,total) -> subTotal + total);
+    }
+
 
     private DailyExpense findDailyExpenseById(Long id){
         return dailyExpenseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find daily expense with id : " + id));
