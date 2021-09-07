@@ -68,13 +68,27 @@ public class PersonControllerTest {
         //ARRANGE
         Long id = 1L;
 
-        Person person1 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId1 = 2L;
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Long dailyExpenseId1 = 1L;
         String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
 
-        MockMultipartHttpServletRequestBuilder builder =
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId2 = 2L;
+        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+
+        MockMultipartHttpServletRequestBuilder builder1 =
                 MockMvcRequestBuilders.multipart("/person/setPicture/");
-        builder.with(new RequestPostProcessor() {
+        builder1.with(new RequestPostProcessor() {
+            @Override
+            public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                request.setMethod("PATCH");
+                return request;
+            }
+        });
+
+        MockMultipartHttpServletRequestBuilder builder2 =
+                MockMvcRequestBuilders.multipart("/person/setPicture/");
+        builder2.with(new RequestPostProcessor() {
             @Override
             public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
                 request.setMethod("PATCH");
@@ -83,16 +97,25 @@ public class PersonControllerTest {
         });
 
         //ACT
-        MvcResult mvcResult1 = mockMvc.perform(builder
+        MvcResult mvcResult1 = mockMvc.perform(builder1
                 .file(new MockMultipartFile("multipartFile", "file.jpg", "image/jpeg", "taaa".getBytes()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, token1)
                 .param("id",id.toString())
                 .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andReturn();
+
+        MvcResult mvcResult2 = mockMvc.perform(builder2
+                .file(new MockMultipartFile("multipartFile", "file.jpg", "image/jpeg", "taaa".getBytes()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token2)
+                .param("id",id.toString())
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden()).andReturn();
 
         //ASSERT
-        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
     }
 
     @Test

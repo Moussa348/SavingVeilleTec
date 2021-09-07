@@ -34,8 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //Configure http security
         http.cors().and().csrf().disable()
                 //url that can be accessed without authentication
-                .authorizeRequests().antMatchers()
-                .permitAll()
+                .authorizeRequests().antMatchers("/person/createPerson").permitAll()
 
                 .anyRequest().authenticated().and().httpBasic()
 
