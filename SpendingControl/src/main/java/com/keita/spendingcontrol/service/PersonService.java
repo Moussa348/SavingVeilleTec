@@ -28,6 +28,7 @@ public class PersonService {
     public boolean createPerson(Person person) throws IOException {
         if(!personRepository.existsByEmail(person.getEmail())){
             person.setRegistrationDate(LocalDate.now());
+            person.setRoles("USER");
             person.setPicture(FileUtil.setDefaultProfilePicture());
             personRepository.save(person);
             return true;

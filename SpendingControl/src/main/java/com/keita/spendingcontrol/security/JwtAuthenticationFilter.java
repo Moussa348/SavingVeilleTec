@@ -24,8 +24,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try{
             DecodedJWT token = jwtService.verify(httpServletRequest.getHeader("Authorization"));
 
-            //if(token != null)
-                //SecurityContextHolder.getContext().setAuthentication();
+            if(token != null)
+                SecurityContextHolder.getContext().setAuthentication(new JwtAuthentication(token));
+
         }catch (Exception e){
             log.warning(e.getMessage().toUpperCase());
         }
