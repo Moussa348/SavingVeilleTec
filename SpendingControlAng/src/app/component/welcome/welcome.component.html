@@ -16,10 +16,13 @@
         <div class="mt-4">
 
         </div>
-        <div class="row d-flex justify-content-center">
-          <i
-            class="fas fa-piggy-bank fa-6x rounded btn"
-          ></i>
+        <div class="row">
+          <div class="d-flex justify-content-center" (click)="rotate()">
+
+            <i
+            class="fas fa-piggy-bank fa-6x rounded btn" [@rotatedState]='state'
+            ></i>
+          </div>
         </div>
       </div>
     </mat-grid-tile>
