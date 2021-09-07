@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/dailyExpense")
+@CrossOrigin(origins = "http://localhost:5001")
 public class DailyExpenseController {
 
     @Autowired

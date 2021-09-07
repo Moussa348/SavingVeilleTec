@@ -10,6 +10,7 @@ import {
 } from '@angular/animations';
 import { PersonService } from 'src/app/service/person.service';
 import { Dashboard } from 'src/app/model/dashboard';
+import { getId } from 'src/app/util/jwtUtils';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,13 +26,15 @@ import { Dashboard } from 'src/app/model/dashboard';
 })
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
-  id=1;
+  id=getId();
   dashboard: Dashboard = new Dashboard();
   constructor(private personService:PersonService) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+
+    this.getDashboard();
     
   }
 

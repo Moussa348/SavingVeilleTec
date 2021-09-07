@@ -25,6 +25,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { FooterComponent } from './component/footer/footer.component';
+import { AuthComponent } from './component/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FooterComponent } from './component/footer/footer.component';
     HomeComponent,
     NavComponent,
     DashboardComponent,
-    FooterComponent
+    FooterComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
