@@ -4,6 +4,7 @@ import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ public class ArticleController {
     private ArticleService articleService;
 
     @GetMapping("/getListArticleDetailForDailyExperienceByDegreeOfUtility")
+    @PreAuthorize("@authorizationService.isConnected(#id)")
     public List<ArticleDetail> getListArticleDetailForDailyExperienceByDegreeOfUtility(
             @RequestParam("id")Long id,
             @RequestParam("degreeOfUtility")String degreeOfUtility,

@@ -6,11 +6,13 @@ import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.security.JwtService;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,6 +35,9 @@ public class ArticleControllerTest {
     @Autowired
     ObjectMapper mapper;
 
+    @Autowired
+    JwtService jwtService;
+
     @Test
     void getListArticleDetailForDailyExperienceByDegreeOfUtility() throws Exception{
         //ARRANGE
@@ -40,9 +45,17 @@ public class ArticleControllerTest {
         DegreeOfUtility degreeOfUtility = DegreeOfUtility.LOW;
         Integer noPage = 0;
 
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Long dailyExpenseId1 = 1L;
+        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId2 = 2L;
+        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUtility")
-                //.header(HttpHeaders.AUTHORIZATION, token1)
+                .header(HttpHeaders.AUTHORIZATION, token1)
                 .param("id",id.toString())
                 .param("degreeOfUtility",degreeOfUtility.toString())
                 .param("noPage",noPage.toString())
@@ -50,18 +63,17 @@ public class ArticleControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        /*
-        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.patch("/dailyExpense/addArticleToDailyExpense")
-                //.header(HttpHeaders.AUTHORIZATION, token2)
-                .content(mapper.writeValueAsString(articleDetail))
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUtility")
+                .header(HttpHeaders.AUTHORIZATION, token2)
+                .param("id",id.toString())
+                .param("degreeOfUtility",degreeOfUtility.toString())
+                .param("noPage",noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
-         */
+                .andExpect(status().isForbidden()).andReturn();
 
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK, mvcResult1.getResponse().getStatus());
-        //assertEquals(MockHttpServletResponse.SC_OK, mvcResult2.getResponse().getStatus());
-
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN, mvcResult2.getResponse().getStatus());
     }
 }
