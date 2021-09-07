@@ -236,6 +236,34 @@ public class PersonControllerTest {
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
         assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
+    }
 
+    @Test
+    void getPersonDashBoard() throws Exception{
+        //ARRANGE
+        Long id = 1L;
+
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        String token1 = "Bearer " + jwtService.generate(person1);
+
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        String token2 = "Bearer " + jwtService.generate(person2);
+
+        //ACT
+        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPersonDashBoard/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andReturn();
+
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPersonDashBoard/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden()).andReturn();
+
+        //ASSERT
+        assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
     }
 }

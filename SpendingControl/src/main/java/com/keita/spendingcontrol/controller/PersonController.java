@@ -1,5 +1,6 @@
 package com.keita.spendingcontrol.controller;
 
+import com.keita.spendingcontrol.model.dto.Dashboard;
 import com.keita.spendingcontrol.model.dto.PersonDetail;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.service.PersonService;
@@ -52,5 +53,11 @@ public class PersonController {
     @PreAuthorize("@authorizationService.isConnected(#id)")
     public PersonDetail getPersonDetail(@PathVariable Long id) {
         return personService.getPersonDetail(id);
+    }
+
+    @GetMapping("/getPersonDashBoard/{id}")
+    @PreAuthorize("@authorizationService.isConnected(#id)")
+    public Dashboard getPersonDashBoard(@PathVariable Long id) {
+        return personService.getPersonDashBoard(id);
     }
 }
