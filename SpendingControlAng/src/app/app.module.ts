@@ -11,12 +11,17 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import { Error404Component } from './component/error404/error404.component';
+import {MatSliderModule} from '@angular/material/slider';
+import { AmbientMusicComponent } from './component/ambient-music/ambient-music.component';
+import { HomeComponent } from './component/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    Error404Component
+    Error404Component,
+    AmbientMusicComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +30,7 @@ import { Error404Component } from './component/error404/error404.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSliderModule,
     JwtModule.forRoot({
       config:{
         tokenGetter: () => {

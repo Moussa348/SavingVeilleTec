@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="flex-row d-flex "><div class="mb-4" blur></div></div>
+  <div class="flex-row d-flex justify-content-end">
+    <audio [src]="[audioSrc]" autoplay loop [volume]="currentVolume"></audio>
+    <mat-slider
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="auto"
+      step="1"
+      min="0"
+      max="100"
+      [(value)]="currentVolume"
+      aria-label="unit(s)"
+    ></mat-slider>
+    <span>
+        <i (click)="muteUnMute()" class="fas {{isVolumeMute()?'fa-volume-up':'fa-volume-mute'}} text-light btn fa-2x"></i>
+    </span>
+    <!--<input style="color: black;" type="range" min="0" max="100" step="1" (input)="volumeControl($event)">-->
+  </div>
+</div>
