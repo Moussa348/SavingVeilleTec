@@ -42,7 +42,6 @@ public class DailyExpenseControllerTest {
         ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
 
         //ACT
-
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/dailyExpense/addArticleToDailyExpense")
                 //.header(HttpHeaders.AUTHORIZATION, token1)
                 .content(mapper.writeValueAsString(articleDetail))

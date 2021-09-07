@@ -46,7 +46,7 @@ public class ArticleServiceTest {
     }
 
     @Test
-    void getListArticleDetailForDailyByDegreeOfUtility() {
+    void getListArticleDetailForDailyExperienceByDegreeOfUtility() {
         //ARRANGE
         Long id = 1L;
         Integer noPage = 0;
@@ -60,7 +60,7 @@ public class ArticleServiceTest {
         when(articleRepository.findAllByDailyExpenseIdAndDegreeOfUtility(id,degreeOfUtility, PageRequest.of(noPage,30, Sort.by("time").descending()))).thenReturn(articles);
 
         //ACT
-        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyByDegreeOfUtility(dailyExpense.getId(), degreeOfUtility,noPage);
+        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyExperienceByDegreeOfUtility(dailyExpense.getId(), degreeOfUtility,noPage);
 
         //ASSERT
         assertEquals(3, articleDetails.size());

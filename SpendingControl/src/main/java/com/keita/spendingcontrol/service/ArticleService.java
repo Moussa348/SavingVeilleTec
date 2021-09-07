@@ -25,7 +25,7 @@ public class ArticleService {
          return new Article(articleDetail,dailyExpense);
     }
 
-    public List<ArticleDetail> getListArticleDetailForDailyByDegreeOfUtility(Long id, DegreeOfUtility degreeOfUtility,Integer noPage){
+    public List<ArticleDetail> getListArticleDetailForDailyExperienceByDegreeOfUtility(Long id, DegreeOfUtility degreeOfUtility,Integer noPage){
         return articleRepository.findAllByDailyExpenseIdAndDegreeOfUtility(id,degreeOfUtility, PageRequest.of(noPage,30, Sort.by("time").descending()))
                 .stream()
                 .map(ArticleDetail::new).collect(Collectors.toList());
