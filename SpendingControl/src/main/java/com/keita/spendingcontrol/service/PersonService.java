@@ -1,5 +1,6 @@
 package com.keita.spendingcontrol.service;
 
+import com.keita.spendingcontrol.model.dto.Dashboard;
 import com.keita.spendingcontrol.model.dto.PersonDetail;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.PersonRepository;
@@ -24,6 +25,9 @@ public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private DailyExpenseService dailyExpenseService;
 
     public boolean createPerson(Person person) throws IOException {
         if(!personRepository.existsByEmail(person.getEmail())){
@@ -80,6 +84,10 @@ public class PersonService {
 
     public PersonDetail getPersonDetail(Long id){
         return new PersonDetail(getPersonById(id));
+    }
+
+    public Dashboard getPersonDashBoard(Long id){
+        return new Dashboard(getPersonById(id),dailyExpenseService.getDailyExpenseByDateForPerson(id,LocalDate.now()));
     }
 
     public List<Person> getListPerson(){

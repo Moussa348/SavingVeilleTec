@@ -24,6 +24,7 @@ import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { FooterComponent } from './component/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatMenuModule } from '@angular/material/menu';
     AmbientMusicComponent,
     HomeComponent,
     NavComponent,
-    DashboardComponent
+    DashboardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

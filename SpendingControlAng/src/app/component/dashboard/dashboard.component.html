@@ -14,7 +14,7 @@
       "
     >
       <h1 style="font-family: 'Times New Roman', Times, serif" @fade>
-        DashBoard<i class="fas fa-chart-line"></i>
+        DashBoard <i class="fas fa-newspaper fa-2x"></i>
       </h1>
     </div>
     <div class="p-4"></div>
@@ -26,26 +26,35 @@
   <div class="grid-container">
     <mat-grid-list cols="2" rowHeight="350px">
       <mat-grid-tile colspan="2" rowspan="1">
-        <mat-card class="dashboard-card blur bg-transparent rounded shadow border border-light border-2" style="opacity: 1;">
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <mat-card class="dashboard-card blur text-light bg-transparent rounded shadow border border-light border" style="opacity: 1;">
+          <h2 class="text-center"><u>Personal Details <i class="fas fa-info-circle"></i></u></h2>
         </mat-card>
       </mat-grid-tile>
       
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="dashboard-card blur bg-transparent rounded shadow border">
+        <mat-card class="dashboard-card text-light blur bg-transparent rounded shadow border">
+          <h2 class="text-center"><u>Current Goal <i class="fas fa-bullseye"></i></u></h2>
         </mat-card>
       </mat-grid-tile>
       
       <mat-grid-tile colspan="1" rowspan="2">
-        <mat-card class="dashboard-card blur bg-transparent  rounded shadow border">
+        <mat-card class="dashboard-card text-light blur bg-transparent  rounded shadow border">
+          <h2 class="text-center"><u>Articles Utility <i class="fas fa-chart-pie"></i></u></h2>
         </mat-card>
       </mat-grid-tile>
       
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="dashboard-card blur bg-transparent  rounded shadow border">
+        <mat-card class="dashboard-card text-light blur bg-transparent  rounded shadow border">
+          <h2 class="text-center"><u>Articles Bought <i class="fas fa-hand-holding-usd"></i></u> </h2>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
   
 </div>
+
+<div class="flex-row">
+  <div class="p-5"></div>
+  <div class="p-5"></div>
+</div>
+<app-footer class="position-sticky"></app-footer>

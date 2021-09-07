@@ -23,7 +23,6 @@ public class JwtService {
     private final JWTVerifier jwtVerifier;
     public static String PERSON_ROLE_CLAIM = "role";
     public static String PERSON_ID_CLAIM = "personId";
-    public static String PERSON_DAILY_EXPENSE_ID_CLAIM = "dailyExpenseId";
 
     public JwtService() {
         this.algorithm = Algorithm.HMAC256(SecureRandom.getSeed(16));
@@ -31,14 +30,13 @@ public class JwtService {
         this.duration = TimeUnit.HOURS.toMillis(2);
     }
 
-    public String generate(Person person,Long dailyExpenseId) {
+    public String generate(Person person) {
         final long time = System.currentTimeMillis();
 
         return JWT.create()
                 .withSubject(person.getId().toString())
                 .withClaim(PERSON_ID_CLAIM, person.getId())
                 .withClaim(PERSON_ROLE_CLAIM,person.getRoles())
-                .withClaim(PERSON_DAILY_EXPENSE_ID_CLAIM, dailyExpenseId.toString())
                 .withIssuedAt(new Date(time))
                 .withExpiresAt(new Date(time + duration))
                 .sign(algorithm);

@@ -69,12 +69,10 @@ public class PersonControllerTest {
         Long id = 1L;
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         MockMultipartHttpServletRequestBuilder builder1 =
                 MockMvcRequestBuilders.multipart("/person/setPicture/");
@@ -125,12 +123,10 @@ public class PersonControllerTest {
         String newPassword = "araaaaa";
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPassword")
@@ -160,12 +156,10 @@ public class PersonControllerTest {
         Long id = 1L;
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/disableAccount/" + id)
@@ -191,12 +185,10 @@ public class PersonControllerTest {
         Long id = 1L;
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPicture/" + id)
@@ -223,12 +215,10 @@ public class PersonControllerTest {
         Long id = 1L;
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPersonDetail/" + id)

@@ -28,10 +28,9 @@ public class JwtServiceTest {
     void generate(){
         //ARRANGE
         Person person = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId = 1L;
 
         //ACT
-        String token = jwtService.generate(person,dailyExpenseId);
+        String token = jwtService.generate(person);
 
         //ASSERT
         assertEquals(person.getId(), jwtService.getJwtVerifier().verify(token).getClaim(PERSON_ID_CLAIM).asLong());
@@ -45,7 +44,6 @@ public class JwtServiceTest {
         String token1 = "Bearer " + JWT.create().withSubject(person.getId().toString())
                 .withClaim(PERSON_ID_CLAIM, person.getId())
                 .withClaim(PERSON_ROLE_CLAIM,person.getRoles())
-                .withClaim(PERSON_DAILY_EXPENSE_ID_CLAIM, dailyExpenseId.toString())
                 .sign(jwtService.getAlgorithm());
         String token2 =  "asdadsasdasdads";
 

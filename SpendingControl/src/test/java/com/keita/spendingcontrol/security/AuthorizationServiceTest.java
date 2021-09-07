@@ -21,8 +21,7 @@ public class AuthorizationServiceTest {
     void isConnected() {
         //ARRANGE
         Person person = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId = 1L;
-        String token = "Bearer " + jwtService.generate(person, dailyExpenseId);
+        String token = "Bearer " + jwtService.generate(person);
         SecurityContextHolder.getContext().setAuthentication(new JwtAuthentication(jwtService.verify(token)));
 
         //ACT

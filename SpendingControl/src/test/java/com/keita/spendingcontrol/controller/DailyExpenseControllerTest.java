@@ -46,12 +46,10 @@ public class DailyExpenseControllerTest {
         ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/dailyExpense/addArticleToDailyExpense")
@@ -80,12 +78,10 @@ public class DailyExpenseControllerTest {
         LocalDate date = LocalDate.now();
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
-        Long dailyExpenseId1 = 1L;
-        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+        String token1 = "Bearer " + jwtService.generate(person1);
 
         Person person2 = Person.builder().id(2L).roles("USER").build();
-        Long dailyExpenseId2 = 2L;
-        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+        String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/dailyExpense/getDailyExpenseByDateForPerson")

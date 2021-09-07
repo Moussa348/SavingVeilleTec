@@ -1,8 +1,11 @@
 package com.keita.spendingcontrol.service;
 
+import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
+import com.keita.spendingcontrol.model.dto.Dashboard;
 import com.keita.spendingcontrol.model.dto.PersonDetail;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.PersonRepository;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +16,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +29,9 @@ public class PersonServiceTest {
 
     @Mock
     PersonRepository personRepository;
+
+    @Mock
+    DailyExpenseService dailyExpenseService;
 
     @InjectMocks
     PersonService personService;
@@ -137,6 +144,20 @@ public class PersonServiceTest {
 
         //ASSERT
         assertEquals(person1.getEmail(),personDetail1.getEmail());
+    }
+
+    @Test
+    void getPersonDashBoard(){
+        //ARRANGE
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
+        when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+        when(dailyExpenseService.getDailyExpenseByDateForPerson(1L, LocalDate.now())).thenReturn(new DailyExpenseDetail());
+
+        //ACT
+        Dashboard dashboard = personService.getPersonDashBoard(person1.getId());
+
+        //ASSERT
+       assertNotNull(dashboard);
     }
 
     @Test
