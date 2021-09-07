@@ -1,6 +1,8 @@
 package com.keita.spendingcontrol;
 
+import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
+import com.keita.spendingcontrol.service.DailyExpenseService;
 import com.keita.spendingcontrol.service.PersonService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,19 @@ import java.util.List;
 @Component
 @Order(1)
 @Log
+@Transactional
 public class DbInit implements CommandLineRunner {
 
     @Autowired
-    PersonService personService;
+    private PersonService personService;
+
+    @Autowired
+    private DailyExpenseService dailyExpenseService;
 
     private void createPersons(){
         List<Person> persons = Arrays.asList(
-                Person.builder().email("redaHamza@gmail.com").password("reda123").build(),
-                Person.builder().email("franLacour@gmail.com").password("francois123").build()
+                Person.builder().id(1L).email("redaHamza@gmail.com").password("reda123").build(),
+                Person.builder().id(2L).email("franLacour@gmail.com").password("francois123").build()
         );
 
         persons.forEach(person -> {
@@ -38,8 +44,13 @@ public class DbInit implements CommandLineRunner {
         });
     }
 
+    private void insertDailyExpenses(){
+        log.info("nbr of dailyExpense created : " + dailyExpenseService.createDailyExpenseForEveryPerson());
+    }
+
     @Override
     public void run(String... args) throws Exception {
         createPersons();
+        insertDailyExpenses();
     }
 }

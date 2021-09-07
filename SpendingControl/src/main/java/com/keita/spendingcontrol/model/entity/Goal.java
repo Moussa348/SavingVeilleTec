@@ -16,7 +16,7 @@ public class Goal implements Serializable {
     private Long id;
     private String reason,articlesToAvoid,report;
     private LocalDate startDate,endDate;
-    private Float amount;
+    private Float fixedAmount,reachedAmount;
     private boolean hasBeenRespected;
 
     @ManyToOne
@@ -25,14 +25,15 @@ public class Goal implements Serializable {
     public Goal(){}
 
     @Builder
-    public Goal(Long id, String reason, String articlesToAvoid, String report, LocalDate startDate, LocalDate endDate, Float amount, boolean hasBeenRespected, Person person) {
+    public Goal(Long id, String reason, String articlesToAvoid, String report, LocalDate startDate, LocalDate endDate, Float fixedAmount,Float reachedAmount, boolean hasBeenRespected, Person person) {
         this.id = id;
         this.reason = reason;
         this.articlesToAvoid = articlesToAvoid;
         this.report = report;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.amount = amount;
+        this.fixedAmount = fixedAmount;
+        this.reachedAmount = reachedAmount;
         this.hasBeenRespected = hasBeenRespected;
         this.person = person;
     }

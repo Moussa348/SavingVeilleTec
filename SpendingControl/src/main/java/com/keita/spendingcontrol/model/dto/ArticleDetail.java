@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class ArticleDetail implements Serializable {
-    private Long id,dailyExpenseId;
+    private Long id,personId;
     private LocalDateTime time;
     private String name;
     private Integer qty;
@@ -24,7 +24,7 @@ public class ArticleDetail implements Serializable {
         this.name = article.getName();
         this.qty = article.getQty();
         this.price = article.getPrice();
-        this.dailyExpenseId = article.getDailyExpense().getId();
+        this.personId = article.getDailyExpense().getPerson().getId();
     }
 
 }

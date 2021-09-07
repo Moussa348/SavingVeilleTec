@@ -45,10 +45,25 @@ public class DailyExpenseServiceTest {
         when(personService.getListPerson()).thenReturn(persons);
 
         //ACT
-        Long nbrOfDailyExpenseCreated = dailyExpenseService.createDailyExpenseForEveryPerson();
+        Integer nbrOfDailyExpenseCreated = dailyExpenseService.createDailyExpenseForEveryPerson();
 
         //ASSERT
         assertEquals(persons.size(),nbrOfDailyExpenseCreated);
+    }
+
+    @Test
+    void addArticleToDailyExpense(){
+        //ARRANGE
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
+        when(dailyExpenseRepository.findByPersonIdAndDate(dailyExpense.getPerson().getId(),LocalDate.now())).thenReturn(Optional.of(dailyExpense));
+        when(articleService.createArticleForDailyExperience(articleDetail,dailyExpense)).thenReturn(new Article(articleDetail,dailyExpense));
+
+        //ACT
+        dailyExpenseService.addArticleToDailyExpense(articleDetail);
+
+        //ASSERT
+        assertEquals(1,dailyExpense.getArticles().size());
     }
 
     @Test
@@ -70,21 +85,6 @@ public class DailyExpenseServiceTest {
 
         //ASSERT
         assertNotNull(dailyExpenseDetail);
-    }
-
-    @Test
-    void addArticleToDailyExpense(){
-        //ARRANGE
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
-        ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
-        when(dailyExpenseRepository.findById(dailyExpense.getId())).thenReturn(Optional.of(dailyExpense));
-        when(articleService.createArticleForDailyExperience(articleDetail,dailyExpense)).thenReturn(new Article(articleDetail,dailyExpense));
-
-        //ACT
-        dailyExpenseService.addArticleToDailyExpense(articleDetail);
-
-        //ASSERT
-        assertEquals(1,dailyExpense.getArticles().size());
     }
 
     @Test

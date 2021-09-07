@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 public class DailyExpense implements Serializable {
 
     @Id
