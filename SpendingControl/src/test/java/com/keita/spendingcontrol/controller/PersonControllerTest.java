@@ -2,6 +2,7 @@ package com.keita.spendingcontrol.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keita.spendingcontrol.model.entity.Person;
+import com.keita.spendingcontrol.security.JwtService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +34,9 @@ public class PersonControllerTest {
     @Autowired
     ObjectMapper mapper;
 
+    @Autowired
+    JwtService jwtService;
+
 
     @Test
     void createPerson() throws Exception{
@@ -63,7 +67,10 @@ public class PersonControllerTest {
     void setPicture() throws Exception{
         //ARRANGE
         Long id = 1L;
-        String newPassword = "araaaaa";
+
+        Person person1 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId1 = 2L;
+        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
 
         MockMultipartHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/person/setPicture/");
@@ -79,12 +86,13 @@ public class PersonControllerTest {
         MvcResult mvcResult1 = mockMvc.perform(builder
                 .file(new MockMultipartFile("multipartFile", "file.jpg", "image/jpeg", "taaa".getBytes()))
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, token1)
                 .param("id",id.toString())
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+                .andExpect(status().isForbidden()).andReturn();
 
         //ASSERT
-        assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult1.getResponse().getStatus());
     }
 
     @Test
@@ -93,16 +101,34 @@ public class PersonControllerTest {
         Long id = 1L;
         String newPassword = "araaaaa";
 
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Long dailyExpenseId1 = 1L;
+        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId2 = 2L;
+        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPassword")
+                .header(HttpHeaders.AUTHORIZATION, token1)
                 .param("id",id.toString())
                 .param("password",newPassword)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPassword")
+                .header(HttpHeaders.AUTHORIZATION, token2)
+                .param("id",id.toString())
+                .param("password",newPassword)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden()).andReturn();
+
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
     }
 
     @Test
@@ -110,14 +136,30 @@ public class PersonControllerTest {
         //ARRANGE
         Long id = 1L;
 
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Long dailyExpenseId1 = 1L;
+        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId2 = 2L;
+        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/disableAccount/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/disableAccount/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden()).andReturn();
+
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
     }
 
     @Test
@@ -125,14 +167,30 @@ public class PersonControllerTest {
         //ARRANGE
         Long id = 1L;
 
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Long dailyExpenseId1 = 1L;
+        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId2 = 2L;
+        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
+
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPicture/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPicture/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden()).andReturn();
+
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
     }
 
 
@@ -140,22 +198,31 @@ public class PersonControllerTest {
     void getPersonDetail() throws Exception{
         //ARRANGE
         Long id = 1L;
-        Long id2 = 100L;
+
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Long dailyExpenseId1 = 1L;
+        String token1 = "Bearer " + jwtService.generate(person1, dailyExpenseId1);
+
+        Person person2 = Person.builder().id(2L).roles("USER").build();
+        Long dailyExpenseId2 = 2L;
+        String token2 = "Bearer " + jwtService.generate(person2, dailyExpenseId2);
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPersonDetail/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPersonDetail/" + id2)
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/person/getPersonDetail/" + id)
+                .header(HttpHeaders.AUTHORIZATION, token2)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isForbidden()).andReturn();
 
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
-        assertEquals(MockHttpServletResponse.SC_BAD_REQUEST,mvcResult2.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
 
     }
 }
