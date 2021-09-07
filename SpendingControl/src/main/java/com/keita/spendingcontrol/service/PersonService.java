@@ -93,4 +93,9 @@ public class PersonService {
     public List<Person> getListPerson(){
         return personRepository.findAllByActiveTrue();
     }
+
+    public Person findPersonByEmailAndPassword(String email,String password){
+        return personRepository.findByEmailAndPassword(email,password)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find person with : " + email));
+    }
 }

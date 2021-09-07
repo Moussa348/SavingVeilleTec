@@ -176,4 +176,15 @@ public class PersonServiceTest {
         //ASSERT
         assertEquals(3,listPersons.size());
     }
+
+    @Test
+    void findPersonByEmailAndPassword(){
+        //ARRANGE
+        String email2 = "adadasdasd";
+        String password2 = "adadasdasd";
+        when(personRepository.findByEmailAndPassword(email2,password2)).thenReturn(Optional.empty());
+
+        //ASSERT
+        assertThrows(ResponseStatusException.class,() -> personService.findPersonByEmailAndPassword(email2,password2));
+    }
 }

@@ -8,6 +8,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { PersonService } from 'src/app/service/person.service';
+import { Dashboard } from 'src/app/model/dashboard';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +25,24 @@ import {
 })
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
+  id=1;
+  dashboard: Dashboard = new Dashboard();
+  constructor(private personService:PersonService) {}
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    
+  }
+
+  getDashboard(){
+    this.personService.getPersonDashBoard(this.id).subscribe(
+      (data) =>{
+        this.dashboard = data;
+        console.log(this.dashboard);
+      },(err)=>{
+        console.log(err);
+      }
+    )
+  }
 }

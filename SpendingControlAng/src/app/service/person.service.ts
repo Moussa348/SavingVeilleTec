@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Dashboard } from '../model/dashboard';
 import { Person } from '../model/person';
 
 @Injectable({
@@ -26,4 +27,9 @@ export class PersonService {
   disableAccount(id){
     return this.http.patch(this.url + 'disableAccount/' + id,'');
   }
+
+  getPersonDashBoard(id){
+    return this.http.get<Dashboard>(this.url + 'getPersonDashBoard/' + id);
+  }
+
 }

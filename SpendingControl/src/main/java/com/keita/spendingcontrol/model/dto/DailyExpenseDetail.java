@@ -14,15 +14,15 @@ public class DailyExpenseDetail implements Serializable {
     private Long id;
     private LocalDate date;
     private Float total;
-    private Map<DegreeOfUtility,Integer> mapArticleUtility;
+    private Map<DegreeOfUtility,Integer> mapArticlesUtility;
 
     public DailyExpenseDetail(){}
 
-    public DailyExpenseDetail(DailyExpense dailyExpense, Map<DegreeOfUtility,Integer> mapArticleUtility){
+    public DailyExpenseDetail(DailyExpense dailyExpense, Map<DegreeOfUtility,Integer> mapArticlesUtility){
         this.id = dailyExpense.getId();
         this.date = dailyExpense.getDate();
         this.total = dailyExpense.getTotal();
-        this.mapArticleUtility = mapArticleUtility;
+        this.mapArticlesUtility = mapArticlesUtility;
 
     }
 

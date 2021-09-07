@@ -26,7 +26,7 @@ public class PersonRepositoryTest {
     @BeforeEach()
     void init(){
         List<Person> persons = Arrays.asList(
-                Person.builder().email("francois@gmail.com").build(),
+                Person.builder().email("francois@gmail.com").password("francois123").build(),
                 Person.builder().email("dsadasd@gmail.com").build(),
                 Person.builder().email("erwwerwer@gmail.com").build()
         );
@@ -59,5 +59,23 @@ public class PersonRepositoryTest {
 
         //ASSERT
         assertEquals(1,persons.size());
+    }
+
+    @Test
+    void findByEmailAndPassword(){
+        //ARRANGE
+        String email1 = "francois@gmail.com";
+        String password1 = "francois123";
+
+        String email2 = "adadasdasd";
+        String password2 = "adadasdasd";
+
+        //ACT
+        boolean personExistWithEmailAndPassword1 = personRepository.findByEmailAndPassword(email1,password1).isPresent();
+        boolean personExistWithEmailAndPassword2 = personRepository.findByEmailAndPassword(email2,password2).isPresent();
+
+        //ASSERT
+        assertTrue(personExistWithEmailAndPassword1);
+        assertFalse(personExistWithEmailAndPassword2);
     }
 }
