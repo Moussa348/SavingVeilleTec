@@ -6,6 +6,8 @@ import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,10 +25,9 @@ public class ArticleService {
          return new Article(articleDetail,dailyExpense);
     }
 
-    public List<ArticleDetail> getListArticleDetailForDailyByDegreeOfUtility(Long id, DegreeOfUtility degreeOfUtility){
-        return articleRepository.findAllByDailyExpenseId(id)
+    public List<ArticleDetail> getListArticleDetailForDailyByDegreeOfUtility(Long id, DegreeOfUtility degreeOfUtility,Integer noPage){
+        return articleRepository.findAllByDailyExpenseIdAndDegreeOfUtility(id,degreeOfUtility, PageRequest.of(noPage,30, Sort.by("time").descending()))
                 .stream()
-                .filter(article -> article.getDegreeOfUtility().equals(degreeOfUtility))
                 .map(ArticleDetail::new).collect(Collectors.toList());
     }
 

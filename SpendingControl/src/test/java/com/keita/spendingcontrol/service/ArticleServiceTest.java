@@ -3,6 +3,7 @@ package com.keita.spendingcontrol.service;
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
+import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
 import com.keita.spendingcontrol.repository.ArticleRepository;
 import lombok.extern.java.Log;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +35,7 @@ public class ArticleServiceTest {
     @Test
     void createArticleForDailyExperience() {
         //ARRANGE
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
         ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
 
         //ACT
@@ -46,17 +49,18 @@ public class ArticleServiceTest {
     void getListArticleDetailForDailyByDegreeOfUtility() {
         //ARRANGE
         Long id = 1L;
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
+        Integer noPage = 0;
+        DegreeOfUtility degreeOfUtility = DegreeOfUtility.LOW;
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
         List<Article> articles = Arrays.asList(
                 Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
                 Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.MEDIUM).build()
+                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build()
         );
-        when(articleRepository.findAllByDailyExpenseId(dailyExpense.getId())).thenReturn(articles);
+        when(articleRepository.findAllByDailyExpenseIdAndDegreeOfUtility(id,degreeOfUtility, PageRequest.of(noPage,30, Sort.by("time").descending()))).thenReturn(articles);
 
         //ACT
-        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyByDegreeOfUtility(dailyExpense.getId(), DegreeOfUtility.LOW);
+        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyByDegreeOfUtility(dailyExpense.getId(), degreeOfUtility,noPage);
 
         //ASSERT
         assertEquals(3, articleDetails.size());
