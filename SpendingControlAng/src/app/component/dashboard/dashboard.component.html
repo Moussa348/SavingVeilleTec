@@ -55,6 +55,8 @@
 
 <div class="flex-row">
   <div class="p-5"></div>
+
+  <app-artilce-utility-chart *ngIf="isArticlesMapCharged()" [mapArticlesUtility]="dashboard.dailyExpenseDetail.mapArticlesUtility"></app-artilce-utility-chart>
   <div class="p-5"></div>
 </div>
 <app-footer class="position-sticky"></app-footer>

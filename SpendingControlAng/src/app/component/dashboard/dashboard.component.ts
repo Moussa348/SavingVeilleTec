@@ -22,30 +22,34 @@ import { getId } from 'src/app/util/jwtUtils';
 
       transition(':enter, :leave', [animate(1000)]),
     ]),
-  ]
+  ],
 })
 export class DashboardComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  id=getId();
+  id = getId();
   dashboard: Dashboard = new Dashboard();
-  constructor(private personService:PersonService) {}
+  constructor(private personService: PersonService) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
     this.getDashboard();
-    
   }
 
-  getDashboard(){
+  getDashboard() {
     this.personService.getPersonDashBoard(this.id).subscribe(
-      (data) =>{
+      (data) => {
         this.dashboard = data;
         console.log(this.dashboard);
-      },(err)=>{
+      },
+      (err) => {
         console.log(err);
       }
-    )
+    );
+  }
+
+  getArticlesMap() :Map<string,number>{
+      return this.dashboard.dailyExpenseDetail.mapArticlesUtility;
+  }
+
+  isArticlesMapCharged():boolean{
+    return this.dashboard.dailyExpenseDetail.mapArticlesUtility.size != 0;
   }
 }

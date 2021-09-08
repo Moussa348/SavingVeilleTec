@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { FooterComponent } from './component/footer/footer.component';
 import { AuthComponent } from './component/auth/auth.component';
+import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-chart/artilce-utility-chart.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AuthComponent } from './component/auth/auth.component';
     NavComponent,
     DashboardComponent,
     FooterComponent,
-    AuthComponent
+    AuthComponent,
+    ArtilceUtilityChartComponent
   ],
   imports: [
     BrowserModule,

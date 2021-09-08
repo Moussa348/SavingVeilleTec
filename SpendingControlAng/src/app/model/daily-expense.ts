@@ -4,5 +4,5 @@ export class DailyExpense {
     id:number;
     date:string;
     total:number;
-    mapArticlesUtility:Map<DegreeOfUtility,number>
+    mapArticlesUtility:Map<string,number> = new Map();
 }
