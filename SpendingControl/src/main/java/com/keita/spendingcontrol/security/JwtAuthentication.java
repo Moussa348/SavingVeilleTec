@@ -26,7 +26,7 @@ public class JwtAuthentication implements Authentication {
     }
 
     @Override
-    public Object getCredentials() {
+    public DecodedJWT getCredentials() {
         return token;
     }
 

@@ -27,7 +27,32 @@
     <mat-grid-list cols="2" rowHeight="350px">
       <mat-grid-tile colspan="2" rowspan="1">
         <mat-card class="dashboard-card blur text-light bg-transparent rounded shadow border border-light border" style="opacity: 1;">
-          <h2 class="text-center"><u>Personal Details <i class="fas fa-info-circle"></i></u></h2>
+          <div class="flex-row">
+            <h2 class="text-center"><u>Personal Details <i class="fas fa-info-circle"></i></u></h2>
+          </div>
+          <div class="flex-row">
+            <div class="d-flex justify-content-start order-1">
+              <div class="order-1">
+
+                <img
+                [src]="[
+                'http://localhost:4444/person/getPicture/' +
+                id
+              ]"
+              alt="vaccinCovid"
+              class="
+              rounded
+              shadow
+              border border border-dark
+              "
+              />
+            </div>
+            <div class="order-2 p-3">
+              <small>{{dashboard.personDetail.email}}</small>
+            </div>
+            </div>
+
+          </div>  
         </mat-card>
       </mat-grid-tile>
       
@@ -40,6 +65,7 @@
       <mat-grid-tile colspan="1" rowspan="2">
         <mat-card class="dashboard-card text-light blur bg-transparent  rounded shadow border">
           <h2 class="text-center"><u>Articles Utility <i class="fas fa-chart-pie"></i></u></h2>
+          <app-artilce-utility-chart *ngIf="isArticlesMapCharged()" [mapArticlesUtility]="dashboard.dailyExpenseDetail.mapArticlesUtility"></app-artilce-utility-chart>
         </mat-card>
       </mat-grid-tile>
       
@@ -55,8 +81,6 @@
 
 <div class="flex-row">
   <div class="p-5"></div>
-
-  <app-artilce-utility-chart *ngIf="isArticlesMapCharged()" [mapArticlesUtility]="dashboard.dailyExpenseDetail.mapArticlesUtility"></app-artilce-utility-chart>
   <div class="p-5"></div>
 </div>
 <app-footer class="position-sticky"></app-footer>

@@ -45,7 +45,6 @@ public class PersonController {
     }
 
     @GetMapping("/getPicture/{id}")
-    @PreAuthorize("@authorizationService.isConnected(#id)")
     public void getPicture(@PathVariable Long id, HttpServletResponse httpServletResponse) throws IOException {
         personService.getPicture(id,httpServletResponse);
     }

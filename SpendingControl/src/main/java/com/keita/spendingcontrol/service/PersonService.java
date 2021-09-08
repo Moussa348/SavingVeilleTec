@@ -86,6 +86,7 @@ public class PersonService {
         return new PersonDetail(getPersonById(id));
     }
 
+    //TODO --> ajouter list d'articles avec le nom,quantité et le total
     public Dashboard getPersonDashBoard(Long id){
         return new Dashboard(getPersonById(id),dailyExpenseService.getDailyExpenseByDateForPerson(id,LocalDate.now()));
     }

@@ -23,3 +23,7 @@
 .blur{
   backdrop-filter: blur(10px);
 }
+img{
+  width: 200px;
+  height: auto;
+}
