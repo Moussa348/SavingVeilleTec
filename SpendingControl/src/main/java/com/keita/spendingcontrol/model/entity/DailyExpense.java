@@ -22,6 +22,7 @@ public class DailyExpense implements Serializable {
     @ManyToOne
     private Person person;
 
+
     @OneToMany(mappedBy = "dailyExpense",cascade = CascadeType.ALL)
     private List<Article> articles = new ArrayList<>();
 

@@ -4,6 +4,7 @@ import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import lombok.extern.java.Log;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,42 +33,44 @@ public class ArticleRepositoryTest {
     @Autowired
     ArticleRepository articleRepository;
 
-    @BeforeEach()
-    void init(){
+    @BeforeAll()
+    void init() {
 
         List<DailyExpense> dailyExpenses = Arrays.asList(
-                DailyExpense.builder().id(1L).build()
+                DailyExpense.builder().build()
         );
-        dailyExpenses.get(0).setArticles(Arrays.asList(
-                Article.builder().id(1L).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
-                Article.builder().id(2L).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
-                Article.builder().id(3L).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
-        ));
         dailyExpenseRepository.saveAllAndFlush(dailyExpenses);
+        List<Article> articles = Arrays.asList(
+                Article.builder().id(1L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
+                Article.builder().id(2L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
+                Article.builder().id(3L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
+        );
+
+        articleRepository.saveAll(articles);
     }
 
     @Test
-    void findAllByDailyExpenseId(){
+    void findAllByDailyExpenseId() {
         //ARRANGE
         Long id = 1L;
 
         //ACT
-        List<Article> articles = articleRepository.findAllByDailyExpenseId(id);
+        List<Article> articles = articleRepository.findAllByDailyExpenseId(id,PageRequest.of(0,10,Sort.by("time").descending()));
 
         //ASSERT
-        assertEquals(3,articles.size());
+        assertEquals(3, articles.size());
     }
 
     @Test
-    void findAllByDailyExpenseIdAndDegreeOfUseFullness(){
+    void findAllByDailyExpenseIdAndDegreeOfUseFullness() {
         //ARRANGE
         Long id = 1L;
         DegreeOfUseFullness degreeOfUseFullness = DegreeOfUseFullness.LOW;
 
         //ACT
-        List<Article> articles = articleRepository.findAllByDailyExpenseIdAndDegreeOfUseFullness(id, degreeOfUseFullness, PageRequest.of(0,30, Sort.by("time").descending()));
+        List<Article> articles = articleRepository.findAllByDailyExpenseIdAndDegreeOfUseFullness(id, degreeOfUseFullness, PageRequest.of(0, 30, Sort.by("time").descending()));
 
         //ASSERT
-        assertEquals(2,articles.size());
+        assertEquals(2, articles.size());
     }
 }

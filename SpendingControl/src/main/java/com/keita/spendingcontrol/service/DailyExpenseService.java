@@ -42,7 +42,7 @@ public class DailyExpenseService {
 
     public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id,LocalDate date){
         DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id,date);
-        return new DailyExpenseDetail(dailyExpense,articleService.mapListArticleByDegreeOfUtility(dailyExpense.getArticles()));
+        return new DailyExpenseDetail(dailyExpense,articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
     }
 
     public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start,LocalDate end){

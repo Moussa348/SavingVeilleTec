@@ -25,4 +25,12 @@ public class ArticleController {
             @RequestParam("noPage")Integer noPage){
         return articleService.getListArticleDetailForDailyExperienceByDegreeOfUseFullness(id, DegreeOfUseFullness.valueOf(degreeOfUtility.toUpperCase()),noPage);
     }
+
+    @GetMapping("/getListArticleDetailForDailyExperience")
+    @PreAuthorize("@authorizationService.isConnected(#id)")
+    public List<ArticleDetail> getListArticleDetailForDailyExperience(
+            @RequestParam("id")Long id,
+            @RequestParam("noPage")Integer noPage){
+        return articleService.getListArticleDetailForDailyExperience(id,noPage);
+    }
 }

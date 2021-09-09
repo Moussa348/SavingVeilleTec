@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Long> {
-    List<Article> findAllByDailyExpenseId(Long id);
-    //List<Article> findAllByDailyExpenseIdAndDegreeOfUseFullness(Long id, DegreeOfUseFullness degreeOfUseFullness, Pageable pageable);
+    List<Article> findAllByDailyExpenseId(Long id,Pageable pageable);
     List<Article>  findAllByDailyExpenseIdAndDegreeOfUseFullness(Long id,DegreeOfUseFullness degreeOfUseFullness,Pageable pageable);
 }

@@ -2,6 +2,7 @@ package com.keita.spendingcontrol.repository;
 
 import com.keita.spendingcontrol.model.entity.Person;
 import lombok.extern.java.Log;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -23,7 +24,7 @@ public class PersonRepositoryTest {
     @Autowired
     PersonRepository personRepository;
 
-    @BeforeEach()
+    @BeforeAll()
     void init(){
         List<Person> persons = Arrays.asList(
                 Person.builder().email("francois@gmail.com").password("francois123").build(),

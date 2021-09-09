@@ -31,7 +31,12 @@ public class ArticleService {
                 .map(ArticleDetail::new).collect(Collectors.toList());
     }
 
-    public Map<DegreeOfUseFullness,Integer> mapListArticleByDegreeOfUtility(List<Article> articles){
+    public List<ArticleDetail> getListArticleDetailForDailyExperience(Long id,Integer noPage){
+        return articleRepository.findAllByDailyExpenseId(id,PageRequest.of(noPage,10,Sort.by("time").descending()))
+                .stream().map(ArticleDetail::new).collect(Collectors.toList());
+    }
+
+    public Map<DegreeOfUseFullness,Integer> mapListArticleByDegreeOfUseFullness(List<Article> articles){
         Map<DegreeOfUseFullness,Integer> mapArticleUtility = new HashMap<>();
 
         mapArticleUtility.put(DegreeOfUseFullness.LOW,0);

@@ -4,6 +4,7 @@ package com.keita.spendingcontrol.repository;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
 import lombok.extern.java.Log;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,7 +31,7 @@ public class DailyExpenseRepositoryTest {
     PersonRepository personRepository;
 
 
-    @BeforeEach
+    @BeforeAll
     void init(){
         Person person = Person.builder().id(1L).email("francois@gmail.com").build();
 

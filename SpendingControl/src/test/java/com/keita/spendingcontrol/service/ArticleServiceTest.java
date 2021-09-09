@@ -67,7 +67,27 @@ public class ArticleServiceTest {
     }
 
     @Test
-    void mapListArticleByDegreeOfUtility() {
+    void getListArticleDetailForDailyExperience() {
+        //ARRANGE
+        Long id = 1L;
+        Integer noPage = 0;
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
+        List<Article> articles = Arrays.asList(
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build()
+        );
+        when(articleRepository.findAllByDailyExpenseId(id, PageRequest.of(noPage,10, Sort.by("time").descending()))).thenReturn(articles);
+
+        //ACT
+        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyExperience(dailyExpense.getId(),noPage);
+
+        //ASSERT
+        assertEquals(3, articleDetails.size());
+    }
+
+    @Test
+    void mapListArticleByDegreeOfUseFullness() {
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
         List<Article> articles = Arrays.asList(
@@ -78,7 +98,7 @@ public class ArticleServiceTest {
         );
 
         //ACT
-        Map<DegreeOfUseFullness,Integer> mapListArticleByDegreeOfUtility = articleService.mapListArticleByDegreeOfUtility(articles);
+        Map<DegreeOfUseFullness,Integer> mapListArticleByDegreeOfUtility = articleService.mapListArticleByDegreeOfUseFullness(articles);
 
         //ASSERT
         assertEquals(1,mapListArticleByDegreeOfUtility.get(DegreeOfUseFullness.HIGH));
