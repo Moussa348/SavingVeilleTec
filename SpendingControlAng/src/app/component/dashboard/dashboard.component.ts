@@ -46,10 +46,10 @@ export class DashboardComponent {
   }
 
   getArticlesMap() :Map<string,number>{
-      return this.dashboard.dailyExpenseDetail.mapArticlesUtility;
+      return this.dashboard.dailyExpenseDetail.mapArticlesUseFullness;
   }
 
   isArticlesMapCharged():boolean{
-    return this.dashboard.dailyExpenseDetail.mapArticlesUtility.size != 0;
+    return this.dashboard.dailyExpenseDetail.mapArticlesUseFullness.size != 0;
   }
 }

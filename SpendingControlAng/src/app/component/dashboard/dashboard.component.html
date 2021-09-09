@@ -21,62 +21,156 @@
     <mat-divider class="text-light border border-3"></mat-divider>
     <div class="p-4"></div>
   </div>
-  
-  
+
   <div class="grid-container">
     <mat-grid-list cols="2" rowHeight="350px">
       <mat-grid-tile colspan="2" rowspan="1">
-        <mat-card class="dashboard-card blur text-light bg-transparent rounded shadow border border-light border" style="opacity: 1;">
+        <mat-card
+          class="
+            dashboard-card
+            blur
+            text-light
+            bg-transparent
+            rounded
+            shadow
+            border border-light border
+          "
+          style="opacity: 1"
+        >
           <div class="flex-row">
-            <h2 class="text-center"><u>Personal Details <i class="fas fa-info-circle"></i></u></h2>
+            <h2 class="text-center">
+              <u>Personal Details <i class="fas fa-address-card"></i></u>
+            </h2>
           </div>
           <div class="flex-row">
-            <div class="d-flex justify-content-start order-1">
-              <div class="order-1">
-
+            <div class="d-flex justify-content-start">
+              <div class="order-1 pl-5 btn">
                 <img
-                [src]="[
-                'http://localhost:4444/person/getPicture/' +
-                id
-              ]"
-              alt="vaccinCovid"
-              class="
-              rounded
-              shadow
-              border border border-dark
-              "
-              />
-            </div>
-            <div class="order-2 p-3">
-              <small>{{dashboard.personDetail.email}}</small>
-            </div>
-            </div>
+                  [src]="['http://localhost:4444/person/getPicture/' + id]"
+                  alt="vaccinCovid"
+                  class="rounded shadow border border border"
+                />
+              </div>
+              <div class="order-2 p-3 align-self-center">
+                <p class="text-capitalize">
+                  {{ dashboard.personDetail.email
+                  }}<i class="fas fa-envelope"></i>
+                </p>
+                <p class="text-capitalize">
+                  {{ dashboard.personDetail.lastName }},
+                  {{ dashboard.personDetail.firstName
+                  }}<i class="fas fa-fingerprint"></i>
+                </p>
+                <p class="text-capitalize">
+                  Member since :
+                  {{ dashboard.personDetail.registrationDate | date
+                  }}<i class="fas fa-clock"></i>
+                </p>
+              </div>
 
-          </div>  
+              <div class="order-3 align-items-center" style="height: 200px">
+                <div class="flex-row d-flex justify-content-end pb-4" style="padding-top: 25px;padding-right: 60px;">
+                  <button
+                    class="btn btn-success border shadow rounded-pill p-3"
+                  >
+                    Add An Expense <i class="fas fa-plus-circle"></i>
+                  </button>
+                </div>
+                <div class="flex-row d-flex justify-content-end" style="padding-right: 50px;">
+                  <button
+                    class="btn btn-primary border shadow rounded-pill p-3"
+                  >
+                    See Expense Detail <i class="fas fa-list-ul"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </mat-card>
       </mat-grid-tile>
-      
+
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="dashboard-card text-light blur bg-transparent rounded shadow border">
-          <h2 class="text-center"><u>Current Goal <i class="fas fa-bullseye"></i></u></h2>
+        <mat-card
+          class="
+            dashboard-card
+            text-light
+            blur
+            bg-transparent
+            rounded
+            shadow
+            border
+          "
+        >
+          <div class="flex-row d-flex justify-content-center">
+            <h2 class="text-center">
+              <u>Current Goal <i class="fas fa-bullseye"></i></u>
+            </h2>
+          </div>
+
+          <div
+            class="flex-row d-flex justify-content-center align-items-center"
+          >
+            <p class="lead text-capitalize text-warning">
+              No current Goal <i class="fas fa-info-circle"></i>
+            </p>
+          </div>
         </mat-card>
       </mat-grid-tile>
-      
+
       <mat-grid-tile colspan="1" rowspan="2">
-        <mat-card class="dashboard-card text-light blur bg-transparent  rounded shadow border">
-          <h2 class="text-center"><u>Articles Utility <i class="fas fa-chart-pie"></i></u></h2>
-          <app-artilce-utility-chart *ngIf="isArticlesMapCharged()" [mapArticlesUtility]="dashboard.dailyExpenseDetail.mapArticlesUtility"></app-artilce-utility-chart>
+        <mat-card
+          class="
+            dashboard-card
+            text-light
+            blur
+            bg-transparent
+            rounded
+            shadow
+            border
+          "
+        >
+          <h2 class="text-center">
+            <u>Articles Usefulness <i class="fas fa-chart-bar"></i></u>
+          </h2>
+          <app-artilce-utility-chart
+            *ngIf="isArticlesMapCharged()"
+            [mapArticlesUtility]="
+              dashboard.dailyExpenseDetail.mapArticlesUtility
+            "
+          ></app-artilce-utility-chart>
         </mat-card>
       </mat-grid-tile>
-      
+
       <mat-grid-tile colspan="1" rowspan="1">
-        <mat-card class="dashboard-card text-light blur bg-transparent  rounded shadow border">
-          <h2 class="text-center"><u>Articles Bought <i class="fas fa-hand-holding-usd"></i></u> </h2>
+        <mat-card
+          class="
+            dashboard-card
+            text-light
+            blur
+            bg-transparent
+            rounded
+            shadow
+            border
+          "
+        >
+          <div class="flex-row d-flex justify-content-center">
+            <h2 class="text-center">
+              <u>Articles Bought <i class="fas fa-hand-holding-usd"></i></u>
+            </h2>
+          </div>
+
+          <div
+            class="flex-row d-flex justify-content-center align-items-center"
+          >
+            <!--ng if if nothing show paragraph if something show name article qty price and maybe img-->
+            <p class="lead text-capitalize text-warning">
+              No Articles Bought <i class="fas fa-info-circle"></i>
+            </p>
+          </div>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-  
 </div>
 
 <div class="flex-row">

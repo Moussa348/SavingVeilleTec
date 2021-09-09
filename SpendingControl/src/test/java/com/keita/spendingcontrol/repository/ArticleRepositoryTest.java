@@ -2,7 +2,7 @@ package com.keita.spendingcontrol.repository;
 
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,18 +32,16 @@ public class ArticleRepositoryTest {
 
     @BeforeEach()
     void init(){
+
         List<DailyExpense> dailyExpenses = Arrays.asList(
                 DailyExpense.builder().id(1L).build()
         );
-        dailyExpenseRepository.saveAll(dailyExpenses);
-
-        List<Article> articles = Arrays.asList(
-                Article.builder().degreeOfUtility(DegreeOfUtility.LOW).dailyExpense(dailyExpenses.get(0)).build(),
-                Article.builder().degreeOfUtility(DegreeOfUtility.LOW).dailyExpense(dailyExpenses.get(0)).build(),
-                Article.builder().degreeOfUtility(DegreeOfUtility.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
-        );
-
-        articleRepository.saveAll(articles);
+        dailyExpenses.get(0).setArticles(Arrays.asList(
+                Article.builder().id(1L).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
+                Article.builder().id(2L).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
+                Article.builder().id(3L).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
+        ));
+        dailyExpenseRepository.saveAllAndFlush(dailyExpenses);
     }
 
     @Test
@@ -59,13 +57,13 @@ public class ArticleRepositoryTest {
     }
 
     @Test
-    void findAllByDailyExpenseIdAndDegreeOfUtility(){
+    void findAllByDailyExpenseIdAndDegreeOfUseFullness(){
         //ARRANGE
         Long id = 1L;
-        DegreeOfUtility degreeOfUtility = DegreeOfUtility.LOW;
+        DegreeOfUseFullness degreeOfUseFullness = DegreeOfUseFullness.LOW;
 
         //ACT
-        List<Article> articles = articleRepository.findAllByDailyExpenseIdAndDegreeOfUtility(id,degreeOfUtility, PageRequest.of(0,30, Sort.by("time").descending()));
+        List<Article> articles = articleRepository.findAllByDailyExpenseIdAndDegreeOfUseFullness(id, degreeOfUseFullness, PageRequest.of(0,30, Sort.by("time").descending()));
 
         //ASSERT
         assertEquals(2,articles.size());

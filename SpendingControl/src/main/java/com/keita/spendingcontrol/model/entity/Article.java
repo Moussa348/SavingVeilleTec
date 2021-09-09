@@ -1,7 +1,7 @@
 package com.keita.spendingcontrol.model.entity;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class Article implements Serializable {
     private String name;
     private Integer qty;
     private Float price;
-    private DegreeOfUtility degreeOfUtility;
+    private DegreeOfUseFullness degreeOfUseFullness;
 
     @ManyToOne
     private DailyExpense dailyExpense;
@@ -28,13 +28,13 @@ public class Article implements Serializable {
     public Article(){}
 
     @Builder
-    public Article(Long id, LocalDateTime time, String name, Integer qty, Float price,DegreeOfUtility degreeOfUtility, DailyExpense dailyExpense) {
+    public Article(Long id, LocalDateTime time, String name, Integer qty, Float price, DegreeOfUseFullness degreeOfUseFullness, DailyExpense dailyExpense) {
         this.id = id;
         this.time = time;
         this.name = name;
         this.qty = qty;
         this.price = price;
-        this.degreeOfUtility = degreeOfUtility;
+        this.degreeOfUseFullness = degreeOfUseFullness;
         this.dailyExpense = dailyExpense;
     }
 
@@ -43,7 +43,7 @@ public class Article implements Serializable {
         this.name = articleDetail.getName();
         this.qty = articleDetail.getQty();
         this.price = articleDetail.getPrice();
-        this.degreeOfUtility = articleDetail.getDegreeOfUtility();
+        this.degreeOfUseFullness = articleDetail.getDegreeOfUseFullness();
         this.dailyExpense = dailyExpense;
     }
 }

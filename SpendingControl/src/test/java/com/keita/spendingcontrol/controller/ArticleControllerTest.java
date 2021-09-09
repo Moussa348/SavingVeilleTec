@@ -1,11 +1,8 @@
 package com.keita.spendingcontrol.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.keita.spendingcontrol.model.dto.ArticleDetail;
-import com.keita.spendingcontrol.model.entity.Article;
-import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import com.keita.spendingcontrol.security.JwtService;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
@@ -39,10 +36,10 @@ public class ArticleControllerTest {
     JwtService jwtService;
 
     @Test
-    void getListArticleDetailForDailyExperienceByDegreeOfUtility() throws Exception{
+    void getListArticleDetailForDailyExperienceByDegreeOfUseFullness() throws Exception{
         //ARRANGE
         Long id = 1L;
-        DegreeOfUtility degreeOfUtility = DegreeOfUtility.LOW;
+        DegreeOfUseFullness degreeOfUseFullness = DegreeOfUseFullness.LOW;
         Integer noPage = 0;
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
@@ -52,19 +49,19 @@ public class ArticleControllerTest {
         String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
-        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUtility")
+        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUseFullness")
                 .header(HttpHeaders.AUTHORIZATION, token1)
                 .param("id",id.toString())
-                .param("degreeOfUtility",degreeOfUtility.toString())
+                .param("degreeOfUtility", degreeOfUseFullness.toString())
                 .param("noPage",noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUtility")
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUseFullness")
                 .header(HttpHeaders.AUTHORIZATION, token2)
                 .param("id",id.toString())
-                .param("degreeOfUtility",degreeOfUtility.toString())
+                .param("degreeOfUtility", degreeOfUseFullness.toString())
                 .param("noPage",noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

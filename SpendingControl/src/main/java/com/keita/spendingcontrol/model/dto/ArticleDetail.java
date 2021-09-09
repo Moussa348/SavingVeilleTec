@@ -1,7 +1,7 @@
 package com.keita.spendingcontrol.model.dto;
 
 import com.keita.spendingcontrol.model.entity.Article;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ public class ArticleDetail implements Serializable {
     private String name;
     private Integer qty;
     private Float price;
-    private DegreeOfUtility degreeOfUtility;
+    private DegreeOfUseFullness degreeOfUseFullness;
 
     public ArticleDetail(){}
 

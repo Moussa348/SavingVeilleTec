@@ -1,5 +1,5 @@
 package com.keita.spendingcontrol.model.enums;
 
-public enum DegreeOfUtility {
+public enum DegreeOfUseFullness {
     LOW,MEDIUM,HIGH
 }

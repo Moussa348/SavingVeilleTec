@@ -5,7 +5,7 @@ import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,10 +73,10 @@ public class DailyExpenseServiceTest {
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).build();
 
         dailyExpense.setArticles(Arrays.asList(
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.MEDIUM).build()
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build()
         ));
         when(dailyExpenseRepository.findByPersonIdAndDate(id,dailyExpense.getDate())).thenReturn(Optional.of(dailyExpense));
 

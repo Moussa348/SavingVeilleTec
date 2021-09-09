@@ -23,7 +23,20 @@
 .blur{
   backdrop-filter: blur(10px);
 }
+
+.order-1{
+  padding-left: 50px;
+}
 img{
   width: 200px;
   height: auto;
 }
+
+img:hover{
+  opacity: 0.5;
+}
+
+.order-3{
+  width: 640px;
+}
+

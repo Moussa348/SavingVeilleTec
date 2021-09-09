@@ -1,7 +1,7 @@
 package com.keita.spendingcontrol.controller;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import com.keita.spendingcontrol.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +17,12 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/getListArticleDetailForDailyExperienceByDegreeOfUtility")
+    @GetMapping("/getListArticleDetailForDailyExperienceByDegreeOfUseFullness")
     @PreAuthorize("@authorizationService.isConnected(#id)")
-    public List<ArticleDetail> getListArticleDetailForDailyExperienceByDegreeOfUtility(
+    public List<ArticleDetail> getListArticleDetailForDailyExperienceByDegreeOfUseFullness(
             @RequestParam("id")Long id,
             @RequestParam("degreeOfUtility")String degreeOfUtility,
             @RequestParam("noPage")Integer noPage){
-        return articleService.getListArticleDetailForDailyExperienceByDegreeOfUtility(id, DegreeOfUtility.valueOf(degreeOfUtility.toUpperCase()),noPage);
+        return articleService.getListArticleDetailForDailyExperienceByDegreeOfUseFullness(id, DegreeOfUseFullness.valueOf(degreeOfUtility.toUpperCase()),noPage);
     }
 }

@@ -4,4 +4,5 @@ export class Person {
     lastName:string;
     email:string;
     password:string;
+    registrationDate:string;
 }

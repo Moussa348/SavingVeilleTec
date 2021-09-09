@@ -4,7 +4,7 @@ import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
-import com.keita.spendingcontrol.model.enums.DegreeOfUtility;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import com.keita.spendingcontrol.repository.ArticleRepository;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
@@ -46,21 +46,21 @@ public class ArticleServiceTest {
     }
 
     @Test
-    void getListArticleDetailForDailyExperienceByDegreeOfUtility() {
+    void getListArticleDetailForDailyExperienceByDegreeOfUseFullness() {
         //ARRANGE
         Long id = 1L;
         Integer noPage = 0;
-        DegreeOfUtility degreeOfUtility = DegreeOfUtility.LOW;
+        DegreeOfUseFullness degreeOfUseFullness = DegreeOfUseFullness.LOW;
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
         List<Article> articles = Arrays.asList(
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build()
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build()
         );
-        when(articleRepository.findAllByDailyExpenseIdAndDegreeOfUtility(id,degreeOfUtility, PageRequest.of(noPage,30, Sort.by("time").descending()))).thenReturn(articles);
+        when(articleRepository.findAllByDailyExpenseIdAndDegreeOfUseFullness(id, degreeOfUseFullness, PageRequest.of(noPage,30, Sort.by("time").descending()))).thenReturn(articles);
 
         //ACT
-        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyExperienceByDegreeOfUtility(dailyExpense.getId(), degreeOfUtility,noPage);
+        List<ArticleDetail> articleDetails = articleService.getListArticleDetailForDailyExperienceByDegreeOfUseFullness(dailyExpense.getId(), degreeOfUseFullness,noPage);
 
         //ASSERT
         assertEquals(3, articleDetails.size());
@@ -71,19 +71,19 @@ public class ArticleServiceTest {
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).build();
         List<Article> articles = Arrays.asList(
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.HIGH).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).degreeOfUtility(DegreeOfUtility.MEDIUM).build()
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.HIGH).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build()
         );
 
         //ACT
-        Map<DegreeOfUtility,Integer> mapListArticleByDegreeOfUtility = articleService.mapListArticleByDegreeOfUtility(articles);
+        Map<DegreeOfUseFullness,Integer> mapListArticleByDegreeOfUtility = articleService.mapListArticleByDegreeOfUtility(articles);
 
         //ASSERT
-        assertEquals(1,mapListArticleByDegreeOfUtility.get(DegreeOfUtility.HIGH));
-        assertEquals(1,mapListArticleByDegreeOfUtility.get(DegreeOfUtility.MEDIUM));
-        assertEquals(2,mapListArticleByDegreeOfUtility.get(DegreeOfUtility.LOW));
+        assertEquals(1,mapListArticleByDegreeOfUtility.get(DegreeOfUseFullness.HIGH));
+        assertEquals(1,mapListArticleByDegreeOfUtility.get(DegreeOfUseFullness.MEDIUM));
+        assertEquals(2,mapListArticleByDegreeOfUtility.get(DegreeOfUseFullness.LOW));
 
     }
 }

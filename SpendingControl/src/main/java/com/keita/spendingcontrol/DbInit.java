@@ -31,7 +31,7 @@ public class DbInit implements CommandLineRunner {
 
     private void createPersons(){
         List<Person> persons = Arrays.asList(
-                Person.builder().id(1L).email("redaHamza@gmail.com").password("reda123").build(),
+                Person.builder().id(1L).email("redaHamza@gmail.com").firstName("Reda").lastName("Hamza").password("reda123").build(),
                 Person.builder().id(2L).email("franLacour@gmail.com").password("francois123").build()
         );
 
