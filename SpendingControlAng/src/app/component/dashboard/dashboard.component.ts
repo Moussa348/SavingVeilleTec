@@ -26,6 +26,7 @@ import { getId } from 'src/app/util/jwtUtils';
 })
 export class DashboardComponent {
   id = getId();
+  todayDate = new Date();
   dashboard: Dashboard = new Dashboard();
   constructor(private personService: PersonService) {}
 
@@ -51,5 +52,13 @@ export class DashboardComponent {
 
   isArticlesMapCharged():boolean{
     return this.dashboard.dailyExpenseDetail.mapArticlesUseFullness.size != 0;
+  }
+
+  isListArticlesCharged(){
+    return this.dashboard.dailyExpenseDetail.articleDetails.length != 0;
+  }
+
+  getListArticles(){
+    return this.dashboard.dailyExpenseDetail.articleDetails;
   }
 }

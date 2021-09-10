@@ -27,6 +27,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FooterComponent } from './component/footer/footer.component';
 import { AuthComponent } from './component/auth/auth.component';
 import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-chart/artilce-utility-chart.component';
+import { ListArticleDetailComponent } from './component/list-article-detail/list-article-detail.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-
     DashboardComponent,
     FooterComponent,
     AuthComponent,
-    ArtilceUtilityChartComponent
+    ArtilceUtilityChartComponent,
+    ListArticleDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,7 @@ import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-
     MatCardModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

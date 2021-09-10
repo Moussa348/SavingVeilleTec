@@ -34,13 +34,16 @@ body {
   .content {
     height: 70vh;
   }
-  
+  .font-weight-bold{
+    font-weight: bold;
+  }
   form input:nth-child(2):hover{
     opacity: 0.5;
   }
   
   .footer-32892 {
-    background-color: #202126;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
     padding: 7rem 0;
     color: #888;
     font-size: 16px;

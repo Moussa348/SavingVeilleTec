@@ -51,19 +51,25 @@
                   class="rounded shadow border border border"
                 />
               </div>
-              <div class="order-2 p-3 align-self-center">
-                <p class="text-capitalize">
+              <div class="order-2 p-3 align-self-center text-dark">
+                <p class="text-capitalize font-weight-bold">
                   {{ dashboard.personDetail.email
                   }}<i class="fas fa-envelope"></i>
                 </p>
-                <p class="text-capitalize">
+                <p class="text-capitalize font-weight-bold">
                   {{ dashboard.personDetail.lastName }},
                   {{ dashboard.personDetail.firstName
                   }}<i class="fas fa-fingerprint"></i>
                 </p>
-                <p class="text-capitalize">
+                <p class="text-capitalize font-weight-bold">
                   Member since :
                   {{ dashboard.personDetail.registrationDate | date
+                  }}<i class="fas fa-clock"></i>
+                </p>
+
+                <p class="text-capitalize font-weight-bold">
+                  Today's date :
+                  {{ todayDate | date
                   }}<i class="fas fa-clock"></i>
                 </p>
               </div>
@@ -152,6 +158,7 @@
             shadow
             border
           "
+          style="overflow-y: auto;overflow-x:auto;"
         >
           <div class="flex-row d-flex justify-content-center">
             <h2 class="text-center">
@@ -160,12 +167,10 @@
           </div>
 
           <div
-            class="flex-row d-flex justify-content-center align-items-center"
           >
+
+          <app-list-article-detail *ngIf="isListArticlesCharged()" [articleDetails]="getListArticles()"></app-list-article-detail>
             <!--ng if if nothing show paragraph if something show name article qty price and maybe img-->
-            <p class="lead text-capitalize text-warning">
-              No Articles Bought <i class="fas fa-info-circle"></i>
-            </p>
           </div>
         </mat-card>
       </mat-grid-tile>

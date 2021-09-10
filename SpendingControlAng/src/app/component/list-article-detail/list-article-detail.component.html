@@ -1,0 +1,36 @@
+<p *ngIf="!isListArticlesCharged()" class="lead text-capitalize text-warning">
+  No Articles Bought <i class="fas fa-info-circle"></i>
+</p>
+
+<div *ngIf="isListArticlesCharged()">
+  <div class="flex-row d-flex justify-content-center">
+    <div>
+    <table class="table table-striped shadow table-hover border rounded">
+      <thead class="bg-dark">
+        <tr class="text-light">
+          <th scope="col">Name</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Price</th>
+          <th scope="col">UseFullness</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let articleDetail of articleDetails" class="text-capitalize font-weight-bold">
+          <td>
+            {{articleDetail.name}}
+          </td>
+          <td>
+            {{articleDetail.qty}}
+          </td>
+          <td>
+            {{articleDetail.price}}
+          </td>
+          <td>
+            {{articleDetail.degreeOfUseFullness}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

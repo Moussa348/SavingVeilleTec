@@ -11,9 +11,15 @@ export class AuthGuardService {
   canActivate(route: ActivatedRouteSnapshot) {
     const url = route.url.join('');
     
-    if(!this.isLoggedIn() && (url != 'home')){
+    if(!this.isLoggedIn() && url != 'home'){
       this.router.navigate(['/authentication']);
       return false;
+    }
+    
+    if(!this.isLoggedIn() && url != 'registration'){
+      this.router.navigate(['/authentication']);
+      return false;
+
     }
     if(this.isLoggedIn() && url == 'registration'){
       this.router.navigate(['/home'])
