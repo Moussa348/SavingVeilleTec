@@ -5,6 +5,7 @@ import com.keita.spendingcontrol.model.dto.PersonDetail;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.PersonRepository;
 import com.keita.spendingcontrol.util.FileUtil;
+import net.bytebuddy.utility.RandomString;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

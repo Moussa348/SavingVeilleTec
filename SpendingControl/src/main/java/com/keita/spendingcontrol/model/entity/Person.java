@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Map;
 
 @Entity
 @Data
@@ -18,8 +19,8 @@ public class Person implements Serializable {
     @Lob
     private byte[] picture;
     private LocalDate registrationDate;
-    private String firstName,lastName,email,password,roles;
-    private boolean active;
+    private String firstName,lastName,email,password,roles,verificationCode;
+    private boolean active,accountConfirmed;
 
     public Person(){}
 
@@ -34,5 +35,6 @@ public class Person implements Serializable {
         this.password = password;
         this.roles = roles;
         this.active = true;
+        this.accountConfirmed = false;
     }
 }
