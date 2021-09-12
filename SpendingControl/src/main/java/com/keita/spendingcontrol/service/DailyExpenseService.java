@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,11 +26,20 @@ public class DailyExpenseService {
     @Autowired
     private PersonService personService;
 
+    public void createDailExpenseForPerson(Person person){
+        dailyExpenseRepository.saveAndFlush(new DailyExpense(person));
+    }
 
     //TODO --> call into pooler
     public Integer createDailyExpenseForEveryPerson(){
-        return personService.getListPerson().stream().map(person -> dailyExpenseRepository.save(new DailyExpense(person)))
-                .collect(Collectors.toList()).size();
+        AtomicInteger counter = new AtomicInteger();
+
+        personService.getListPerson().forEach(person -> {
+            createDailExpenseForPerson(person);
+            counter.getAndIncrement();
+        });
+
+        return counter.get();
     }
 
     public void addArticleToDailyExpense(ArticleDetail articleDetail){

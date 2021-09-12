@@ -24,6 +24,7 @@ public class ArticleDetail implements Serializable {
         this.name = article.getName();
         this.qty = article.getQty();
         this.price = article.getPrice();
+        this.degreeOfUseFullness = article.getDegreeOfUseFullness();
         this.personId = article.getDailyExpense().getPerson().getId();
     }
 

@@ -52,6 +52,15 @@ public class DailyExpenseServiceTest {
     }
 
     @Test
+    void createDailyExpenseOnPersonCreation(){
+        //ARRANGE
+        Person person = new Person();
+
+        //ACT
+        dailyExpenseService.createDailExpenseForPerson(person);
+    }
+
+    @Test
     void addArticleToDailyExpense(){
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
@@ -70,7 +79,7 @@ public class DailyExpenseServiceTest {
     void getDailyExpenseByDateForPerson(){
         //ARRANGE
         Long id = 1L;
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).build();
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
 
         dailyExpense.setArticles(Arrays.asList(
                 Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
