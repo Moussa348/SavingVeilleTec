@@ -20,19 +20,14 @@ import java.util.List;
 @Component
 @Order(1)
 @Log
-@Transactional
 public class DbInit implements CommandLineRunner {
 
     @Autowired
     private PersonService personService;
 
-    @Autowired
-    private DailyExpenseService dailyExpenseService;
-
     private void createPersons(){
         List<Person> persons = Arrays.asList(
-                Person.builder().id(1L).email("redaHamza@gmail.com").firstName("Reda").lastName("Hamza").password("reda123").build(),
-                Person.builder().id(2L).email("franLacour@gmail.com").password("francois123").build()
+                Person.builder().id(1L).email("redaHamza@gmail.com").firstName("Reda").lastName("Hamza").password("reda123").build()
         );
 
         persons.forEach(person -> {
@@ -44,13 +39,8 @@ public class DbInit implements CommandLineRunner {
         });
     }
 
-    private void insertDailyExpenses(){
-        log.info("nbr of dailyExpense created : " + dailyExpenseService.createDailyExpenseForEveryPerson());
-    }
-
     @Override
     public void run(String... args) throws Exception {
         createPersons();
-        insertDailyExpenses();
     }
 }

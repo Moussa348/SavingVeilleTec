@@ -34,7 +34,7 @@ public class PersonService {
             person.setRegistrationDate(LocalDate.now());
             person.setRoles("USER");
             person.setPicture(FileUtil.setDefaultProfilePicture());
-            personRepository.save(person);
+            dailyExpenseService.createDailExpenseForPerson(personRepository.save(person));
             return true;
         }
         return false;

@@ -66,7 +66,7 @@ public class DailyExpenseServiceTest {
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
         ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
         when(dailyExpenseRepository.findByPersonIdAndDate(dailyExpense.getPerson().getId(),LocalDate.now())).thenReturn(Optional.of(dailyExpense));
-        when(articleService.createArticleForDailyExperience(articleDetail,dailyExpense)).thenReturn(new Article(articleDetail,dailyExpense));
+        when(articleService.createArticleForDailyExpense(articleDetail,dailyExpense)).thenReturn(new Article(articleDetail,dailyExpense));
 
         //ACT
         dailyExpenseService.addArticleToDailyExpense(articleDetail);

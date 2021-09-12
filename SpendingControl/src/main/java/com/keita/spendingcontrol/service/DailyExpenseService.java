@@ -5,6 +5,7 @@ import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
+@Log
 public class DailyExpenseService {
 
     @Autowired
@@ -26,15 +28,16 @@ public class DailyExpenseService {
     @Autowired
     private PersonService personService;
 
-    public void createDailExpenseForPerson(Person person){
-        dailyExpenseRepository.saveAndFlush(new DailyExpense(person));
-    }
 
+    public void createDailExpenseForPerson(Person person){
+        dailyExpenseRepository.save(new DailyExpense(person));
+    }
     //TODO --> call into pooler
     public Integer createDailyExpenseForEveryPerson(){
         AtomicInteger counter = new AtomicInteger();
 
         personService.getListPerson().forEach(person -> {
+            log.info(person.getEmail());
             createDailExpenseForPerson(person);
             counter.getAndIncrement();
         });
@@ -45,7 +48,7 @@ public class DailyExpenseService {
     public void addArticleToDailyExpense(ArticleDetail articleDetail){
         DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(articleDetail.getPersonId(),LocalDate.now());
 
-        dailyExpense.getArticles().add(articleService.createArticleForDailyExperience(articleDetail,dailyExpense));
+        dailyExpense.getArticles().add(articleService.createArticleForDailyExpense(articleDetail,dailyExpense));
 
         dailyExpenseRepository.save(dailyExpense);
     }

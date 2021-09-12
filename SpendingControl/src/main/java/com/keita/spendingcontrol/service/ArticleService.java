@@ -21,7 +21,7 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public Article createArticleForDailyExperience(ArticleDetail articleDetail, DailyExpense dailyExpense){
+    public Article createArticleForDailyExpense(ArticleDetail articleDetail, DailyExpense dailyExpense){
          return new Article(articleDetail,dailyExpense);
     }
 

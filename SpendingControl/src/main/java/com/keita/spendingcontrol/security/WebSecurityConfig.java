@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/person/createPerson",
                 "/auth/login/**",
                 "/person/getPicture/**",
-                "/person/createPerson/**")
+                "/person/createPerson/**",
+                "/dailyExpense/dasdad")
                 .permitAll()
 
                 .anyRequest().authenticated().and().httpBasic()
