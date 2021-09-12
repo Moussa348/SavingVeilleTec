@@ -29,6 +29,7 @@ import { AuthComponent } from './component/auth/auth.component';
 import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-chart/artilce-utility-chart.component';
 import { ListArticleDetailComponent } from './component/list-article-detail/list-article-detail.component';
 import { DatePipe } from '@angular/common';
+import { RegistrationComponent } from './component/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DatePipe } from '@angular/common';
     FooterComponent,
     AuthComponent,
     ArtilceUtilityChartComponent,
-    ListArticleDetailComponent
+    ListArticleDetailComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@ export class PersonService {
   constructor(private http:HttpClient) { }
 
   createPerson(person){
-    return this.http.post(this.url + 'createPerson',person);
+    return this.http.post<boolean>(this.url + 'createPerson',person);
   }
 
   setPicture(id){
