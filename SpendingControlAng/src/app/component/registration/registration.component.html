@@ -1,6 +1,7 @@
+<app-nav></app-nav>
 <div class="container" @fade>
   <div class="p-5"></div>
-  <div class="p-5"></div>
+  <div class="p-4"></div>
   <mat-divider class="border border-3"></mat-divider>
   <div class="p-4"></div>
   <div
@@ -20,53 +21,131 @@
   <div class="p-4"></div>
   <mat-divider class="border border-3"></mat-divider>
   <div class="p-5"></div>
+  <div class="p-2"></div>
 
-  <mat-card @fade class="shadow container border border-2 border shadow-lg">
-    <form [formGroup]="registrationForm" (ngSubmit)="createPerson()" class="font-weight-bolder">
-        <div class="m-3">
-            <div class="flex-row text-start">
-                <label for="email" class="form-label text-light text-start">Email address</label>
-            </div>
-            <div class="flex-row">
-                <input type="email" class="form-control" placeholder="email@email.com" id="email" formControlName="email">
-            </div>
-          </div>
-
-          <div class="m-3">
-            <div class="flex-row text-start">
-                <label for="exampleInputPassword1" class="form-label text-light">Password</label>
-            </div>
-            <div class="flex-row text-end">
-                <input #pass type="password" class="form-control" formControlName="password" placeholder="min 8 character and max 40 character" id="password">
-                <span class="text-light">{{ pass.value.length }} / 40</span>
-            </div>
+  <mat-card @fade class="shadow container border blur bg-transparent shadow-lg">
+    <form
+      [formGroup]="registrationForm"
+      (ngSubmit)="createPerson()"
+      class="font-weight-bolder"
+    >
+      <div class="m-3">
+        <div class="flex-row text-start">
+          <label for="email" class="form-label text-light text-start"
+            >Email address</label
+          >
         </div>
-        <div class="m-3">
-            <div class="flex-row text-start">
-                <label for="passwordAgain" class="form-label text-light">Re-enter Password</label>
-            </div>
-            <div class="flex-row text-end">
-                <input #passAgain type="password" formControlName="passwordAgain" placeholder="min 8 character and max 40 character" class="form-control" id="passwordAgain" min="8" max="40">
-                <span class="text-light">{{ passAgain.value.length }} / 40</span>
-            </div>
-        </div>
-
         <div class="flex-row">
-            <mat-divider class=" border border-2"></mat-divider>
-            <div class="p-2"></div>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="email@email.com"
+            id="email"
+            formControlName="email"
+          />
         </div>
+      </div>
 
-        <div class="flex-row d-flex justify-content-center">
-            <button
-            mat-button
-            matStepperNext
-            type="submit"
-            class="btn btn-success border border-2 shadow text-capitalize rounded-pill"
-            >
-            register<i class="fas fa-user-plus"></i>
+      <div class="m-3">
+        <div class="flex-row text-start">
+          <label for="firstName" class="form-label text-light text-start"
+            >First Name</label
+          >
+        </div>
+        <div class="flex-row">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="First Name"
+            id="firstName"
+            formControlName="firstName"
+          />
+        </div>
+      </div>
+
+      <div class="m-3">
+        <div class="flex-row text-start">
+          <label for="firstName" class="form-label text-light text-start"
+            >Last Name</label
+          >
+        </div>
+        <div class="flex-row">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Last Name"
+            id="lastName"
+            formControlName="lastName"
+          />
+        </div>
+      </div>
+
+      <div class="m-3">
+        <div class="flex-row text-start">
+          <label for="exampleInputPassword1" class="form-label text-light"
+            >Password</label
+          >
+        </div>
+        <div class="flex-row text-end">
+          <input
+            #pass
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="min 8 character and max 40 character"
+            id="password"
+          />
+          <span class="text-light">{{ pass.value.length }} / 40</span>
+        </div>
+      </div>
+      <div class="m-3">
+        <div class="flex-row text-start">
+          <label for="passwordAgain" class="form-label text-light"
+            >Re-enter Password</label
+          >
+        </div>
+        <div class="flex-row text-end">
+          <input
+            #passAgain
+            type="password"
+            formControlName="passwordAgain"
+            placeholder="min 8 character and max 40 character"
+            class="form-control"
+            id="passwordAgain"
+            min="8"
+            max="40"
+          />
+          <span class="text-light">{{ passAgain.value.length }} / 40</span>
+        </div>
+      </div>
+
+      <div class="flex-row">
+        <mat-divider class="border border-2"></mat-divider>
+        <div class="p-2"></div>
+      </div>
+
+      <div class="flex-row d-flex justify-content-center">
+        <button
+          mat-button
+          matStepperNext
+          type="submit"
+          class="
+            btn btn-dark
+            border border-2
+            shadow
+            text-capitalize
+            rounded-pill
+          "
+        >
+          register<i class="fas fa-user-plus"></i>
         </button>
-    </div>
-</form>
-</mat-card>
-
+      </div>
+    </form>
+  </mat-card>
 </div>
+
+<div class="flex-row">
+    <div class="p-5"></div>
+    <div class="p-5"></div>
+  </div>
+  <app-footer class="position-sticky"></app-footer>

@@ -3,8 +3,9 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
 }
+
 
 .sidenav .mat-toolbar {
   background: inherit;
@@ -14,6 +15,10 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+a:hover{
+  color: white;
 }
 
 .blur{

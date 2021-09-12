@@ -30,6 +30,7 @@ import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-
 import { ListArticleDetailComponent } from './component/list-article-detail/list-article-detail.component';
 import { DatePipe } from '@angular/common';
 import { RegistrationComponent } from './component/registration/registration.component';
+import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { RegistrationComponent } from './component/registration/registration.com
     AuthComponent,
     ArtilceUtilityChartComponent,
     ListArticleDetailComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    RegistrationVerifyCodeComponent,
   ],
   imports: [
     BrowserModule,

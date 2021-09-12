@@ -6,11 +6,13 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { Error404Component } from './component/error404/error404.component';
 import { HomeComponent } from './component/home/home.component';
 import { NavComponent } from './component/nav/nav.component';
+import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
 import { RegistrationComponent } from './component/registration/registration.component';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import { AuthGuardService } from './service/auth-guard.service';
 
 const routes: Routes = [
+  {path:'registrationVerifyCode/:code',component:RegistrationVerifyCodeComponent},
   {path:'registration',component:RegistrationComponent},
   {path:'nav',component:NavComponent},
   {path:'authentication',component:AuthComponent},

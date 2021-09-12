@@ -24,6 +24,10 @@ export class PersonService {
     return this.http.patch(this.url + 'setPassword',options);
   }
 
+  confirmVerificationCode(verificationCode){
+     return this.http.patch(this.url + "confirmVerificationCode/" + verificationCode,"");
+  }
+
   disableAccount(id){
     return this.http.patch(this.url + 'disableAccount/' + id,'');
   }

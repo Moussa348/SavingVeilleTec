@@ -3,5 +3,9 @@
   }
 
   .btn:hover{
+    background-color: green;
+  }
+
+  .fa-bars:hover{
     opacity: 0.5;
   }

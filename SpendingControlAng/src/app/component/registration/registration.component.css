@@ -1,0 +1,7 @@
+.blur{
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-dark:hover{
+    background-color: green;
+  }

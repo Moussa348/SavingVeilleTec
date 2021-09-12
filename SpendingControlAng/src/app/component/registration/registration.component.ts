@@ -41,17 +41,20 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm = new FormGroup({
       username: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       passwordAgain: new FormControl('', Validators.required),
     });
   }
 
   createPerson() {
+    this.person.firstName = this.registrationForm.get('firstName').value;
+    this.person.lastName = this.registrationForm.get('lastName').value;
     this.person.email = this.registrationForm.get('email').value;
     this.person.password = this.registrationForm.get('password').value;
 
-    console.log(this.person);
-    if (this.registrationForm.valid) {
+    //console.log(this.person);
       console.log(this.person);
 
       this.personService.createPerson(this.person).subscribe((data) => {
@@ -60,6 +63,5 @@ export class RegistrationComponent implements OnInit {
           this.router.navigate(['/authentication']);
         }
       });
-    }
   }
 }
