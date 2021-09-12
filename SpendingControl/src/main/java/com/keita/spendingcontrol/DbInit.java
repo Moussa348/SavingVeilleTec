@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,14 +25,16 @@ public class DbInit implements CommandLineRunner {
 
     private void createPersons(){
         List<Person> persons = Arrays.asList(
-                Person.builder().id(1L).email("redaHamza@gmail.com").firstName("Reda").lastName("Hamza").password("reda123").build()
+                Person.builder().id(1L).email("developpeurspring@gmail.com").firstName("developpeur").lastName("spring").password("dev123").build()
         );
 
         persons.forEach(person -> {
             try {
                 personService.createPerson(person);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+            }finally {
+                person.setAccountVerified(true);
             }
         });
     }

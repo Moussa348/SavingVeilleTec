@@ -28,7 +28,7 @@ public class PersonRepositoryTest {
     void init(){
         List<Person> persons = Arrays.asList(
                 Person.builder().email("francois@gmail.com").password("francois123").build(),
-                Person.builder().email("dsadasd@gmail.com").build(),
+                Person.builder().email("dsadasd@gmail.com").verificationCode("abcdefg").build(),
                 Person.builder().email("erwwerwer@gmail.com").build()
         );
 
@@ -78,5 +78,20 @@ public class PersonRepositoryTest {
         //ASSERT
         assertTrue(personExistWithEmailAndPassword1);
         assertFalse(personExistWithEmailAndPassword2);
+    }
+
+    @Test
+    void findByVerificationCode(){
+        //ARRANGE
+        String verificationCode1 = "abcdefg";
+        String verificationCode2 = "12312312";
+
+        //ACT
+        boolean personExistWithVerificationCode1 = personRepository.findByVerificationCode(verificationCode1).isPresent();
+        boolean personExistWithVerificationCode2 = personRepository.findByVerificationCode(verificationCode2).isPresent();
+
+        //ASSERT
+        assertTrue(personExistWithVerificationCode1);
+        assertFalse(personExistWithVerificationCode2);
     }
 }

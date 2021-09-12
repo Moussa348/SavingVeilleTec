@@ -20,12 +20,12 @@ public class Person implements Serializable {
     private byte[] picture;
     private LocalDate registrationDate;
     private String firstName,lastName,email,password,roles,verificationCode;
-    private boolean active,accountConfirmed;
+    private boolean active,accountVerified;
 
     public Person(){}
 
     @Builder
-    public Person(Long id, byte[] picture, String firstName, String lastName, String email, String password, String roles) {
+    public Person(Long id, byte[] picture, String firstName, String lastName, String email, String password, String roles,String verificationCode) {
         this.id = id;
         this.picture = picture;
         this.registrationDate = LocalDate.now();
@@ -34,7 +34,8 @@ public class Person implements Serializable {
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.verificationCode = verificationCode;
         this.active = true;
-        this.accountConfirmed = false;
+        this.accountVerified = false;
     }
 }

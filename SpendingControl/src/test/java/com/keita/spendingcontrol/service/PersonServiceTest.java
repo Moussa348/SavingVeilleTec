@@ -15,6 +15,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class PersonServiceTest {
     PersonService personService;
 
     @Test
-    void createPerson() throws IOException {
+    void createPerson() throws IOException, MessagingException {
         //ARRANGE
         Person person1 = Person.builder().email("araa@gmail.com").build();
         when(personRepository.existsByEmail(person1.getEmail())).thenReturn(false);
@@ -84,6 +85,23 @@ public class PersonServiceTest {
 
         //ASSERT
         assertFalse(person1.isActive());
+    }
+
+    @Test
+    void confirmVerificationCode(){
+        //ARRANGE
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").verificationCode("dasdadas").build();
+        when(personRepository.findByVerificationCode(person1.getVerificationCode())).thenReturn(Optional.of(person1));
+
+        Person person2 = Person.builder().id(2L).email("dasdads@gmail.com").verificationCode("23esdad").build();
+        when(personRepository.findByVerificationCode(person2.getVerificationCode())).thenReturn(Optional.empty());
+
+        //ACT
+        personService.confirmVerificationCode(person1.getVerificationCode());
+
+        //ASSERT
+        assertTrue(person1.isAccountVerified());
+        assertThrows(ResponseStatusException.class,()->personService.confirmVerificationCode(person2.getVerificationCode()));
     }
 
     @Test

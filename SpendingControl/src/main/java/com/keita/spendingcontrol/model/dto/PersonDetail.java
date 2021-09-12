@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class PersonDetail implements Serializable {
     private Long id;
     private LocalDate registrationDate;
-    private String firstName,lastName,email;
+    private String firstName,lastName,email,verification;
 
     public PersonDetail(){}
 
@@ -20,5 +20,6 @@ public class PersonDetail implements Serializable {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.email = person.getEmail();
+        this.verification= person.getVerificationCode();
     }
 }

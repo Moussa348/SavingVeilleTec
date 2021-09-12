@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -30,11 +31,15 @@ public class PersonService {
     @Autowired
     private DailyExpenseService dailyExpenseService;
 
-    public boolean createPerson(Person person) throws IOException {
+    @Autowired
+    private EmailService emailService;
+
+    public boolean createPerson(Person person) throws IOException, MessagingException {
         if(!personRepository.existsByEmail(person.getEmail())){
             person.setRegistrationDate(LocalDate.now());
             person.setRoles("USER");
             person.setPicture(FileUtil.setDefaultProfilePicture());
+            emailService.confirmRegistration(person);
             dailyExpenseService.createDailExpenseForPerson(personRepository.save(person));
             return true;
         }
@@ -69,6 +74,16 @@ public class PersonService {
 
         personRepository.save(person);
     }
+
+    public void confirmVerificationCode(String verificationCode){
+        Person person = personRepository.findByVerificationCode(verificationCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find person with this verification code"));
+
+        person.setAccountVerified(true);
+
+        personRepository.save(person);
+    }
+
 
     public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("image/jpeg");

@@ -1,6 +1,7 @@
 package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.entity.Person;
+import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +28,7 @@ public class EmailServiceTest {
     void confirmRegistration() throws MessagingException {
         //ARRANGE
         MimeMessage mimeMessage = new MimeMessage((Session)null);
-        Person person = Person.builder().email("tasadsa@gmail.com").firstName("massou").lastName("massou").build();
+        Person person = Person.builder().email("tasadsa@gmail.com").verificationCode(RandomString.make(20)).firstName("massou").lastName("massou").build();
 
         when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
 

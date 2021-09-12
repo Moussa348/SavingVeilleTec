@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/createPerson")
-    public boolean createPerson(@RequestBody Person person) throws IOException {
+    public boolean createPerson(@RequestBody Person person) throws IOException, MessagingException {
         return personService.createPerson(person);
     }
 
