@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PersonService } from 'src/app/service/person.service';
 
@@ -9,6 +10,8 @@ import { PersonService } from 'src/app/service/person.service';
 })
 export class RegistrationVerifyCodeComponent implements OnInit {
   code;
+  codeInvalid = false; 
+
   constructor(
     private personService:PersonService,
     private route : ActivatedRoute,
@@ -23,15 +26,22 @@ export class RegistrationVerifyCodeComponent implements OnInit {
     this.verifyCode();
   }
 
+
   verifyCode(){
       this.personService.confirmVerificationCode(this.code).subscribe(
         () =>{
             this.router.navigate(['/authentication']);
         },(err) =>{
           //redirect to a page that says error404
+          this.codeInvalid =true;
+          console.log(this.codeInvalid);
           console.log(err);
         }
       )
+  }
+
+  resendVerifyCode(){
+
   }
 
 }

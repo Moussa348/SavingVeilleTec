@@ -1,1 +1,57 @@
-<p>registration-verify-code works!</p>
+<div class="container align-self-center">
+  <div class="p-5"></div>
+  <div class="p-5"></div>
+  <div class="p-5"></div>
+  <mat-card class="shadow-lg blur bg-transparent container border rounded align-self-center">
+    <div
+      class="text-center text-justify text-light m-5"
+      *ngIf="codeInvalid == true"
+    >
+      <div class="flex-row">
+        <h1 class="text-capitalize">
+          This verification Code Is Invalid
+          <i class="fas fa-frown fa-2x text-danger"></i>
+        </h1>
+      </div>
+      <div class="flex-row">
+        <p>
+          If you see this message it means, that you didn't verified your
+          account at the required time or maybe you have already verified your
+          account...
+        </p>
+        <p>
+            You can try to register again or authenticate yourself if you want to...
+          </p>
+      </div>
+      <div class="flex-row d-flex justify-content-evenly">
+        <div class="pr-2">
+          <button
+            class="btn btn-dark rounded-pill border border-3 shadow"
+            [routerLink]="['/authentication']"
+          >
+            Authentication<i class="fas fa-sign-out-alt pl-1"></i>
+          </button>
+        </div>
+
+        <div>
+            <button
+              class="btn btn-info rounded-pill border border-3 shadow text-light"
+              [routerLink]="['/home']"
+            >
+              Home<i class="fas fa-sign-out-alt pl-1 "></i>
+            </button>
+          </div>
+        <div>
+          <button
+            class="btn btn-success rounded-pill border border-3 shadow"
+            [routerLink]="['/registration']"
+          >
+            Registration<i class="fas fa-sign-out-alt pl-1"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </mat-card>
+</div>
+

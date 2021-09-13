@@ -1,0 +1,6 @@
+.blur {
+  backdrop-filter: blur(10px);
+}
+.btn:hover {
+  opacity: 0.5;
+}
