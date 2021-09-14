@@ -180,6 +180,21 @@ public class PersonControllerTest {
     }
 
     @Test
+    void confirmVerificationCode() throws Exception{
+        //ARRANGE
+        String verificationCode = "adsadadasd";
+
+        //ACT
+        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/confirmVerificationCode/" + verificationCode)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest()).andReturn();
+
+        //ASSERT
+        assertEquals(MockHttpServletResponse.SC_BAD_REQUEST,mvcResult1.getResponse().getStatus());
+    }
+
+    @Test
     void getPicture() throws Exception{
         //ARRANGE
         Long id = 1L;

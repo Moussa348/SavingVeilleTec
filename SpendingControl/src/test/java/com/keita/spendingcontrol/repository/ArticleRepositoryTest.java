@@ -41,7 +41,7 @@ public class ArticleRepositoryTest {
         );
         dailyExpenseRepository.saveAllAndFlush(dailyExpenses);
         List<Article> articles = Arrays.asList(
-                Article.builder().id(1L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
+                Article.builder().name("cereales").id(1L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
                 Article.builder().id(2L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
                 Article.builder().id(3L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
         );
@@ -59,6 +59,19 @@ public class ArticleRepositoryTest {
 
         //ASSERT
         assertEquals(3, articles.size());
+    }
+
+    @Test
+    void findByNameAndDailyExpenseId() {
+        //ARRANGE
+        String name = "cereales";
+        Long id = 1L;
+
+        //ACT
+        boolean isArticlePresent = articleRepository.findByNameAndDailyExpenseId(name,id).isPresent();
+
+        //ASSERT
+        assertTrue(isArticlePresent);
     }
 
     @Test

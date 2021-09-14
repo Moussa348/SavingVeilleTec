@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -84,6 +85,24 @@ public class ArticleServiceTest {
 
         //ASSERT
         assertEquals(3, articleDetails.size());
+    }
+
+    @Test
+    void increaseArticleQty(){
+        //ARRANGE
+        Long id = 1L;
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
+        Article article = Article.builder().id(1L).qty(0).dailyExpense(dailyExpense).price(0.0f).name("cereales").degreeOfUseFullness(DegreeOfUseFullness.LOW).build();
+        ArticleDetail articleDetail =  new ArticleDetail(Article.builder().id(1L).name("cereales").dailyExpense(dailyExpense).qty(4).price(24.5f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build());
+
+        when(articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id)).thenReturn(Optional.of(article));
+
+        //ACT
+        articleService.increaseArticleQty(id,articleDetail);
+
+        //ASSERT
+        assertEquals(articleDetail.getQty(),article.getQty());
+        assertEquals(articleDetail.getPrice(),article.getPrice());
     }
 
     @Test

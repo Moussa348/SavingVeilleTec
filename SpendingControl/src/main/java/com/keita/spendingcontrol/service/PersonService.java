@@ -80,9 +80,12 @@ public class PersonService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find person with this verification code"));
 
         person.setAccountVerified(true);
+        person.setVerificationCode("");
 
         personRepository.save(person);
     }
+
+    //TODO delete all account unverified
 
 
     public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {

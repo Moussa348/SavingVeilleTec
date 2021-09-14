@@ -8,7 +8,9 @@ import com.keita.spendingcontrol.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,15 @@ public class ArticleService {
     public List<ArticleDetail> getListArticleDetailForDailyExperience(Long id,Integer noPage){
         return articleRepository.findAllByDailyExpenseId(id,PageRequest.of(noPage,10,Sort.by("time").descending()))
                 .stream().map(ArticleDetail::new).collect(Collectors.toList());
+    }
+
+    public void increaseArticleQty(Long id,ArticleDetail articleDetail){
+        Article article = articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find article with name : " + articleDetail.getName()));
+
+        article.setQty(article.getQty() + articleDetail.getQty());
+        article.setPrice(article.getPrice() + articleDetail.getPrice());
+
+        articleRepository.save(article);
     }
 
     public Map<DegreeOfUseFullness,Integer> mapListArticleByDegreeOfUseFullness(List<Article> articles){

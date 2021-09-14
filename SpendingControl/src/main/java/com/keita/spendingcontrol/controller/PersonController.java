@@ -45,6 +45,9 @@ public class PersonController {
         personService.disableAccount(id);
     }
 
+    @PatchMapping("/confirmVerificationCode/{verificationCode}")
+    public void confirmVerificationCode(@PathVariable String verificationCode) { personService.confirmVerificationCode(verificationCode); }
+
     @GetMapping("/getPicture/{id}")
     public void getPicture(@PathVariable Long id, HttpServletResponse httpServletResponse) throws IOException {
         personService.getPicture(id,httpServletResponse);

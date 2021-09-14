@@ -33,8 +33,6 @@ public class DbInit implements CommandLineRunner {
                 personService.createPerson(person);
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
-                person.setAccountVerified(true);
             }
         });
     }

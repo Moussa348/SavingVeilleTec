@@ -35,7 +35,7 @@ public class EmailService {
 
 
         content = content.replace("[[name]]",person.getFirstName());
-        content = content.replace("[[URL]]","http://localhost:5001/verifyCode/" + person.getVerificationCode());
+        content = content.replace("[[URL]]","http://localhost:5001/registrationVerifyCode/" + person.getVerificationCode());
 
         mimeMessageHelper.setText(content,true);
 

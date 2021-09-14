@@ -1,8 +1,8 @@
-<div class="container align-self-center">
+<div class="container align-self-center" @fade>
   <div class="p-5"></div>
   <div class="p-5"></div>
   <div class="p-5"></div>
-  <mat-card class="shadow-lg blur bg-transparent container border rounded align-self-center">
+  <mat-card class="shadow-lg blur bg-transparent container border rounded align-self-center" *ngIf="codeInvalid == true">
     <div
       class="text-center text-justify text-light m-5"
       *ngIf="codeInvalid == true"

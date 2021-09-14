@@ -5,7 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar class="bg-transparent blur text-light border rounded">Menu <i *ngIf="isHandset$ | async" class="fas fa-bars btn text-light" (click)="drawer.toggle()"></i></mat-toolbar>
     <mat-nav-list class="bg-transparent blur">
-      <a mat-list-item [routerLink]="['/authentication']" class="border-bottom border-dark rounded">Authentication <i class="fas fa-sign-in-alt"></i></a>
+      <a mat-list-item [routerLink]="['/authentication']" class="border-bottom border-dark rounded">{{isLoggedIn() ? 'Logout':'Login'}} <i class="fas {{isLoggedIn() ? 'fa-sign-out-alt':'fa-sign-in-alt'}}"></i></a>
       <a mat-list-item [routerLink]="['/registration']" class="border-bottom border-dark rounded">Registration <i class="fas fa-user-plus"></i></a>
       <a mat-list-item [routerLink]="['/dashboard']" class="border-bottom border-dark rounded">DashBoard <i class="fas fa-newspaper"></i></a>
       <a mat-list-item href="#"  class="border-bottom border-dark rounded">Daily Expenses <i class="fas fa-hand-holding-usd"></i></a>
@@ -22,7 +22,7 @@
         class="btn btn-transparent "
         (click)="drawer.toggle()"
         >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon" class="text-light">menu</mat-icon>
       </button>
       <span class="text-light" style="font-family: 'Times New Roman', Times, serif;font-weight: bold;">SpendingControl <i class="fas fa-piggy-bank"></i></span>
     </mat-toolbar>
