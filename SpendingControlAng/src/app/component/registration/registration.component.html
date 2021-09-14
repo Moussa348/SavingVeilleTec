@@ -23,7 +23,7 @@
   <div class="p-5"></div>
   <div class="p-2"></div>
   <mat-horizontal-stepper class="bg-transparent text-white"  [linear]="true" #stepper>
-    <mat-step  [completed]="registrationForm.valid" class="bg-transparent text-white" label="Fill Registration">
+    <mat-step  [completed]="registrationForm.valid && validateSamePassword()" class="bg-transparent text-white" label="Fill Registration">
       <mat-card
         @fade
         class="shadow container border blur bg-transparent shadow-lg"
@@ -31,7 +31,8 @@
         <form
           [formGroup]="registrationForm"
           (ngSubmit)="createPerson()"
-          class="font-weight-bolder"
+          class="font-weight-bolder needs-validation"
+          novalidate
         >
           <div class="m-3">
             <div class="flex-row text-start">
@@ -41,8 +42,9 @@
             </div>
             <div class="flex-row">
               <input
+                email
                 type="email"
-                class="form-control"
+                class="form-control {{isFieldTouched('email') ?validateField('email')?'is-valid':'is-invalid':''}}"
                 placeholder="email@email.com"
                 id="email"
                 formControlName="email"
@@ -59,7 +61,7 @@
             <div class="flex-row">
               <input
                 type="text"
-                class="form-control"
+                class="form-control {{isFieldTouched('firstName') ?validateField('firstName')?'is-valid':'is-invalid':''}}"
                 placeholder="First Name"
                 id="firstName"
                 formControlName="firstName"
@@ -76,7 +78,7 @@
             <div class="flex-row">
               <input
                 type="text"
-                class="form-control"
+                class="form-control {{isFieldTouched('lastName') ?validateField('lastName')?'is-valid':'is-invalid':''}}"
                 placeholder="Last Name"
                 id="lastName"
                 formControlName="lastName"
@@ -94,7 +96,7 @@
               <input
                 #pass
                 type="password"
-                class="form-control"
+                class="form-control {{isFieldTouched('password') ?validateField('password')?'is-valid':'is-invalid':''}}"
                 formControlName="password"
                 placeholder="min 8 character and max 40 character"
                 id="password"
@@ -114,7 +116,7 @@
                 type="password"
                 formControlName="passwordAgain"
                 placeholder="min 8 character and max 40 character"
-                class="form-control"
+                class="form-control {{isFieldTouched('passwordAgain') ?validateField('passwordAgain')?'is-valid':'is-invalid':''}}"
                 id="passwordAgain"
                 min="8"
                 max="40"

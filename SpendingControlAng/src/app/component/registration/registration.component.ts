@@ -36,8 +36,7 @@ export class RegistrationComponent implements OnInit {
 
   setRegistrationForm() {
     this.registrationForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('',  [Validators.required,Validators.email]),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -46,15 +45,16 @@ export class RegistrationComponent implements OnInit {
   }
 
   createPerson() {
+    this.registrationForm.get
     this.person.firstName = this.registrationForm.get('firstName').value;
     this.person.lastName = this.registrationForm.get('lastName').value;
     this.person.email = this.registrationForm.get('email').value;
     this.person.password = this.registrationForm.get('password').value;
 
     //console.log(this.person);
-    console.log(this.person);
 
     if (this.validateSamePassword() && this.registrationForm.valid) {
+      console.log(this.person);
       this.personService.createPerson(this.person).subscribe((data) => {
         this.registered = data;
         if (this.registered) {
@@ -65,9 +65,17 @@ export class RegistrationComponent implements OnInit {
   }
 
   validateSamePassword() {
-    return (
-      this.registrationForm.get('password').value ==
-      this.registrationForm.get('passwordAgain').value
-    );
+   const password = this.registrationForm.get('password').value;
+   const passwordAgain = this.registrationForm.get('passwordAgain').value;
+    return (passwordAgain != "" && passwordAgain != "") && (password == passwordAgain) ;
+  }
+
+  validateField(formControlName){
+    console.log(this.registrationForm.get(formControlName).errors);
+    return this.registrationForm.get(formControlName).valid;
+  }
+
+  isFieldTouched(formControlName){
+    return this.registrationForm.get(formControlName).touched;
   }
 }
