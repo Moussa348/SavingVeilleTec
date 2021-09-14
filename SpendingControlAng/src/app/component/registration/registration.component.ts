@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   person: Person = new Person();
-  registered = false;
+  registered = "pending";
 
   constructor(private personService: PersonService, private router: Router) {}
 
@@ -39,8 +39,8 @@ export class RegistrationComponent implements OnInit {
       email: new FormControl('',  [Validators.required,Validators.email]),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      passwordAgain: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required]),
+      passwordAgain: new FormControl('', [Validators.required]),
     });
   }
 
@@ -56,10 +56,7 @@ export class RegistrationComponent implements OnInit {
     if (this.validateSamePassword() && this.registrationForm.valid) {
       console.log(this.person);
       this.personService.createPerson(this.person).subscribe((data) => {
-        this.registered = data;
-        if (this.registered) {
-          this.router.navigate(['/authentication']);
-        }
+        this.registered = data?"true":"false";
       });
     }
   }
@@ -67,15 +64,18 @@ export class RegistrationComponent implements OnInit {
   validateSamePassword() {
    const password = this.registrationForm.get('password').value;
    const passwordAgain = this.registrationForm.get('passwordAgain').value;
-    return (passwordAgain != "" && passwordAgain != "") && (password == passwordAgain) ;
+    return (passwordAgain != "" && passwordAgain != "") && 
+    (password == passwordAgain)&& 
+    (password.length >= 8 && password.length <=40) && 
+    (passwordAgain.length >= 8 && passwordAgain.length <=40) ;
   }
 
   validateField(formControlName){
-    console.log(this.registrationForm.get(formControlName).errors);
     return this.registrationForm.get(formControlName).valid;
   }
 
   isFieldTouched(formControlName){
     return this.registrationForm.get(formControlName).touched;
   }
+
 }

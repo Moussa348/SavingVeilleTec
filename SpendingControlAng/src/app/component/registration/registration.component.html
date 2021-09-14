@@ -22,8 +22,16 @@
   <mat-divider class="border border-3"></mat-divider>
   <div class="p-5"></div>
   <div class="p-2"></div>
-  <mat-horizontal-stepper class="bg-transparent text-white"  [linear]="true" #stepper>
-    <mat-step  [completed]="registrationForm.valid && validateSamePassword()" class="bg-transparent text-white" label="Fill Registration">
+  <mat-horizontal-stepper
+    class="bg-transparent text-white"
+    [linear]="true"
+    #stepper
+  >
+    <mat-step
+      [completed]="registrationForm.valid && validateSamePassword()"
+      class="bg-transparent text-white"
+      label="Fill Registration"
+    >
       <mat-card
         @fade
         class="shadow container border blur bg-transparent shadow-lg"
@@ -44,7 +52,13 @@
               <input
                 email
                 type="email"
-                class="form-control {{isFieldTouched('email') ?validateField('email')?'is-valid':'is-invalid':''}}"
+                class="form-control {{
+                  isFieldTouched('email')
+                    ? validateField('email')
+                      ? 'is-valid'
+                      : 'is-invalid'
+                    : ''
+                }}"
                 placeholder="email@email.com"
                 id="email"
                 formControlName="email"
@@ -61,7 +75,13 @@
             <div class="flex-row">
               <input
                 type="text"
-                class="form-control {{isFieldTouched('firstName') ?validateField('firstName')?'is-valid':'is-invalid':''}}"
+                class="form-control {{
+                  isFieldTouched('firstName')
+                    ? validateField('firstName')
+                      ? 'is-valid'
+                      : 'is-invalid'
+                    : ''
+                }}"
                 placeholder="First Name"
                 id="firstName"
                 formControlName="firstName"
@@ -78,7 +98,13 @@
             <div class="flex-row">
               <input
                 type="text"
-                class="form-control {{isFieldTouched('lastName') ?validateField('lastName')?'is-valid':'is-invalid':''}}"
+                class="form-control {{
+                  isFieldTouched('lastName')
+                    ? validateField('lastName')
+                      ? 'is-valid'
+                      : 'is-invalid'
+                    : ''
+                }}"
                 placeholder="Last Name"
                 id="lastName"
                 formControlName="lastName"
@@ -96,7 +122,14 @@
               <input
                 #pass
                 type="password"
-                class="form-control {{isFieldTouched('password') ?validateField('password')?'is-valid':'is-invalid':''}}"
+                class="form-control {{
+                  isFieldTouched('password')
+                    ? validateField('password')
+                      ? validateSamePassword()? 'is-valid'
+                      : 'is-invalid'
+                    : ''
+                    :''
+                }}"
                 formControlName="password"
                 placeholder="min 8 character and max 40 character"
                 id="password"
@@ -116,7 +149,14 @@
                 type="password"
                 formControlName="passwordAgain"
                 placeholder="min 8 character and max 40 character"
-                class="form-control {{isFieldTouched('passwordAgain') ?validateField('passwordAgain')?'is-valid':'is-invalid':''}}"
+                class="form-control {{
+                  isFieldTouched('passwordAgain')
+                    ? validateField('passwordAgain')
+                      ? validateSamePassword()? 'is-valid'
+                      : 'is-invalid'
+                    : ''
+                    :''
+                }}"
                 id="passwordAgain"
                 min="8"
                 max="40"
@@ -130,10 +170,7 @@
             <div class="p-2"></div>
           </div>
 
-          <div 
-          class="flex-row d-flex justify-content-center"
-          
-          >
+          <div class="flex-row d-flex justify-content-center">
             <button
               mat-button
               matStepperNext
@@ -153,8 +190,109 @@
       </mat-card>
     </mat-step>
 
-    <mat-step [completed]="registered == false" label="Confirm Registration">
+    <mat-step label="Confirm Registration">
+      <mat-card
+        class="
+          shadow-lg
+          blur
+          bg-transparent
+          container
+          border
+          rounded
+          align-self-center
+        "
+        @fade
+      >
+        <div
+          class="text-center text-justify text-light m-5 text-wrap text-break text-justify"
+          *ngIf="registered == 'false'"
+        >
+          <div class="flex-row">
+            <h1 class="text-capitalize">
+              Your registration has Failed
+              <i class="fas fa-grimace fa-2x text-danger"></i>
+            </h1>
+          </div>
+          <div class="flex-row">
+            <p>
+              If you see this message it means, the email that you used is already
+              associated to an account, if it is your account please go to the login page and reset your password or
+              you can create a new account with a different...
+            </p>
+          </div>
+          <div class="flex-row d-flex justify-content-evenly">
+            <div class="pr-2">
+              <button
+                class="btn btn-dark rounded-pill border border-3 shadow"
+                [routerLink]="['/authentication']"
+              >
+                Authentication<i class="fas fa-sign-in-alt pl-1"></i>
+              </button>
+            </div>
 
+            <div>
+              <button
+                class="
+                  btn btn-info
+                  rounded-pill
+                  border border-3
+                  shadow
+                  text-light
+                "
+                [routerLink]="['/home']"
+              >
+                Home<i class="fas fa-door-open pl-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+        class="text-center text-justify text-light m-5 text-wrap text-break text-justify"
+        *ngIf="registered == 'pending'"
+        >
+        <h1 class="text-capitalize">
+          Wait a moment...
+          <i class="fas fa-meh-rolling-eyes text-warning fa-2x"></i>
+        </h1>
+
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        </div>
+
+        <div
+          class="text-center text-justify text-light m-5 text-wrap text-break "
+          *ngIf="registered == 'true'"
+        >
+          <div class="flex-row">
+            <h1 class="text-capitalize">
+              Your registration is a Success
+              <i class="fas fa-smile-wink fa-2x text-success"></i>
+            </h1>
+          </div>
+
+            <div class="flex-row">
+              <p>
+                Go check your mail to confirm your account!<i class="fas fa-envelope text-warning"></i>
+              </p>
+            </div>
+
+            <div class="flex-row d-flex justify-content-center">
+  
+              <div>
+                <button
+                  class="btn btn-dark rounded-pill border border-3 shadow"
+                  [routerLink]="['/authentication']"
+                >
+                  Authentication<i class="fas fa-sign-in-alt pl-1"></i>
+                </button>
+              </div>
+            </div>
+        </div>
+      </mat-card>
     </mat-step>
   </mat-horizontal-stepper>
 </div>

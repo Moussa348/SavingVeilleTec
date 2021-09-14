@@ -32,6 +32,7 @@ import { ListArticleDetailComponent } from './component/list-article-detail/list
 import { DatePipe } from '@angular/common';
 import { RegistrationComponent } from './component/registration/registration.component';
 import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { RegistrationVerifyCodeComponent } from './component/registration-verify
     MatCardModule,
     MatMenuModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
