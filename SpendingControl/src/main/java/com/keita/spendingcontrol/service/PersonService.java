@@ -40,7 +40,6 @@ public class PersonService {
             person.setRoles("USER");
             person.setPicture(FileUtil.setDefaultProfilePicture());
             emailService.confirmRegistration(person);
-            dailyExpenseService.createDailExpenseForPerson(personRepository.save(person));
             return true;
         }
         return false;
@@ -82,7 +81,7 @@ public class PersonService {
         person.setAccountVerified(true);
         person.setVerificationCode("");
 
-        personRepository.save(person);
+        dailyExpenseService.createDailExpenseForPerson(personRepository.save(person));
     }
 
     //TODO delete all account unverified

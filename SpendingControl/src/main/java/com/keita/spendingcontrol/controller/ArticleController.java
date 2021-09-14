@@ -33,4 +33,10 @@ public class ArticleController {
             @RequestParam("noPage")Integer noPage){
         return articleService.getListArticleDetailForDailyExperience(id,noPage);
     }
+
+    @PatchMapping("/increaseArticleQty/{id}")
+    @PreAuthorize("@authorizationService.isConnected(#articleDetail.personId)")
+    public void increaseArticleQty(@PathVariable Long id, @RequestBody ArticleDetail articleDetail){
+        articleService.increaseArticleQty(id,articleDetail);
+    }
 }

@@ -41,8 +41,7 @@ public class PersonControllerTest {
     @Test
     void createPerson() throws Exception{
         //ARRANGE
-        Person person1 = Person.builder().email("asdadasdasd@gmail.com").password("reda123").build();
-        Person person2 = Person.builder().email("redaHamza@gmail.com").password("reda123").build();
+        Person person1 = Person.builder().firstName("asdasdas").lastName("dsadasd").email("developpeurspring@gmail.com").password("reda123").build();
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.post("/person/createPerson")
@@ -51,16 +50,9 @@ public class PersonControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.post("/person/createPerson")
-                .content(mapper.writeValueAsString(person2))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
 
         //ASSERT
-        assertEquals("true",mvcResult1.getResponse().getContentAsString());
-        assertEquals("false",mvcResult2.getResponse().getContentAsString());
-
+        assertEquals("false",mvcResult1.getResponse().getContentAsString());
     }
 
     @Test

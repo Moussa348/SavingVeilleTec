@@ -24,10 +24,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+@Log
 @SpringBootTest
 @AutoConfigureMockMvc
-@Log
+@ActiveProfiles("test")
 public class DailyExpenseControllerTest {
 
     @Autowired
@@ -42,7 +42,7 @@ public class DailyExpenseControllerTest {
     @Test
     void addArticleToDailyExpense () throws Exception{
         //ARRANGE
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
+        DailyExpense dailyExpense = DailyExpense.builder().person(Person.builder().id(1L).build()).build();
         ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
