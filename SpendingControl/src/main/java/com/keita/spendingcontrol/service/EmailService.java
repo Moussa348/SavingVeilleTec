@@ -17,15 +17,12 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Transactional
     public void confirmRegistration(Person person) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
 
         mimeMessageHelper.setTo(person.getEmail());
         mimeMessageHelper.setSubject(person.getLastName() + ", " + person.getFirstName() + " please confirm your registration");
-
-        person.setVerificationCode(RandomString.make(20));
 
         String content = "Dear [[name]],<br>"
                 + "Please click the link below to verify your registration:<br>"

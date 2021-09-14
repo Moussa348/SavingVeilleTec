@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import { Error404Component } from './component/error404/error404.component';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatStepperModule} from '@angular/material/stepper';
 import { AmbientMusicComponent } from './component/ambient-music/ambient-music.component';
 import { HomeComponent } from './component/home/home.component';
 import { NavComponent } from './component/nav/nav.component';
@@ -55,6 +56,7 @@ import { RegistrationVerifyCodeComponent } from './component/registration-verify
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatStepperModule,
     MatSliderModule,
     JwtModule.forRoot({
       config:{

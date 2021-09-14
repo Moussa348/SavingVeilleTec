@@ -39,7 +39,8 @@ public class PersonService {
             person.setRegistrationDate(LocalDate.now());
             person.setRoles("USER");
             person.setPicture(FileUtil.setDefaultProfilePicture());
-            emailService.confirmRegistration(person);
+            person.setVerificationCode(RandomString.make(20));
+            emailService.confirmRegistration(personRepository.save(person));
             return true;
         }
         return false;

@@ -25,13 +25,10 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
-  person:Person = new Person();
+  person: Person = new Person();
   registered = false;
 
-  constructor(
-    private personService: PersonService,
-    private router:Router
-    ) {}
+  constructor(private personService: PersonService, private router: Router) {}
 
   ngOnInit(): void {
     this.setRegistrationForm();
@@ -55,13 +52,22 @@ export class RegistrationComponent implements OnInit {
     this.person.password = this.registrationForm.get('password').value;
 
     //console.log(this.person);
-      console.log(this.person);
+    console.log(this.person);
 
+    if (this.validateSamePassword() && this.registrationForm.valid) {
       this.personService.createPerson(this.person).subscribe((data) => {
         this.registered = data;
         if (this.registered) {
           this.router.navigate(['/authentication']);
         }
       });
+    }
+  }
+
+  validateSamePassword() {
+    return (
+      this.registrationForm.get('password').value ==
+      this.registrationForm.get('passwordAgain').value
+    );
   }
 }
