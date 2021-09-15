@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -115,5 +116,17 @@ public class DailyExpenseServiceTest {
 
         //ASSERT
         assertEquals(80.0f,subTotal);
+    }
+
+    @Test
+    void findByPersonIdAndDate() {
+        //ARRANGE
+        Long id = 1L;
+        LocalDate date = LocalDate.now();
+
+        when(dailyExpenseRepository.findByPersonIdAndDate(id, date)).thenReturn(Optional.empty());
+
+        //ASSERT
+        assertThrows(ResponseStatusException.class, () -> dailyExpenseService.findDailyExpenseByPersonIdAndDate(id, date));
     }
 }

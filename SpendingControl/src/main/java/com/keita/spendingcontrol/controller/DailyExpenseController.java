@@ -25,9 +25,6 @@ public class DailyExpenseController {
     @Autowired
     private DailyExpenseService dailyExpenseService;
 
-    @Autowired
-    private DailyExpenseRepository dailyExpenseRepository;
-
     @PatchMapping("/addArticleToDailyExpense")
     @PreAuthorize("@authorizationService.isConnected(#articleDetail.personId)")
     public void addArticleToDailyExpense(@RequestBody ArticleDetail articleDetail){

@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,9 @@ public class ArticleServiceTest {
 
     @Mock
     ArticleRepository articleRepository;
+
+    @Mock
+    DailyExpenseService dailyExpenseService;
 
     @InjectMocks
     ArticleService articleService;
@@ -85,6 +89,22 @@ public class ArticleServiceTest {
 
         //ASSERT
         assertEquals(3, articleDetails.size());
+    }
+
+    @Test
+    void getListArticleNameInDailyExpenseByPersonId() {
+        //ARRANGE
+        Long id = 1L;
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
+        dailyExpense.setArticles(Arrays.asList(Article.builder().name("cereales").build(),Article.builder().name("magnoc").build()));
+
+        when(dailyExpenseService.findDailyExpenseByPersonIdAndDate(id, LocalDate.now())).thenReturn(dailyExpense);
+
+        //ACT
+        List<String> articleNames = articleService.getListArticleNameInDailyExpenseByPersonId(id);
+
+        //ASSERT
+        assertEquals(2, articleNames.size());
     }
 
     @Test

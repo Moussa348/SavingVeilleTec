@@ -34,6 +34,12 @@ public class ArticleController {
         return articleService.getListArticleDetailForDailyExperience(id,noPage);
     }
 
+    @GetMapping("/getListArticleNameInDailyExpenseByPersonId/{id}")
+    @PreAuthorize("@authorizationService.isConnected(#id)")
+    public List<String> getListArticleNameInDailyExpenseByPersonId(@PathVariable Long id){
+        return articleService.getListArticleNameInDailyExpenseByPersonId(id);
+    }
+
     @PatchMapping("/increaseArticleQty/{id}")
     @PreAuthorize("@authorizationService.isConnected(#articleDetail.personId)")
     public void increaseArticleQty(@PathVariable Long id, @RequestBody ArticleDetail articleDetail){

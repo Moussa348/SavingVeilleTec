@@ -11,6 +11,8 @@ import {
 import { PersonService } from 'src/app/service/person.service';
 import { Dashboard } from 'src/app/model/dashboard';
 import { getId } from 'src/app/util/jwtUtils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddingArticleComponent } from '../adding-article/adding-article.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +30,10 @@ export class DashboardComponent {
   id = getId();
   todayDate = new Date();
   dashboard: Dashboard = new Dashboard();
-  constructor(private personService: PersonService) {}
+  constructor(
+    private personService: PersonService,
+    private modalService : NgbModal
+    ) {}
 
   ngOnInit(): void {
     this.getDashboard();
@@ -60,5 +65,13 @@ export class DashboardComponent {
 
   getListArticles(){
     return this.dashboard.dailyExpenseDetail.articleDetails;
+  }
+
+  openUpdateRegistration() {
+
+      const modalRef = this.modalService.open(AddingArticleComponent, {
+        centered: true,
+        scrollable: true,
+      });
   }
 }

@@ -62,8 +62,9 @@ public class DailyExpenseService {
         return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end).stream().map(DailyExpense::getTotal).reduce(0.0f, Float::sum);
     }
 
-    private DailyExpense findDailyExpenseByPersonIdAndDate(Long id,LocalDate date){
+    public DailyExpense findDailyExpenseByPersonIdAndDate(Long id,LocalDate date){
         return dailyExpenseRepository.findByPersonIdAndDate(id,date).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find daily expense with id : " + id + " ,and date : " + date));
     }
+
 
 }

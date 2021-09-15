@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,9 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private DailyExpenseService dailyExpenseService;
 
     public Article createArticleForDailyExpense(ArticleDetail articleDetail, DailyExpense dailyExpense){
          return new Article(articleDetail,dailyExpense);
@@ -38,6 +42,11 @@ public class ArticleService {
                 .stream().map(ArticleDetail::new).collect(Collectors.toList());
     }
 
+
+    public List<String> getListArticleNameInDailyExpenseByPersonId(Long personId){
+        return dailyExpenseService.findDailyExpenseByPersonIdAndDate(personId, LocalDate.now())
+                .getArticles().stream().map(Article::getName).collect(Collectors.toList());
+    }
     public void increaseArticleQty(Long id,ArticleDetail articleDetail){
         Article article = articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find article with name : " + articleDetail.getName()));
 

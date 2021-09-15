@@ -33,6 +33,7 @@ import { DatePipe } from '@angular/common';
 import { RegistrationComponent } from './component/registration/registration.component';
 import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { AddingArticleComponent } from './component/adding-article/adding-article.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AuthGuardService } from './service/auth-guard.service';
     ListArticleDetailComponent,
     RegistrationComponent,
     RegistrationVerifyCodeComponent,
+    AddingArticleComponent,
   ],
   imports: [
     BrowserModule,
