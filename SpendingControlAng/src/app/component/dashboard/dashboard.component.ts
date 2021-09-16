@@ -67,7 +67,7 @@ export class DashboardComponent {
     return this.dashboard.dailyExpenseDetail.articleDetails;
   }
 
-  openUpdateRegistration() {
+  openAddingArticle() {
 
       const modalRef = this.modalService.open(AddingArticleComponent, {
         centered: true,

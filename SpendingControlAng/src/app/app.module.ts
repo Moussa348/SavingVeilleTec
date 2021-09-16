@@ -29,6 +29,7 @@ import { FooterComponent } from './component/footer/footer.component';
 import { AuthComponent } from './component/auth/auth.component';
 import { ArtilceUtilityChartComponent } from './component/chart/artilce-utility-chart/artilce-utility-chart.component';
 import { ListArticleDetailComponent } from './component/list-article-detail/list-article-detail.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DatePipe } from '@angular/common';
 import { RegistrationComponent } from './component/registration/registration.component';
 import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
@@ -74,6 +75,7 @@ import { AddingArticleComponent } from './component/adding-article/adding-articl
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatIconModule,
     MatListModule,
     MatCardModule,
