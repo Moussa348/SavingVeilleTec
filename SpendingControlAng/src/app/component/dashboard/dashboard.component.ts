@@ -73,5 +73,7 @@ export class DashboardComponent {
         centered: true,
         scrollable: true,
       });
+
+      modalRef.componentInstance.personId = this.dashboard.personDetail.id;
   }
 }

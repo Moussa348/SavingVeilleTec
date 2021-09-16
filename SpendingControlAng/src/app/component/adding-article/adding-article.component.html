@@ -21,7 +21,7 @@
   <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
   <div class="modal-body bg-dark mt-4">
     <div class="card shadow text-light bg-dark border">
-        <div class="m-3 flex-row d-flex justify-content-start">
+        <div class="m-4 flex-row d-flex justify-content-center">
           <span class="text-capitalize mr-1"> Article Already Exist ? </span>
           <mat-slide-toggle
             color="primary"
@@ -43,7 +43,13 @@
           <div class="flex-row text-start">
             <input
               type="text"
-              class="form-control rounded border border border shadow"
+              class="form-control {{
+                isFieldTouched('name')
+                  ? isFieldValid('name')
+                    ? 'is-valid'
+                    : 'is-invalid'
+                  : ''
+              }} rounded border border border shadow"
               id="name"
               formControlName="name"
             />
@@ -60,7 +66,13 @@
             <input
               #name
               type="number"
-              class="form-control rounded border border border shadow"
+              class="form-control {{
+                isFieldTouched('qty')
+                  ? isFieldValid('qty')
+                    ? 'is-valid'
+                    : 'is-invalid'
+                  : ''
+              }} rounded border border border shadow"
               id="qty"
               formControlName="qty"
               min="0"
@@ -74,6 +86,20 @@
         </div>
 
         
+        <div class="m-4 flex-row d-flex justify-content-center">
+          <span class="text-capitalize">Do they have the same price ?</span>
+          <mat-slide-toggle
+          color="primary"
+            class="pr-2"
+            [(ngModel)]="everyArticleHasSamePrice"
+            [ngModelOptions]="{standalone: true}"
+          ></mat-slide-toggle>
+        </div>
+
+        <div class="flex-row">
+          <mat-divider class="border"></mat-divider>
+        </div>
+
         <div class="m-4">
           <div class="flex-row text-start">
             <label for="qty" class="form-label text-light text-start"
@@ -84,7 +110,13 @@
             <input
               #name
               type="number"
-              class="form-control rounded border border border shadow"
+              class="form-control {{
+                isFieldTouched('price')
+                  ? isFieldValid('price')
+                    ? 'is-valid'
+                    : 'is-invalid'
+                  : ''
+              }} rounded border border border shadow"
               id="price"
               formControlName="price"
               min="0"
@@ -93,18 +125,14 @@
           </div>
         </div>
 
-        <div class="m-3 flex-row d-flex justify-content-start">
-          <span class="text-capitalize">Do they have the same price ?</span>
-          <mat-slide-toggle
-          color="primary"
-            class="pr-2"
-            [(ngModel)]="everyArticleHasSamePrice"
-            [ngModelOptions]="{standalone: true}"
-          ></mat-slide-toggle>
-        </div>
-
-        <div class="m-3 flex-row d-flex justify-content-start">
-          <select class="form-select" aria-label="Default select example">
+        <div class="m-4 flex-row d-flex justify-content-start">
+          <select class="form-select {{
+            isFieldTouched('degreeOfUseFullness')
+              ? isFieldValid('degreeOfUseFullness')
+                ? 'is-valid'
+                : 'is-invalid'
+              : ''
+          }}" formControlName="degreeOfUseFullness" aria-label="Default select example">
             <option
               *ngFor="let degUseFullNess of listDegOfUseFullNess"
               [value]="degUseFullNess"
