@@ -35,6 +35,8 @@ import { RegistrationComponent } from './component/registration/registration.com
 import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { AddingArticleComponent } from './component/adding-article/adding-article.component';
+import { DailyExpenseDetailComponent } from './component/daily-expense-detail/daily-expense-detail.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { AddingArticleComponent } from './component/adding-article/adding-articl
     RegistrationComponent,
     RegistrationVerifyCodeComponent,
     AddingArticleComponent,
+    DailyExpenseDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import { AddingArticleComponent } from './component/adding-article/adding-articl
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    NgbModule
   ],
   providers: [DatePipe,AuthGuardService],
   bootstrap: [AppComponent]

@@ -9,7 +9,7 @@ import { DailyExpense } from '../model/daily-expense';
 export class DailyExpenseService {
   url = "http://localhost:4444/dailyExpense/"
 
-  constructor(private http:HttpClient) { }
+  constructor( private http:HttpClient ) { }
 
   addArticleToDailyExpense(article:Article){
     return this.http.patch(this.url + 'addArticleToDailyExpense',article);

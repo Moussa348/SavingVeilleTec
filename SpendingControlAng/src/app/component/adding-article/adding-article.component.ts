@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Article } from 'src/app/model/article';
 import { DegreeOfUseFullness } from 'src/app/model/enum/degree-of-use-fullness.enum';
 import { DailyExpenseService } from 'src/app/service/daily-expense.service';
+import { needZeroAtEnd } from 'src/app/util/formatUtil';
 
 @Component({
   selector: 'app-adding-article',
@@ -11,13 +12,15 @@ import { DailyExpenseService } from 'src/app/service/daily-expense.service';
   styleUrls: ['./adding-article.component.css'],
 })
 export class AddingArticleComponent implements OnInit {
-  @Input() personId;
-  createAnExistingArticle = false;
-  everyArticleHasSamePrice = false;
-  articleForm: FormGroup;
-  article: Article = new Article();
-  chosenDegOfUseFullNess;
   listDegOfUseFullNess = ['LOW', 'MEDIUM', 'HIGH'];
+  createAnExistingArticle = false;
+  everyArticleHasSamePrice = true;
+  article: Article = new Article();
+  articleForm: FormGroup;
+  chosenDegOfUseFullNess;
+  @Input() personId;
+  disbled = true;
+  prices = new Array();
   @Output() dasdasd;
 
   constructor(
@@ -35,7 +38,7 @@ export class AddingArticleComponent implements OnInit {
       name: new FormControl('', Validators.required),
       qty: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
-      degreeOfUseFullness: new FormControl('',Validators.required)
+      degreeOfUseFullness: new FormControl('', Validators.required),
     });
   }
 
@@ -47,18 +50,32 @@ export class AddingArticleComponent implements OnInit {
     this.article.personId = this.personId;
     this.article.name = this.articleForm.get('name').value;
     this.article.qty = this.articleForm.get('qty').value;
-    this.article.price = this.articleForm.get('price').value;
-    this.article.degreeOfUseFullness = this.articleForm.get('degreeOfUseFullness').value;
-    console.log(this.article.degreeOfUseFullness);
+    this.article.price = this.articleForm.get('price').value * this.article.qty;
+    this.article.degreeOfUseFullness = this.articleForm.get(
+      'degreeOfUseFullness'
+    ).value;
 
     //this.dailyExpenseService.addArticleToDailyExpense(this.article).subscribe((err) => console.log(err));
+  }
+
+  addPrices(price) {
+    this.prices.push.apply(this.prices, price);
+    console.log(this.prices);
+  }
+
+  setPrices($event) {
+    console.log($event.target.value);
+  }
+
+  needZeroAtEnd(number) {
+    return needZeroAtEnd(number);
   }
 
   isFieldValid(formControlName) {
     return this.articleForm.get(formControlName).valid;
   }
 
-  isFieldTouched(formControlName){
+  isFieldTouched(formControlName) {
     return this.articleForm.get(formControlName).touched;
   }
 }

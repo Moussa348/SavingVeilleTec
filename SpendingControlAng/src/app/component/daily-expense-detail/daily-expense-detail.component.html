@@ -1,0 +1,63 @@
+<app-nav></app-nav>
+<div class="container" @fade>
+  <div class="row">
+    <div class="p-5"></div>
+    <mat-divider class="text-light border border-3"></mat-divider>
+    <div class="p-4"></div>
+    <div
+      class="
+        row
+        d-flex
+        justify-content-center
+        text-uppercase
+        font-weight-bold
+        text-light text-center
+      "
+    >
+      <h1 style="font-family: 'Times New Roman', Times, serif">
+        Daily Expenses <i class="fas fa-hand-holding-usd"></i>
+      </h1>
+    </div>
+    <div class="p-4"></div>
+    <mat-divider class="text-light border border-3"></mat-divider>
+    <div class="p-5"></div>
+  </div>
+</div>
+
+<div class="container" @fade>
+  <div class="row d-flex justify-content-center text-white">
+    <div class="col-lg-4">
+      <mat-divider class="border"></mat-divider>
+      <div class="p-2"></div>
+      <div class="row d-flex justify-content-center">
+        <h2 @fade class="lead text-center">
+          Calendar<i class="fas fa-calendar-alt pl-1"></i>
+        </h2>
+      </div>
+
+      <div class="p-2"></div>
+      <mat-divider class="border"></mat-divider>
+      <div class="p-4"></div>
+    </div>
+  </div>
+  <div class="flex-row d-flex justify-content-center">
+    <div class="card bg-transparent blur">
+      <ngb-datepicker
+        class="bg-light blur"
+        #dp
+        [startDate]="{ year: model.year, month: model.month, day: model.day }"
+        [(ngModel)]="model"
+        (navigate)="date = $event.next"
+        [displayMonths]="2"
+        (dateSelect)="getDailyExpenseDetail($event)"
+        class="h-100 shadow border"
+      ></ngb-datepicker>
+    </div>
+  </div>
+</div>
+
+<div class="flex-row">
+  <div class="p-5"></div>
+  <div class="p-5"></div>
+</div>
+<app-footer class="position-sticky"></app-footer>

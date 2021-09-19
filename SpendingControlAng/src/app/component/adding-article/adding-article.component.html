@@ -77,6 +77,7 @@
               formControlName="qty"
               min="0"
               pattern="^[0-9]+$"
+              (change)="setPrices($event)"
             />
           </div>
         </div>
@@ -100,13 +101,14 @@
           <mat-divider class="border"></mat-divider>
         </div>
 
+
         <div class="m-4">
           <div class="flex-row text-start">
             <label for="qty" class="form-label text-light text-start"
               >Article Price</label
             >
           </div>
-          <div class="flex-row text-start">
+          <div class="flex-row text-start" *ngIf="everyArticleHasSamePrice == true">
             <input
               #name
               type="number"
@@ -120,8 +122,12 @@
               id="price"
               formControlName="price"
               min="0"
-              pattern="^[0-9]+.[0-9]$"
+              pattern="^[0-9]+[.,]?[0-9]{0,}$"
             />
+          </div>
+
+          <div class="flex-row text-start" *ngIf="everyArticleHasSamePrice == false">
+              <div></div>
           </div>
         </div>
 
@@ -145,7 +151,7 @@
     </div>
     
     <div class="modal-footer flex-row d-flex justify-content-center mt-4">
-      <button type="submit" class="btn btn-outline-warning rounded-pill">
+      <button [disabled]="disbled" type="submit" class="btn btn-outline-warning rounded-pill">
         Add Article<i class="fas fa-plus-circle"></i>
       </button>
     </div>

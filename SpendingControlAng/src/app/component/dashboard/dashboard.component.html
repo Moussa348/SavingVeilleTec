@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 
-<div class="container">
+<div class="container" @fade>
   <div class="row">
     <div class="p-5"></div>
     <mat-divider class="text-light border border-3"></mat-divider>
@@ -88,6 +88,7 @@
                 </div>
                 <div class="flex-row d-flex justify-content-end" style="padding-right: 50px;">
                   <button
+                  [routerLink]="['/dailyExpenseDetail']"
                     class="btn btn-outline-primary border shadow rounded-pill p-3"
                   >
                     See Expense Detail <i class="fas fa-list-ul"></i>
