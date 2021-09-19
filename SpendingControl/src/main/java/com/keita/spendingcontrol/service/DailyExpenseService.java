@@ -63,7 +63,7 @@ public class DailyExpenseService {
     }
 
     public DailyExpense findDailyExpenseByPersonIdAndDate(Long id,LocalDate date){
-        return dailyExpenseRepository.findByPersonIdAndDate(id,date).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find daily expense with id : " + id + " ,and date : " + date));
+        return dailyExpenseRepository.findByPersonIdAndDate(id,date).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find daily expense with id : " + id + " ,and date : " + date));
     }
 
 

@@ -77,7 +77,7 @@ public class PersonService {
 
     public void confirmVerificationCode(String verificationCode){
         Person person = personRepository.findByVerificationCode(verificationCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find person with this verification code"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find person with this verification code"));
 
         person.setAccountVerified(true);
         person.setVerificationCode("");
@@ -97,7 +97,7 @@ public class PersonService {
     }
 
     public Person getPersonById(Long id){
-        return personRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't find person with id: " + id));
+        return personRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find person with id: " + id));
     }
 
 
@@ -116,6 +116,6 @@ public class PersonService {
 
     public Person findPersonByEmailAndPassword(String email,String password){
         return personRepository.findByEmailAndPassword(email,password)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find person with : " + email));
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find person with : " + email));
     }
 }

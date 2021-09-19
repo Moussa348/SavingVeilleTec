@@ -48,7 +48,7 @@ public class ArticleService {
                 .getArticles().stream().map(Article::getName).collect(Collectors.toList());
     }
     public void increaseArticleQty(Long id,ArticleDetail articleDetail){
-        Article article = articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't find article with name : " + articleDetail.getName()));
+        Article article = articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find article with name : " + articleDetail.getName()));
 
         article.setQty(article.getQty() + articleDetail.getQty());
         article.setPrice(article.getPrice() + articleDetail.getPrice());

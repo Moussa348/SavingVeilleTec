@@ -43,7 +43,7 @@ public class Article implements Serializable {
         this.name = articleDetail.getName();
         this.qty = articleDetail.getQty();
         this.price = articleDetail.getPrice();
-        this.degreeOfUseFullness = articleDetail.getDegreeOfUseFullness();
+        this.degreeOfUseFullness = DegreeOfUseFullness.valueOf(articleDetail.getDegreeOfUseFullness().toUpperCase());
         this.dailyExpense = dailyExpense;
     }
 }

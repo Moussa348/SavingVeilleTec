@@ -41,9 +41,8 @@
     </div>
   </div>
   <div class="flex-row d-flex justify-content-center">
-    <div class="card bg-transparent blur">
+    <div class="card bg-transparent blur text-light">
       <ngb-datepicker
-        class="bg-light blur"
         #dp
         [startDate]="{ year: model.year, month: model.month, day: model.day }"
         [(ngModel)]="model"
@@ -53,6 +52,78 @@
         class="h-100 shadow border"
       ></ngb-datepicker>
     </div>
+  </div>
+
+  <div class="flex-row">
+    <div class="p-5"></div>
+  </div>
+</div>
+
+<div class="container-fluid" @fade>
+  <div class="row">
+    <div class="col"></div>
+
+    <div class="col-2">
+      <div
+        class="card border shadow blur bg-transparent text-center text-white"
+      >
+        <div class="flex-row d-flex justify-content-center">
+          <h3 class="text-capitalize">
+            <u> Most Expensive Article </u>
+          </h3>
+        </div>
+        <div
+          class="flex-row d-flex justify-content-start text-justify text-wrap"
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+          quia maiores modi libero qui corporis a deserunt nulla porro eaque?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, totam.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div
+        class="card border shadow blur bg-transparent text-center text-light"
+      >
+        <div class="flex-row d-flex justify-content-center">
+          <h3 class="text-capitalize">
+            <u> General Details </u>
+          </h3>
+        </div>
+        <div
+          class="flex-row d-flex justify-content-start text-justify text-wrap"
+        >
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum
+          labore dolore laboriosam vitae esse hic sapiente doloremque, similique
+          enim quas? Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Quis, dicta impedit. Dolores ea quaerat iste quisquam minima quo
+          eveniet omnis.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div
+        class="card border shadow blur bg-transparent text-center text-light"
+      >
+        <div class="flex-row d-flex justify-content-center">
+          <h3 class="text-capitalize">
+            <u> Cheapest Article </u>
+          </h3>
+        </div>
+        <div
+          class="flex-row d-flex justify-content-start text-justify text-wrap"
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
+          explicabo, iste quae consequuntur error perferendis possimus
+          necessitatibus laudantium voluptas vero. Lorem ipsum dolor sit amet
+          consectetur, adipisicing elit. Excepturi, explicabo nisi debitis
+          laboriosam maiores totam.
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
   </div>
 </div>
 
