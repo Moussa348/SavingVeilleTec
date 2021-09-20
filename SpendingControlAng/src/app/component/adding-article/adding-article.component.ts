@@ -55,7 +55,13 @@ export class AddingArticleComponent implements OnInit {
       'degreeOfUseFullness'
     ).value;
 
-    //this.dailyExpenseService.addArticleToDailyExpense(this.article).subscribe((err) => console.log(err));
+    this.dailyExpenseService.addArticleToDailyExpense(this.article).subscribe(
+      () =>{
+        this.activeModal.close();
+      },
+      (err) => {
+      console.log(err)
+    });
   }
 
   addPrices(price) {

@@ -1,7 +1,6 @@
 package com.keita.spendingcontrol.model.dto;
 
 import com.keita.spendingcontrol.model.entity.Article;
-import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import lombok.Data;
 
 import java.io.Serializable;

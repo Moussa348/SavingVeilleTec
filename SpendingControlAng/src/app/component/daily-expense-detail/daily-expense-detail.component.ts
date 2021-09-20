@@ -59,4 +59,5 @@ export class DailyExpenseDetailComponent implements OnInit {
    console.log(date);
   }
 
+
 }
