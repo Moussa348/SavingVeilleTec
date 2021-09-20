@@ -41,7 +41,7 @@ public class ArticleServiceTest {
     void createArticleForDailyExpense() {
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
-        ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
 
         //ACT
         Article newArticle = articleService.createArticleForDailyExpense(articleDetail, dailyExpense);

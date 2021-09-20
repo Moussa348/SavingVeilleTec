@@ -180,10 +180,10 @@ public class PersonControllerTest {
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/confirmVerificationCode/" + verificationCode)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         //ASSERT
-        assertEquals(MockHttpServletResponse.SC_BAD_REQUEST,mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_NOT_FOUND,mvcResult1.getResponse().getStatus());
     }
 
     @Test

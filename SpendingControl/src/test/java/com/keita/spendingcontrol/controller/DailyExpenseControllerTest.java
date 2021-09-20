@@ -5,6 +5,7 @@ import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
+import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import com.keita.spendingcontrol.security.JwtService;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ public class DailyExpenseControllerTest {
     void addArticleToDailyExpense () throws Exception{
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
-        ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
         String token1 = "Bearer " + jwtService.generate(person1);

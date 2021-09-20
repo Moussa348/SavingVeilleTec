@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,6 +31,9 @@ public class PersonServiceTest {
 
     @Mock
     PersonRepository personRepository;
+
+    @Mock
+    EmailService emailService;
 
     @Mock
     DailyExpenseService dailyExpenseService;
@@ -200,9 +204,9 @@ public class PersonServiceTest {
         //ARRANGE
         String email2 = "adadasdasd";
         String password2 = "adadasdasd";
-        when(personRepository.findByEmailAndPassword(email2,password2)).thenReturn(Optional.empty());
+        when(personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email2,password2)).thenReturn(Optional.empty());
 
         //ASSERT
-        assertThrows(ResponseStatusException.class,() -> personService.findPersonByEmailAndPassword(email2,password2));
+        assertThrows(ResponseStatusException.class,() -> personService.findPersonByEmailAndPassword(email2,password2, HttpStatus.NOT_FOUND));
     }
 }

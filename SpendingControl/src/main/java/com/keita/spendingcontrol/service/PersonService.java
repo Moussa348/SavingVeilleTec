@@ -114,8 +114,8 @@ public class PersonService {
         return personRepository.findAllByActiveTrue();
     }
 
-    public Person findPersonByEmailAndPassword(String email,String password){
-        return personRepository.findByEmailAndPassword(email,password)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find person with : " + email));
+    public Person findPersonByEmailAndPassword(String email,String password,HttpStatus httpStatus){
+        return personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email,password)
+                .orElseThrow( () -> new ResponseStatusException(httpStatus,"Can't find person with : " + email));
     }
 }

@@ -12,12 +12,12 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ActiveProfiles("test")
 @Log
 public class PersonRepositoryTest {
 
@@ -31,7 +31,7 @@ public class PersonRepositoryTest {
                 Person.builder().email("dsadasd@gmail.com").verificationCode("abcdefg").build(),
                 Person.builder().email("erwwerwer@gmail.com").build()
         );
-
+        persons.get(0).setAccountVerified(true);
         persons.get(1).setActive(false);
         persons.get(2).setActive(false);
 
@@ -60,6 +60,19 @@ public class PersonRepositoryTest {
 
         //ASSERT
         assertEquals(1,persons.size());
+    }
+
+    @Test
+    void findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(){
+        //ARRANGE
+        String email1 = "francois@gmail.com";
+        String password1 = "francois123";
+
+        //ACT
+        Optional<Person> person = personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email1,password1);
+
+        //ASSERT
+        assertTrue(person.isPresent());
     }
 
     @Test

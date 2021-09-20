@@ -65,7 +65,7 @@ public class DailyExpenseServiceTest {
     void addArticleToDailyExpense(){
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
-        ArticleDetail articleDetail = new ArticleDetail(Article.builder().dailyExpense(dailyExpense).build());
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
         when(dailyExpenseRepository.findByPersonIdAndDate(dailyExpense.getPerson().getId(),LocalDate.now())).thenReturn(Optional.of(dailyExpense));
         when(articleService.createArticleForDailyExpense(articleDetail,dailyExpense)).thenReturn(new Article(articleDetail,dailyExpense));
 

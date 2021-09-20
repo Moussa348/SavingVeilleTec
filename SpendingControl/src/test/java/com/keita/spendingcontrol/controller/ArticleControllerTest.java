@@ -154,7 +154,7 @@ public class ArticleControllerTest {
         String token2 = "Bearer " + jwtService.generate(person2);
 
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(person1).build();
-        ArticleDetail articleDetail =  new ArticleDetail(Article.builder().id(1L).name("cereales").dailyExpense(dailyExpense).qty(4).price(24.5f).build());
+        ArticleDetail articleDetail =  new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).id(1L).name("cereales").dailyExpense(dailyExpense).qty(4).price(24.5f).build());
 
         //ACT
 

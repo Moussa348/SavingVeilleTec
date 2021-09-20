@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@ActiveProfiles("test")
 @Log
 public class DailyExpenseRepositoryTest {
 
