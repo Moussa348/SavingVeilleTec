@@ -14,27 +14,24 @@ import java.util.Map;
 public class DailyAnalyticService {
 
 
-    public Float getTotalPrice(DailyExpense dailyExpense){
-        return dailyExpense.getArticles().stream().map(Article::getPrice).reduce(0.0f,Float::sum);
-    }
 
-    public ArticleDetail getMostExpensiveArticle(List<Article> articles){
+    public ArticleDetail getMostExpensiveArticle(List<Article> articles) {
         return articles.stream().max(Comparator.comparing(Article::getPrice)).map(ArticleDetail::new).get();
     }
 
-    public Map<DegreeOfUseFullness,ArticleDetail> getMapMostExpensiveArticlesByUseFullness(List<Article> articles){
+    public Map<DegreeOfUseFullness, ArticleDetail> getMapMostExpensiveArticlesByUseFullness(List<Article> articles) {
         return null;
     }
 
-    public ArticleDetail getLessExpensiveArticle(List<Article> articles){
+    public ArticleDetail getLessExpensiveArticle(List<Article> articles) {
+        return articles.stream().min(Comparator.comparing(Article::getPrice)).map(ArticleDetail::new).get();
+    }
+
+    public Map<DegreeOfUseFullness, ArticleDetail> getMapLessExpensiveArticlesByUseFullness(List<Article> articles) {
         return null;
     }
 
-    public Map<DegreeOfUseFullness,ArticleDetail> getMapLessExpensiveArticlesByUseFullness(List<Article> articles){
-        return null;
-    }
-
-    public Map<DegreeOfUseFullness,Float> getMapTotalByUseFullness(List<Article> articles){
+    public Map<DegreeOfUseFullness, Float> getMapTotalByUseFullness(List<Article> articles) {
         return null;
     }
 

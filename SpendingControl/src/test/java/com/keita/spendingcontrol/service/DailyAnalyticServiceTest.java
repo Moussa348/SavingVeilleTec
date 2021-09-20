@@ -25,25 +25,6 @@ public class DailyAnalyticServiceTest {
 
 
     @Test
-    void getTotalPrice(){
-        //ARRANGE
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
-
-        dailyExpense.setArticles(Arrays.asList(
-                Article.builder().dailyExpense(dailyExpense).price(25.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).price(25.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).price(25.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
-                Article.builder().dailyExpense(dailyExpense).price(25.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build()
-        ));
-
-        //ACT
-        Float totalPrice = dailyAnalyticService.getTotalPrice(dailyExpense);
-
-        //ASSERT
-        assertEquals(100.0f, totalPrice);
-    }
-
-    @Test
     void getMostExpensiveArticle(){
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
@@ -74,10 +55,20 @@ public class DailyAnalyticServiceTest {
     @Test
     void getLessExpensiveArticle(){
         //ARRANGE
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
+
+        dailyExpense.setArticles(Arrays.asList(
+                Article.builder().name("comcombre").dailyExpense(dailyExpense).price(45.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("cereales").dailyExpense(dailyExpense).price(45.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poire").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poulet").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build()
+        ));
 
         //ACT
+        ArticleDetail mostExpensiveArticle = dailyAnalyticService.getLessExpensiveArticle(dailyExpense.getArticles());
 
         //ASSERT
+        assertEquals(20.0f,mostExpensiveArticle.getPrice());
     }
 
     @Test
