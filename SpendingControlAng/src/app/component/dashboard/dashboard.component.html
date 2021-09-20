@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 
-<div class="container" @fade>
+<div class="container" >
   <div class="row">
     <div class="p-5"></div>
     <mat-divider class="text-light border border-3"></mat-divider>
@@ -40,7 +40,7 @@
           style="opacity: 1"
         >
           <div class="flex-row">
-            <h2 class="text-center">
+            <h2 class="text-center" @fade>
               <u>Personal Details <i class="fas fa-address-card"></i></u>
             </h2>
           </div>
@@ -113,7 +113,7 @@
           "
         >
           <div class="flex-row d-flex justify-content-center">
-            <h2 class="text-center">
+            <h2 class="text-center" @fade>
               <u>Current Goal <i class="fas fa-bullseye"></i></u>
             </h2>
           </div>
@@ -140,7 +140,7 @@
             border
           "
         >
-          <h2 class="text-center">
+          <h2 class="text-center" @fade>
             <u>Articles Usefulness <i class="fas fa-chart-bar"></i></u>
           </h2>
           <app-artilce-utility-chart
@@ -166,7 +166,7 @@
           style="overflow-y: auto;overflow-x:auto;"
         >
           <div class="flex-row d-flex justify-content-center">
-            <h2 class="text-center">
+            <h2 class="text-center" @fade>
               <u>Articles Bought <i class="fas fa-hand-holding-usd"></i></u>
             </h2>
           </div>

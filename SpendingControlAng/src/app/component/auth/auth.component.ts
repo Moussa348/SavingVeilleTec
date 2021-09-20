@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
 
   setAuthFormGroup() {
     this.authFormGroup = new FormGroup({
-      username: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
@@ -48,7 +48,7 @@ export class AuthComponent implements OnInit {
     if (this.authFormGroup.valid) {
       this.authService
         .login(
-          this.authFormGroup.get('username').value,
+          this.authFormGroup.get('email').value,
           this.authFormGroup.get('password').value
         )
         .subscribe(
@@ -63,6 +63,14 @@ export class AuthComponent implements OnInit {
           }
         );
     }
+  }
+
+  validateField(formControlName){
+    return this.authFormGroup.get(formControlName).valid;
+  }
+
+  isFieldTouched(formControlName){
+    return this.authFormGroup.get(formControlName).touched;
   }
 
   isLoggedIn() {

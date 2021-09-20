@@ -42,16 +42,22 @@
         </div>
         <div class="flex-row text-end">
           <input
-            #username
+            #email
             type="email"
-            class="form-control rounded-pill border border border shadow"
+            class="form-control {{
+              isFieldTouched('email')
+                ? validateField('email')
+                  ? 'is-valid'
+                  : 'is-invalid'
+                : ''
+            }}  rounded-pill border border border shadow"
             placeholder="min 8 character max 40 character"
-            id="username"
-            formControlName="username"
+            id="email"
+            formControlName="email"
             min="8"
             max="40"
           />
-          <span class="text-light">{{ username.value.length }} / 40</span>
+          <span class="text-light">{{ email.value.length }} / 40</span>
         </div>
       </div>
 
@@ -65,7 +71,13 @@
           <input
             #pass
             type="password"
-            class="form-control rounded-pill border shadow"
+            class="form-control {{
+              isFieldTouched('password')
+                ? validateField('password')
+                  ? 'is-valid'
+                  : 'is-invalid'
+                : ''
+            }} rounded-pill border shadow"
             formControlName="password"
             placeholder="min 8 character and max 40 character"
             id="password"
