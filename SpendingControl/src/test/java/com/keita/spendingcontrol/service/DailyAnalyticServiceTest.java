@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,10 +47,24 @@ public class DailyAnalyticServiceTest {
     @Test
     void getMapMostExpensiveArticlesByUseFullness(){
         //ARRANGE
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
+
+        dailyExpense.setArticles(Arrays.asList(
+                Article.builder().name("comcombre").dailyExpense(dailyExpense).price(45.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("cereales").dailyExpense(dailyExpense).price(22.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poire").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poulet").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build(),
+                Article.builder().name("steak").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.HIGH).build()
+        ));
 
         //ACT
+        Map<DegreeOfUseFullness,ArticleDetail> mostExpensiveArticlesByUseFullness = dailyAnalyticService.getMapMostExpensiveArticlesByUseFullness(dailyExpense.getArticles());
 
         //ASSERT
+        assertEquals(3,mostExpensiveArticlesByUseFullness.size());
+        assertEquals(45.0f,mostExpensiveArticlesByUseFullness.get(DegreeOfUseFullness.LOW).getPrice());
+        assertEquals(20.0f,mostExpensiveArticlesByUseFullness.get(DegreeOfUseFullness.MEDIUM).getPrice());
+        assertEquals(20.0f,mostExpensiveArticlesByUseFullness.get(DegreeOfUseFullness.HIGH).getPrice());
     }
 
     @Test
