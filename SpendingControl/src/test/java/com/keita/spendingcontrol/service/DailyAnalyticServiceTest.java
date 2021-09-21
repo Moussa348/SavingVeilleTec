@@ -89,19 +89,46 @@ public class DailyAnalyticServiceTest {
     @Test
     void getMapLessExpensiveArticlesByUseFullness(){
         //ARRANGE
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
+
+        dailyExpense.setArticles(Arrays.asList(
+                Article.builder().name("comcombre").dailyExpense(dailyExpense).price(45.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("cereales").dailyExpense(dailyExpense).price(22.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poulet").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build(),
+                Article.builder().name("poulet").dailyExpense(dailyExpense).price(14.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build(),
+                Article.builder().name("steak").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.HIGH).build()
+        ));
 
         //ACT
+        Map<DegreeOfUseFullness,ArticleDetail> lessExpensiveArticlesByUseFullness = dailyAnalyticService.getMapLessExpensiveArticlesByUseFullness(dailyExpense.getArticles());
 
         //ASSERT
+        assertEquals(3,lessExpensiveArticlesByUseFullness.size());
+        assertEquals(22.0f,lessExpensiveArticlesByUseFullness.get(DegreeOfUseFullness.LOW).getPrice());
+        assertEquals(14.0f,lessExpensiveArticlesByUseFullness.get(DegreeOfUseFullness.MEDIUM).getPrice());
+        assertEquals(20.0f,lessExpensiveArticlesByUseFullness.get(DegreeOfUseFullness.HIGH).getPrice());
     }
 
     @Test
     void getMapTotalByUseFullness(){
-        //ARRANGE
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
+
+        dailyExpense.setArticles(Arrays.asList(
+                Article.builder().name("comcombre").dailyExpense(dailyExpense).price(25.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("cereales").dailyExpense(dailyExpense).price(25.0f).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poulet").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build(),
+                Article.builder().name("poulet").dailyExpense(dailyExpense).price(14.0f).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build(),
+                Article.builder().name("steak").dailyExpense(dailyExpense).price(20.0f).degreeOfUseFullness(DegreeOfUseFullness.HIGH).build()
+        ));
 
         //ACT
+        Map<DegreeOfUseFullness,Float> totalByUseFullness = dailyAnalyticService.getMapTotalByUseFullness(dailyExpense.getArticles());
 
         //ASSERT
+        assertEquals(3,totalByUseFullness.size());
+        assertEquals(50.0f,totalByUseFullness.get(DegreeOfUseFullness.LOW));
+        assertEquals(34.0f,totalByUseFullness.get(DegreeOfUseFullness.MEDIUM));
+        assertEquals(20.0f,totalByUseFullness.get(DegreeOfUseFullness.HIGH));
     }
 
 }
