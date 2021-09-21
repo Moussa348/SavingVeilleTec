@@ -1,6 +1,7 @@
 package com.keita.spendingcontrol.controller;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
+import com.keita.spendingcontrol.model.dto.DailyAnalytic;
 import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
 import com.keita.spendingcontrol.service.DailyExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class DailyExpenseController {
     @PreAuthorize("@authorizationService.isConnected(#id)")
     public DailyExpenseDetail getDailyExpenseByDateForPerson(@RequestParam("id")Long id, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate date){
         return dailyExpenseService.getDailyExpenseByDateForPerson(id,date);
+    }
+
+    @GetMapping("/getDailyAnalytic")
+    @PreAuthorize("@authorizationService.isConnected(#id)")
+    public DailyAnalytic getDailyAnalytic(@RequestParam("id")Long id, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate date){
+        return dailyExpenseService.getDailyAnalytic(id,date);
     }
 
 }

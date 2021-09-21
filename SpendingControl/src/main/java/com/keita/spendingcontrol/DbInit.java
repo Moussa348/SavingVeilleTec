@@ -57,7 +57,7 @@ public class DbInit implements CommandLineRunner {
                         .degreeOfUseFullness(DegreeOfUseFullness.LOW)
                         .dailyExpense(dailyExpenseRepository.save(new DailyExpense(personRepository.save(person)))).build());
 
-               // personService.createPerson(person);
+                //personService.createPerson(person);
             } catch (Exception e) {
                 e.printStackTrace();
             }

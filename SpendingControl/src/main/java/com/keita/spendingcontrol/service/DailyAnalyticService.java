@@ -2,7 +2,6 @@ package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.entity.Article;
-import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class DailyAnalyticService {
 
 
     public ArticleDetail getMostExpensiveArticle(List<Article> articles) {
-        return articles.stream().max(Comparator.comparing(Article::getPrice)).map(ArticleDetail::new).get();
+        return articles.size() > 0 ? articles.stream().max(Comparator.comparing(Article::getPrice)).map(ArticleDetail::new).get():null;
     }
 
     public Map<DegreeOfUseFullness, ArticleDetail> getMapMostExpensiveArticlesByUseFullness(List<Article> articles) {
@@ -31,7 +30,7 @@ public class DailyAnalyticService {
     }
 
     public ArticleDetail getLessExpensiveArticle(List<Article> articles) {
-        return articles.stream().min(Comparator.comparing(Article::getPrice)).map(ArticleDetail::new).get();
+        return articles.size() > 0 ? articles.stream().min(Comparator.comparing(Article::getPrice)).map(ArticleDetail::new).get():null;
     }
 
     public Map<DegreeOfUseFullness, ArticleDetail> getMapLessExpensiveArticlesByUseFullness(List<Article> articles) {

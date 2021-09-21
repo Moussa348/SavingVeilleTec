@@ -76,7 +76,6 @@ public class DailyExpenseService {
                 dailyAnalyticService.getMapTotalByUseFullness(dailyExpense.getArticles()),
                 dailyExpense.getTotal()
         );
-
     }
 
     public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start, LocalDate end) {
