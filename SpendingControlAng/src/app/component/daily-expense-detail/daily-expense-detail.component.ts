@@ -11,6 +11,8 @@ import {
 } from '@angular/animations';
 import { NgbCalendar, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { DailyAnalytic } from 'src/app/model/daily-analytic';
+import { ChartType } from 'chart.js/auto';
 
 @Component({
   selector: 'app-daily-expense-detail',
@@ -26,7 +28,9 @@ import { DatePipe } from '@angular/common';
 })
 export class DailyExpenseDetailComponent implements OnInit {
   id = getId();
-  dailyExpense : DailyExpense = new DailyExpense();
+  label = "# of article by usefulness";
+  type:ChartType = "bar";
+  dailyAnalytic : DailyAnalytic = new DailyAnalytic();
   model: NgbDate = this.calendar.getToday();
   date: NgbDate;
 
@@ -37,21 +41,21 @@ export class DailyExpenseDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDailyExpenseDetail(this.model);
+    this.getDailyAnalytic(this.model);
   }
   selectToday() {
     this.model = this.calendar.getToday();
   }
 
-  getDailyExpenseDetail(ngbDate:NgbDate){
+  getDailyAnalytic(ngbDate:NgbDate){
    const date = this.datePipe.transform(
       new Date(ngbDate.year,ngbDate.month-1,ngbDate.day),
       'yyyy-MM-dd'
     );
-    this.dailyExpenseService.getDailyExpenseByDateForPerson(this.id,date).subscribe(
+    this.dailyExpenseService.getDailyAnalytic(this.id,date).subscribe(
       (data) =>{
-        this.dailyExpense = data;
-        console.log(this.dailyExpense);
+        this.dailyAnalytic = data;
+        console.log(this.dailyAnalytic);
       },(err) =>{
         console.log(err);
       }

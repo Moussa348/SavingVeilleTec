@@ -13,6 +13,7 @@ import { Dashboard } from 'src/app/model/dashboard';
 import { getId } from 'src/app/util/jwtUtils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddingArticleComponent } from '../adding-article/adding-article.component';
+import { ChartType } from 'chart.js/auto';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,8 +29,12 @@ import { AddingArticleComponent } from '../adding-article/adding-article.compone
 })
 export class DashboardComponent {
   id = getId();
+  label = "# of article by usefulness";
+  type:ChartType = "pie";
+  chartId = "articleUtilityChart";
   todayDate = new Date();
   dashboard: Dashboard = new Dashboard();
+  
   constructor(
     private personService: PersonService,
     private modalService : NgbModal

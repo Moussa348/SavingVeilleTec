@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import Chart from 'chart.js/auto';
+import Chart, { ChartType } from 'chart.js/auto';
 
 @Component({
   selector: 'app-artilce-utility-chart',
@@ -7,23 +7,27 @@ import Chart from 'chart.js/auto';
   styleUrls: ['./artilce-utility-chart.component.css'],
 })
 export class ArtilceUtilityChartComponent implements OnInit {
+  @Input() labelName = "";
+  @Input() chartId = "";
+  @Input() type:ChartType = "line";
   @Input() mapArticlesUseFullness:Map<string,number> = new Map();
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.mapArticlesUseFullness);
+    console.log(this.chartId);
+    console.log(this.type);
     this.setChart();
   }
 
   setChart() {
-    new Chart("articleUtilityChart", {
-      type: 'bar',
+    new Chart(this.chartId, {
+      type: this.type,
       data: {
         labels: ['LOW', 'MEDIUM','HIGH'],
         datasets: [
           {
-            label: '# of article by usefulness',
+            label: this.labelName,
             data: [this.mapArticlesUseFullness['LOW'], this.mapArticlesUseFullness['MEDIUM'], this.mapArticlesUseFullness['HIGH']],
             backgroundColor: [
               'rgba(75, 192, 192, 0.2)',
