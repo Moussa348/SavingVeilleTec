@@ -37,6 +37,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AddingArticleComponent } from './component/adding-article/adding-article.component';
 import { DailyExpenseDetailComponent } from './component/daily-expense-detail/daily-expense-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ArticlePriceChartComponent } from './component/chart/article-price-chart/article-price-chart.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegistrationVerifyCodeComponent,
     AddingArticleComponent,
     DailyExpenseDetailComponent,
+    ArticlePriceChartComponent,
   ],
   imports: [
     BrowserModule,

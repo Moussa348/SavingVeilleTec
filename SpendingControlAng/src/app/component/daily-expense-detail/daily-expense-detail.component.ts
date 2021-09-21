@@ -31,6 +31,8 @@ export class DailyExpenseDetailComponent implements OnInit {
   label = "Total Price Of Article By Usefulness $";
   type:ChartType = "bar";
   chartId = "totalByUseFullnessChart";
+  chartId2 = "mapArticle";
+  hasAnAnalytic = true;
   dailyAnalytic : DailyAnalytic = new DailyAnalytic();
   model: NgbDate = this.calendar.getToday();
   date: NgbDate;
@@ -55,9 +57,11 @@ export class DailyExpenseDetailComponent implements OnInit {
     );
     this.dailyExpenseService.getDailyAnalytic(this.id,date).subscribe(
       (data) =>{
+        this.hasAnAnalytic = true;
         this.dailyAnalytic = data;
         console.log(this.dailyAnalytic);
       },(err) =>{
+        this.hasAnAnalytic = false;
         console.log(err);
       }
     );

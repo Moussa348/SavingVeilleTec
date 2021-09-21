@@ -60,7 +60,7 @@ export class ArtilceUtilityChartComponent implements OnInit {
           legend:{
             labels:{
               color: "white"
-            }
+            },
           }
         },
         scales: {
@@ -81,4 +81,5 @@ export class ArtilceUtilityChartComponent implements OnInit {
       },
     });
   }
+
 }

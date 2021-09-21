@@ -1,0 +1,16 @@
+<div class="container">
+
+    <div class="flex-row">
+      <div class="p-3"></div>
+    </div>
+    <div class="flex-row d-flex justify-content-center">
+      <mat-card
+        style="position: relative; width: 500px"
+        class="bg-transparent text-light blur border shadow-lg"
+        *ngIf="chartId != ''"
+      >
+        <canvas style="color: white;" id="{{chartId}}" height="40px" width="40px"></canvas>
+      </mat-card>
+    </div>
+  </div>
+  

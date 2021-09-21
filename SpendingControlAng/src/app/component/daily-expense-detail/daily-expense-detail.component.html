@@ -59,13 +59,13 @@
   </div>
 </div>
 
-<div class="container-fluid" @fade>
+<div *ngIf="hasAnAnalytic" class="container-fluid" @fade>
 
   <div class="row d-flex justify-content-center text-white">
     <div class="col-lg-4">
       <mat-divider class="border"></mat-divider>
       <div class="p-2"></div>
-      <div class="row d-flex justify-content-center">
+      <div class="row d-flex justify-content-center shadow border blur">
         <h2 @fade class="lead text-center">
           Total Expense By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
         </h2>
@@ -106,6 +106,116 @@
         [mapArticlesUseFullness]="dailyAnalytic.totalByUseFullness"
       >
       </app-artilce-utility-chart>
+    </div>
+  </div>
+
+  <div class="flex-row">
+    <div class="p-5"></div>
+  </div>
+
+  <div class="row d-flex justify-content-center text-white">
+    <div class="col-lg-4">
+      <mat-divider class="border"></mat-divider>
+      <div class="p-2"></div>
+      <div class="row d-flex justify-content-center border blur shadow">
+        <h2 @fade class="lead text-center align-self-center">
+          Most Expensive Article By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
+        </h2>
+      </div>
+
+      <div class="p-2"></div>
+      <mat-divider class="border"></mat-divider>
+      <div class="p-4"></div>
+    </div>
+  </div>
+
+  <div class="row w-100" style="width: 2000px !important">
+    <div class="d-flex justify-content-center">
+      <app-article-price-chart
+        *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
+        [type]="type"
+        [chartId]="chartId2 + '1'"
+        [labelName]="label"
+        [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
+      >
+      </app-article-price-chart>
+
+      <app-article-price-chart
+        *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
+        [type]="'pie'"
+        [chartId]="chartId2 + '2'"
+        [labelName]="label"
+        [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
+      >
+      </app-article-price-chart>
+
+      <app-article-price-chart
+        *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
+        [type]="'polarArea'"
+        [chartId]="chartId2 + '3'"
+        [labelName]="label"
+        [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
+      >
+      </app-article-price-chart>
+    </div>
+  </div>
+
+  <div class="flex-row">
+    <div class="p-5"></div>
+  </div>
+
+  <div class="row d-flex justify-content-center text-white">
+    <div class="col-lg-4">
+      <mat-divider class="border"></mat-divider>
+      <div class="p-2"></div>
+      <div class="row d-flex justify-content-center border blur shadow">
+        <h2 @fade class="lead text-center align-self-center">
+          Less Expensive Article By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
+        </h2>
+      </div>
+
+      <div class="p-2"></div>
+      <mat-divider class="border"></mat-divider>
+      <div class="p-4"></div>
+    </div>
+  </div>
+
+  <div class="row w-100" style="width: 2000px !important">
+    <div class="d-flex justify-content-center">
+      <app-article-price-chart
+        *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
+        [type]="type"
+        [chartId]="chartId2 + '4'"
+        [labelName]="label"
+        [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
+      >
+      </app-article-price-chart>
+
+      <app-article-price-chart
+        *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
+        [type]="'pie'"
+        [chartId]="chartId2 + '5'"
+        [labelName]="label"
+        [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
+      >
+      </app-article-price-chart>
+
+      <app-article-price-chart
+        *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
+        [type]="'polarArea'"
+        [chartId]="chartId2 + '6'"
+        [labelName]="label"
+        [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
+      >
+      </app-article-price-chart>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="!hasAnAnalytic" @fade>
+  <div class="flex-row d-flex justify-content-center">
+    <div class="card bg-transparent shadow border blur align-self-center p-5">
+      <h3 class="text-capitalize text-warning">There is no Analytic to be made since you have not bought anaything!<i class="fas fa-info-circle"></i></h3>
     </div>
   </div>
 </div>
