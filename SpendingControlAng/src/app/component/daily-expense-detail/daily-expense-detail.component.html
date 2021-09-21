@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="container" >
+<div class="container">
   <div class="row d-flex justify-content-center text-white">
     <div class="col-lg-4">
       <mat-divider class="border"></mat-divider>
@@ -60,70 +60,53 @@
 </div>
 
 <div class="container-fluid" @fade>
-  <div class="row">
-    <div class="col"></div>
 
-    <div class="col-2">
-      <div
-        class="card border shadow blur bg-transparent text-center text-white"
-      >
-        <div class="flex-row d-flex justify-content-center">
-          <h3 class="text-capitalize">
-            <u> Most Expensive Article </u>
-          </h3>
-        </div>
-        <div
-          class="flex-row d-flex justify-content-start text-justify text-wrap"
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-          quia maiores modi libero qui corporis a deserunt nulla porro eaque?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, totam.
-        </div>
+  <div class="row d-flex justify-content-center text-white">
+    <div class="col-lg-4">
+      <mat-divider class="border"></mat-divider>
+      <div class="p-2"></div>
+      <div class="row d-flex justify-content-center">
+        <h2 @fade class="lead text-center">
+          Total Expense By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
+        </h2>
       </div>
-    </div>
 
-    <div class="col-6">
-      <div
-        class="card border shadow blur bg-transparent text-center text-light"
-      >
-        <div class="flex-row d-flex justify-content-center">
-          <h3 class="text-capitalize">
-            <u> General Details </u>
-          </h3>
-        </div>
-        <div
-          class="flex-row d-flex justify-content-start text-justify text-wrap"
-        >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum
-          labore dolore laboriosam vitae esse hic sapiente doloremque, similique
-          enim quas? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Quis, dicta impedit. Dolores ea quaerat iste quisquam minima quo
-          eveniet omnis.
-        </div>
-      </div>
+      <div class="p-2"></div>
+      <mat-divider class="border"></mat-divider>
+      <div class="p-4"></div>
     </div>
+  </div>
+  
 
-    <div class="col-2">
-      <div
-        class="card border shadow blur bg-transparent text-center text-light"
+  <div class="row w-100" style="width: 2000px !important">
+    <div class="d-flex justify-content-center">
+      <app-artilce-utility-chart
+        *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
+        [type]="type"
+        [chartId]="chartId"
+        [labelName]="label"
+        [mapArticlesUseFullness]="dailyAnalytic.totalByUseFullness"
       >
-        <div class="flex-row d-flex justify-content-center">
-          <h3 class="text-capitalize">
-            <u> Cheapest Article </u>
-          </h3>
-        </div>
-        <div
-          class="flex-row d-flex justify-content-start text-justify text-wrap"
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-          explicabo, iste quae consequuntur error perferendis possimus
-          necessitatibus laudantium voluptas vero. Lorem ipsum dolor sit amet
-          consectetur, adipisicing elit. Excepturi, explicabo nisi debitis
-          laboriosam maiores totam.
-        </div>
-      </div>
+      </app-artilce-utility-chart>
+
+      <app-artilce-utility-chart
+        *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
+        [type]="'pie'"
+        [chartId]="chartId + '2'"
+        [labelName]="label"
+        [mapArticlesUseFullness]="dailyAnalytic.totalByUseFullness"
+      >
+      </app-artilce-utility-chart>
+
+      <app-artilce-utility-chart
+        *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
+        [type]="'polarArea'"
+        [chartId]="chartId + '3'"
+        [labelName]="label"
+        [mapArticlesUseFullness]="dailyAnalytic.totalByUseFullness"
+      >
+      </app-artilce-utility-chart>
     </div>
-    <div class="col"></div>
   </div>
 </div>
 

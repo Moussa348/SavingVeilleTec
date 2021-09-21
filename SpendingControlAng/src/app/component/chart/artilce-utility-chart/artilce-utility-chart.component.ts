@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import Chart, { ChartType } from 'chart.js/auto';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-artilce-utility-chart',
@@ -11,17 +12,28 @@ export class ArtilceUtilityChartComponent implements OnInit {
   @Input() chartId = "";
   @Input() type:ChartType = "line";
   @Input() mapArticlesUseFullness:Map<string,number> = new Map();
+   myChart;
 
   constructor() {}
-
   ngOnInit(): void {
     console.log(this.chartId);
     console.log(this.type);
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
     this.setChart();
   }
 
+
+  ngOnDestroy(): void {
+    this.myChart.destroy();
+    
+  }
+
   setChart() {
-    new Chart(this.chartId, {
+   this.myChart= new Chart(this.chartId, {
       type: this.type,
       data: {
         labels: ['LOW', 'MEDIUM','HIGH'],
@@ -44,6 +56,13 @@ export class ArtilceUtilityChartComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          legend:{
+            labels:{
+              color: "white"
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,

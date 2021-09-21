@@ -7,8 +7,9 @@
     <mat-card
       style="position: relative; width: 500px"
       class="bg-transparent text-light blur border shadow-lg"
+      *ngIf="chartId != ''"
     >
-      <canvas style="color: white;" id="articleUtilityChart" height="40px" width="40px"></canvas>
+      <canvas style="color: white;" id="{{chartId}}" height="40px" width="40px"></canvas>
     </mat-card>
   </div>
 </div>

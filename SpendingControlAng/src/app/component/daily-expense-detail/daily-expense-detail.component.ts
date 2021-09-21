@@ -28,8 +28,9 @@ import { ChartType } from 'chart.js/auto';
 })
 export class DailyExpenseDetailComponent implements OnInit {
   id = getId();
-  label = "# of article by usefulness";
+  label = "Total Price Of Article By Usefulness $";
   type:ChartType = "bar";
+  chartId = "totalByUseFullnessChart";
   dailyAnalytic : DailyAnalytic = new DailyAnalytic();
   model: NgbDate = this.calendar.getToday();
   date: NgbDate;
@@ -61,6 +62,18 @@ export class DailyExpenseDetailComponent implements OnInit {
       }
     );
    console.log(date);
+  }
+
+  isDailyAnalyticTotalUseFullnessCharged(){
+    return this.dailyAnalytic.totalByUseFullness.size != 0 ;
+  }
+
+  isMostExpensiveArticlesByUseFullnessCharged(){
+    return this.dailyAnalytic.mostExpensiveArticlesByUseFullness.size != 0 ;
+  }
+
+  isLEssExpensiveArticlesByUseFullnessCharged(){
+    return this.dailyAnalytic.lessExpensiveArticlesByUseFullness.size != 0 ;
   }
 
 
