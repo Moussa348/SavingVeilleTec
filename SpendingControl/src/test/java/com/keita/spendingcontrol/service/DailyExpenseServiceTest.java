@@ -1,6 +1,7 @@
 package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
+import com.keita.spendingcontrol.model.dto.DailyAnalytic;
 import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
 import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
@@ -31,6 +32,9 @@ public class DailyExpenseServiceTest {
 
     @Mock
     PersonService personService;
+
+    @Mock
+    DailyAnalyticService dailyAnalyticService;
 
     @InjectMocks
     DailyExpenseService dailyExpenseService;
@@ -95,6 +99,27 @@ public class DailyExpenseServiceTest {
 
         //ASSERT
         assertNotNull(dailyExpenseDetail);
+    }
+
+    @Test
+    void getDailyAnalytic(){
+        //ARRANGE
+        Long id = 1L;
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).date(LocalDate.now()).person(Person.builder().id(1L).build()).build();
+
+        dailyExpense.setArticles(Arrays.asList(
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).build()
+        ));
+        when(dailyExpenseRepository.findByPersonIdAndDate(id,dailyExpense.getDate())).thenReturn(Optional.of(dailyExpense));
+
+        //ACT
+        DailyAnalytic dailyAnalytic = dailyExpenseService.getDailyAnalytic(id,LocalDate.now());
+
+        //ASSERT
+        assertNotNull(dailyAnalytic);
     }
 
     @Test

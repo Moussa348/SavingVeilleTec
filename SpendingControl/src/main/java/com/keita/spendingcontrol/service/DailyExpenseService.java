@@ -1,10 +1,13 @@
 package com.keita.spendingcontrol.service;
 
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
+import com.keita.spendingcontrol.model.dto.DailyAnalytic;
 import com.keita.spendingcontrol.model.dto.DailyExpenseDetail;
+import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -27,12 +31,16 @@ public class DailyExpenseService {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private DailyAnalyticService dailyAnalyticService;
 
-    public void createDailExpenseForPerson(Person person){
+
+    public void createDailExpenseForPerson(Person person) {
         dailyExpenseRepository.save(new DailyExpense(person));
     }
+
     //TODO --> call into pooler
-    public Integer createDailyExpenseForEveryPerson(){
+    public Integer createDailyExpenseForEveryPerson() {
         AtomicInteger counter = new AtomicInteger();
 
         personService.getListPerson().forEach(person -> {
@@ -44,25 +52,39 @@ public class DailyExpenseService {
         return counter.get();
     }
 
-    public void addArticleToDailyExpense(ArticleDetail articleDetail){
-        DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(articleDetail.getPersonId(),LocalDate.now());
+    public void addArticleToDailyExpense(ArticleDetail articleDetail) {
+        DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(articleDetail.getPersonId(), LocalDate.now());
 
-        dailyExpense.getArticles().add(articleService.createArticleForDailyExpense(articleDetail,dailyExpense));
+        dailyExpense.getArticles().add(articleService.createArticleForDailyExpense(articleDetail, dailyExpense));
 
         dailyExpenseRepository.save(dailyExpense);
     }
 
-    public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id,LocalDate date){
-        DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id,date);
-        return new DailyExpenseDetail(dailyExpense,articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
+    public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id, LocalDate date) {
+        DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id, date);
+        return new DailyExpenseDetail(dailyExpense, articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
     }
 
-    public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start,LocalDate end){
-        return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(),start,end).stream().map(DailyExpense::getTotal).reduce(0.0f, Float::sum);
+    public DailyAnalytic getDailyAnalytic(Long id, LocalDate date) {
+        DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id, date);
+
+        return new DailyAnalytic(
+                dailyAnalyticService.getMapMostExpensiveArticlesByUseFullness(dailyExpense.getArticles()),
+                dailyAnalyticService.getMapLessExpensiveArticlesByUseFullness(dailyExpense.getArticles()),
+                dailyAnalyticService.getMostExpensiveArticle(dailyExpense.getArticles()),
+                dailyAnalyticService.getLessExpensiveArticle(dailyExpense.getArticles()),
+                dailyAnalyticService.getMapTotalByUseFullness(dailyExpense.getArticles()),
+                dailyExpense.getTotal()
+        );
+
     }
 
-    public DailyExpense findDailyExpenseByPersonIdAndDate(Long id,LocalDate date){
-        return dailyExpenseRepository.findByPersonIdAndDate(id,date).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find daily expense with id : " + id + " ,and date : " + date));
+    public Float getTotalExpenseBetweenDatesForPerson(Person person, LocalDate start, LocalDate end) {
+        return dailyExpenseRepository.findAllByPersonIdAndDateBetween(person.getId(), start, end).stream().map(DailyExpense::getTotal).reduce(0.0f, Float::sum);
+    }
+
+    public DailyExpense findDailyExpenseByPersonIdAndDate(Long id, LocalDate date) {
+        return dailyExpenseRepository.findByPersonIdAndDate(id, date).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find daily expense with id : " + id + " ,and date : " + date));
     }
 
 
