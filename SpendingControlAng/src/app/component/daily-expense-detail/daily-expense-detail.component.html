@@ -134,8 +134,9 @@
       <app-article-price-chart
         *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
         [type]="type"
+        [colors]="colors1"
         [chartId]="chartId2 + '1'"
-        [labelName]="label"
+        [labelName]="label2"
         [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
       >
       </app-article-price-chart>
@@ -143,8 +144,9 @@
       <app-article-price-chart
         *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
         [type]="'pie'"
+        [colors]="colors1"
         [chartId]="chartId2 + '2'"
-        [labelName]="label"
+        [labelName]="label2"
         [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
       >
       </app-article-price-chart>
@@ -152,8 +154,9 @@
       <app-article-price-chart
         *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
         [type]="'polarArea'"
+        [colors]="colors1"
         [chartId]="chartId2 + '3'"
-        [labelName]="label"
+        [labelName]="label2"
         [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
       >
       </app-article-price-chart>
@@ -185,8 +188,9 @@
       <app-article-price-chart
         *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
         [type]="type"
+        [colors]="colors2"
         [chartId]="chartId2 + '4'"
-        [labelName]="label"
+        [labelName]="label3"
         [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
       >
       </app-article-price-chart>
@@ -194,8 +198,9 @@
       <app-article-price-chart
         *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
         [type]="'pie'"
+        [colors]="colors2"
         [chartId]="chartId2 + '5'"
-        [labelName]="label"
+        [labelName]="label3"
         [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
       >
       </app-article-price-chart>
@@ -203,8 +208,9 @@
       <app-article-price-chart
         *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
         [type]="'polarArea'"
+        [colors]="colors2"
         [chartId]="chartId2 + '6'"
-        [labelName]="label"
+        [labelName]="label3"
         [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
       >
       </app-article-price-chart>

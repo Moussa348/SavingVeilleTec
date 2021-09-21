@@ -12,12 +12,11 @@ export class ArticlePriceChartComponent implements OnInit {
   @Input() chartId = "";
   @Input() type:ChartType = "line";
   @Input() mapArticles:Map<string,Article> = new Map();
+  @Input() colors = [];
    myChart;
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.chartId);
-    console.log(this.type);
   }
 
   ngOnDestroy(): void {
@@ -41,14 +40,14 @@ export class ArticlePriceChartComponent implements OnInit {
              label: this.labelName,
              data: [this.mapArticles['LOW'].price, this.mapArticles['MEDIUM'].price, this.mapArticles['HIGH'].price],
              backgroundColor: [
-               'rgba(75, 192, 192, 0.2)',
-               'rgba(255, 206, 86, 0.2)',
-               'rgba(255, 99, 132, 0.2)'
-             ],
-             borderColor: [
-               'rgba(75, 192, 192, 1)',
-               'rgba(255, 206, 86, 1)',
-               'rgba(255, 99, 132, 1)'
+               this.colors[0],
+               this.colors[1],
+               this.colors[2]
+              ],
+              borderColor: [
+               this.colors[3],
+               this.colors[4],
+               this.colors[5]
              ],
              borderWidth: 1,
            },

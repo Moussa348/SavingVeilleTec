@@ -16,8 +16,6 @@ export class ArtilceUtilityChartComponent implements OnInit {
 
   constructor() {}
   ngOnInit(): void {
-    console.log(this.chartId);
-    console.log(this.type);
   }
 
   ngAfterViewInit(): void {
