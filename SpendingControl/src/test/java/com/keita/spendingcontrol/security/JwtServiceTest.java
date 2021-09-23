@@ -21,7 +21,7 @@ public class JwtServiceTest {
 
     @BeforeEach
     void init() {
-        jwtService = new JwtService();
+        jwtService = new JwtService(10L);
     }
 
     @Test

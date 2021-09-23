@@ -11,3 +11,6 @@ spring:
   profiles:
     active: test
 
+security:
+  jwt.duration: 2
+

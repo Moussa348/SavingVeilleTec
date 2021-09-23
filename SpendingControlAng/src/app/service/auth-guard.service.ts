@@ -30,7 +30,10 @@ export class AuthGuardService {
   }
   
   isLoggedIn() {
-    return sessionStorage.getItem('token')!=null && !isTokenExpired();
+    if(sessionStorage.getItem('token')!=null && !isTokenExpired())
+      return true;
+    this.logout();
+    return false;
   }
 
   login(token){

@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.keita.spendingcontrol.model.entity.Person;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -24,10 +25,10 @@ public class JwtService {
     public static String PERSON_ROLE_CLAIM = "role";
     public static String PERSON_ID_CLAIM = "personId";
 
-    public JwtService() {
+    public JwtService(@Value("${security.jwt.duration}") Long duration) {
         this.algorithm = Algorithm.HMAC256(SecureRandom.getSeed(16));
         this.jwtVerifier = JWT.require(algorithm).build();
-        this.duration = TimeUnit.SECONDS.toMillis(5);
+        this.duration = TimeUnit.HOURS.toMillis(duration);
     }
 
     public String generate(Person person) {
