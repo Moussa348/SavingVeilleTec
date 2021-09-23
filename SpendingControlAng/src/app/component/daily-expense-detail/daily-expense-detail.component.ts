@@ -35,8 +35,8 @@ export class DailyExpenseDetailComponent implements OnInit {
   chartId = "totalByUseFullnessChart";
   chartId2 = "mapArticle";
   hasAnAnalytic = true;
-  colors1 = ['rgba(255, 99, 71, 0.6)','rgba(255, 167, 0, 0.5)','','rgba(255, 99, 71, 1)','rgba(255, 167, 0, 1)']
-  colors2 = ['rgba(120, 0, 255, 0.1)','rgba(255, 167, 0, 0.5)','','rgba(120, 0, 255, 1)','rgba(255, 167, 0, 1)']
+  colors1 = ['rgba(255, 99, 71, 0.6)','rgba(255, 167, 0, 0.5)','rgba(17, 16, 17, 0.5)','rgba(255, 99, 71, 1)','rgba(255, 167, 0, 1)','rgba(17, 16, 17, 1)']
+  colors2 = ['rgba(120, 0, 255, 0.1)','rgba(255, 167, 0, 0.5)','rgba(17, 16, 17, 0.5)','rgba(120, 0, 255, 1)','rgba(255, 167, 0, 1)','rgba(17, 16, 17, 1)']
   dailyAnalytic : DailyAnalytic = new DailyAnalytic();
   model: NgbDate = this.calendar.getToday();
   date: NgbDate;
@@ -84,5 +84,7 @@ export class DailyExpenseDetailComponent implements OnInit {
     return this.dailyAnalytic.lessExpensiveArticlesByUseFullness.size != 0 ;
   }
 
-
+  isDailyAnalyticCharged(){
+    return this.dailyAnalytic.totalPrice > 0;
+  }
 }

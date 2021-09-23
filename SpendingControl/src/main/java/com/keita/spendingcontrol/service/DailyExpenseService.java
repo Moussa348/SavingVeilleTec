@@ -57,6 +57,8 @@ public class DailyExpenseService {
 
         dailyExpense.getArticles().add(articleService.createArticleForDailyExpense(articleDetail, dailyExpense));
 
+        dailyExpense.setTotal(articleDetail.getPrice() + dailyExpense.getTotal());
+
         dailyExpenseRepository.save(dailyExpense);
     }
 

@@ -80,5 +80,10 @@ export class DashboardComponent {
       });
 
       modalRef.componentInstance.personId = this.dashboard.personDetail.id;
+      modalRef.componentInstance.addedArticle.subscribe( addedArticle =>{
+        console.log(addedArticle);
+        this.dashboard.dailyExpenseDetail.articleDetails.push(addedArticle);
+        console.log(this.dashboard.dailyExpenseDetail.mapArticlesUseFullness.get(addedArticle.degreeOfUseFullness));
+      })
   }
 }

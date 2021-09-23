@@ -68,8 +68,8 @@ public class DailyExpenseServiceTest {
     @Test
     void addArticleToDailyExpense(){
         //ARRANGE
-        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
-        ArticleDetail articleDetail = new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
+        DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).total(20f).build();
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().price(20f).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
         when(dailyExpenseRepository.findByPersonIdAndDate(dailyExpense.getPerson().getId(),LocalDate.now())).thenReturn(Optional.of(dailyExpense));
         when(articleService.createArticleForDailyExpense(articleDetail,dailyExpense)).thenReturn(new Article(articleDetail,dailyExpense));
 
@@ -78,6 +78,7 @@ public class DailyExpenseServiceTest {
 
         //ASSERT
         assertEquals(1,dailyExpense.getArticles().size());
+        assertEquals(40f,dailyExpense.getTotal());
     }
 
     @Test

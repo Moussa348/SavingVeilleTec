@@ -59,7 +59,7 @@
   </div>
 </div>
 
-<div *ngIf="hasAnAnalytic" class="container-fluid" @fade>
+<div *ngIf="hasAnAnalytic && isDailyAnalyticCharged()" class="container-fluid" @fade>
 
   <div class="row d-flex justify-content-center text-white">
     <div class="col-lg-4">
@@ -79,7 +79,7 @@
   
 
   <div class="row w-100" style="width: 2000px !important">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center ">
       <app-artilce-utility-chart
         *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
         [type]="type"
@@ -218,10 +218,10 @@
   </div>
 </div>
 
-<div class="container-fluid" *ngIf="!hasAnAnalytic" @fade>
+<div class="container-fluid" *ngIf="!hasAnAnalytic || !isDailyAnalyticCharged() " @fade>
   <div class="flex-row d-flex justify-content-center">
     <div class="card bg-transparent shadow border blur align-self-center p-5">
-      <h3 class="text-capitalize text-warning">There is no Analytic to be made since you have not bought anaything!<i class="fas fa-info-circle"></i></h3>
+      <h3 class="text-capitalize text-warning">There is no Analytic to be made since you have not bought Anything!<i class="fas fa-info-circle"></i></h3>
     </div>
   </div>
 </div>
