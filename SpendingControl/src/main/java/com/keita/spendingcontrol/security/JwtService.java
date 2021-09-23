@@ -27,7 +27,7 @@ public class JwtService {
     public JwtService() {
         this.algorithm = Algorithm.HMAC256(SecureRandom.getSeed(16));
         this.jwtVerifier = JWT.require(algorithm).build();
-        this.duration = TimeUnit.HOURS.toMillis(2);
+        this.duration = TimeUnit.SECONDS.toMillis(5);
     }
 
     public String generate(Person person) {

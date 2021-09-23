@@ -37,6 +37,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { AddingArticleComponent } from './component/adding-article/adding-article.component';
 import { DailyExpenseDetailComponent } from './component/daily-expense-detail/daily-expense-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatTabsModule} from '@angular/material/tabs';
 import { ArticlePriceChartComponent } from './component/chart/article-price-chart/article-price-chart.component';
 
 @NgModule({
@@ -66,6 +67,7 @@ import { ArticlePriceChartComponent } from './component/chart/article-price-char
     ReactiveFormsModule,
     HttpClientModule,
     MatStepperModule,
+    MatTabsModule,
     MatSliderModule,
     JwtModule.forRoot({
       config:{

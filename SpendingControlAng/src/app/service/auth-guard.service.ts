@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { isTokenExpired } from '../util/jwtUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class AuthGuardService {
   }
   
   isLoggedIn() {
-    return sessionStorage.getItem('token')!=null;
+    return sessionStorage.getItem('token')!=null && !isTokenExpired();
   }
 
   login(token){

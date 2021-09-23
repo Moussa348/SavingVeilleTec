@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Article } from 'src/app/model/article';
@@ -21,7 +21,7 @@ export class AddingArticleComponent implements OnInit {
   @Input() personId;
   disbled = true;
   prices = new Array();
-  @Output() addedArticle:EventEmitter<Article> = new EventEmitter();
+  @Output() addedArticle: EventEmitter<Article> = new EventEmitter();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -56,13 +56,14 @@ export class AddingArticleComponent implements OnInit {
     ).value;
 
     this.dailyExpenseService.addArticleToDailyExpense(this.article).subscribe(
-      () =>{
+      () => {
         this.activeModal.close();
         this.addedArticle.emit(this.article);
       },
       (err) => {
-      console.log(err)
-    });
+        console.log(err);
+      }
+    );
   }
 
   addPrices(price) {

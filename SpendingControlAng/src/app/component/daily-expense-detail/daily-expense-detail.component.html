@@ -59,15 +59,20 @@
   </div>
 </div>
 
-<div *ngIf="hasAnAnalytic && isDailyAnalyticCharged()" class="container-fluid" @fade>
-
+<div
+  *ngIf="hasAnAnalytic && isDailyAnalyticCharged()"
+  class="container-fluid"
+  @fade
+>
   <div class="row d-flex justify-content-center text-white">
     <div class="col-lg-4">
       <mat-divider class="border"></mat-divider>
       <div class="p-2"></div>
       <div class="row d-flex justify-content-center shadow border blur">
         <h2 @fade class="lead text-center">
-          Total Expense By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
+          Total Expense By Degree Of UseFulness<i
+            class="fas fa-calendar-alt pl-1"
+          ></i>
         </h2>
       </div>
 
@@ -76,10 +81,9 @@
       <div class="p-4"></div>
     </div>
   </div>
-  
 
   <div class="row w-100" style="width: 2000px !important">
-    <div class="d-flex justify-content-center ">
+    <div class="d-flex justify-content-center">
       <app-artilce-utility-chart
         *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
         [type]="type"
@@ -119,7 +123,9 @@
       <div class="p-2"></div>
       <div class="row d-flex justify-content-center border blur shadow">
         <h2 @fade class="lead text-center align-self-center">
-          Most Expensive Article By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
+          Most Expensive Article By Degree Of UseFulness<i
+            class="fas fa-calendar-alt pl-1"
+          ></i>
         </h2>
       </div>
 
@@ -173,7 +179,9 @@
       <div class="p-2"></div>
       <div class="row d-flex justify-content-center border blur shadow">
         <h2 @fade class="lead text-center align-self-center">
-          Less Expensive Article By Degree Of UseFulness<i class="fas fa-calendar-alt pl-1"></i>
+          Less Expensive Article By Degree Of UseFulness<i
+            class="fas fa-calendar-alt pl-1"
+          ></i>
         </h2>
       </div>
 
@@ -218,10 +226,18 @@
   </div>
 </div>
 
-<div class="container-fluid" *ngIf="!hasAnAnalytic || !isDailyAnalyticCharged() " @fade>
+<div
+  class="container-fluid"
+  *ngIf="!hasAnAnalytic || !isDailyAnalyticCharged()"
+  @fade
+>
   <div class="flex-row d-flex justify-content-center">
     <div class="card bg-transparent shadow border blur align-self-center p-5">
-      <h3 class="text-capitalize text-warning">There is no Analytic to be made since you have not bought Anything!<i class="fas fa-info-circle"></i></h3>
+      <h3 class="text-capitalize text-warning">
+        There is no Analytic to be made since you have not bought Anything!<i
+          class="fas fa-info-circle"
+        ></i>
+      </h3>
     </div>
   </div>
 </div>
