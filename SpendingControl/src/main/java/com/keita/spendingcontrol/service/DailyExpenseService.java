@@ -64,7 +64,7 @@ public class DailyExpenseService {
 
     public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id, LocalDate date) {
         DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id, date);
-        return new DailyExpenseDetail(dailyExpense, articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
+        return new DailyExpenseDetail(dailyExpense, articleService.getListArticleDetailForDailyExperience(dailyExpense.getId(),0),articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
     }
 
     public DailyAnalytic getDailyAnalytic(Long id, LocalDate date) {

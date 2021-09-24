@@ -29,4 +29,13 @@ public class DailyExpenseDetail implements Serializable {
 
     }
 
+    public DailyExpenseDetail(DailyExpense dailyExpense,List<ArticleDetail> articleDetails, Map<DegreeOfUseFullness,Integer> mapArticlesUseFullness){
+        this.id = dailyExpense.getId();
+        this.date = dailyExpense.getDate();
+        this.articleDetails = articleDetails;
+        this.total = dailyExpense.getTotal();
+        this.mapArticlesUseFullness = mapArticlesUseFullness;
+
+    }
+
 }

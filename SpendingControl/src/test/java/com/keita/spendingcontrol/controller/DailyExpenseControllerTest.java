@@ -59,7 +59,7 @@ public class DailyExpenseControllerTest {
     void addArticleToDailyExpense() throws Exception {
         //ARRANGE
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
-        ArticleDetail articleDetail = new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().price(24.5f).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpense).build());
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/dailyExpense/addArticleToDailyExpense")

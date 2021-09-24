@@ -35,9 +35,9 @@ export class ArticlePriceChartComponent implements OnInit {
       type: this.type,
       data: {
         labels: [
-          `${this.mapArticles['LOW'].name} «LOW»`,
-          `${this.mapArticles['MEDIUM'].name} «MEDIUM»`,
-          `${this.mapArticles['HIGH'].name} «HIGH»`,
+          `${this.mapArticles['LOW'].name} «LOW» $`,
+          `${this.mapArticles['MEDIUM'].name} «MEDIUM» $`,
+          `${this.mapArticles['HIGH'].name} «HIGH» $`,
         ],
         datasets: [
           {
@@ -74,9 +74,9 @@ export class ArticlePriceChartComponent implements OnInit {
               color: 'white',
             },
             labels: [
-              `${this.mapArticles['LOW'].name} «LOW»`,
-              `${this.mapArticles['MEDIUM'].name} «MEDIUM»`,
-              `${this.mapArticles['HIGH'].name} «HIGH»`,
+              `${this.mapArticles['LOW'].name} «LOW» $`,
+              `${this.mapArticles['MEDIUM'].name} «MEDIUM» $`,
+              `${this.mapArticles['HIGH'].name} «HIGH» $`,
             ],
           },
         },
