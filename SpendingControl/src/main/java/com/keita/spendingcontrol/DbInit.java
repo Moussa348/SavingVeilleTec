@@ -40,7 +40,8 @@ public class DbInit implements CommandLineRunner {
 
     private void createPersons(){
         List<Person> persons = Arrays.asList(
-                Person.builder().id(1L).email("developpeurspring@gmail.com").firstName("developpeur").lastName("spring").password("dev123").build()
+                Person.builder().id(1L).email("developpeurspring@gmail.com").firstName("developpeur").lastName("spring").password("dev123").build(),
+                Person.builder().id(2L).email("test@gmail.com").firstName("test").lastName("test").password("test123").build()
         );
 
         persons.forEach(person -> {
@@ -53,7 +54,7 @@ public class DbInit implements CommandLineRunner {
                 person.setAccountVerified(true);
 
                articleRepository.save(Article.builder()
-                        .name("cereales").id(1L)
+                        .name("cereales")
                         .time(LocalDateTime.now())
                         .qty(1)
                         .price(12.25f)
