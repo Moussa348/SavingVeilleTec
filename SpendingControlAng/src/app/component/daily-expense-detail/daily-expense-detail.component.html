@@ -279,7 +279,17 @@
     </button>
   </div>
 
-  <app-list-article-detail [articleDetails]=""></app-list-article-detail>
+  <div class="flex-row d-flex justify-content-center">
+    <!--call a different method on click and show different text when noPage > 0-->
+    <button
+          class="btn btn-lg btn-dark rounded-pill border border-3 shadow p-4"
+          (click)="getListArticles()"
+        >
+          See List Article Details<i class="fas fa-cloud-download-alt pl-1"></i>
+        </button>
+  </div>
+
+  <app-list-article-detail *ngIf="isArticlesCharged()" [articleDetails]="articles"></app-list-article-detail>
 
 </div>
 

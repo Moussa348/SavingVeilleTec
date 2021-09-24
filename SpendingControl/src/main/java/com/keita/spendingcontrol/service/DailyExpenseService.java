@@ -72,6 +72,7 @@ public class DailyExpenseService {
         DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id, date);
 
         return new DailyAnalytic(
+                dailyExpense.getId(),
                 dailyAnalyticService.getMapMostExpensiveArticlesByUseFullness(dailyExpense.getArticles()),
                 dailyAnalyticService.getMapLessExpensiveArticlesByUseFullness(dailyExpense.getArticles()),
                 dailyAnalyticService.getMostExpensiveArticle(dailyExpense.getArticles()),

@@ -9,6 +9,7 @@ import com.keita.spendingcontrol.repository.DailyExpenseRepository;
 import com.keita.spendingcontrol.repository.PersonRepository;
 import com.keita.spendingcontrol.service.DailyExpenseService;
 import com.keita.spendingcontrol.service.PersonService;
+import com.keita.spendingcontrol.util.FileUtil;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -38,10 +40,10 @@ public class DbInit implements CommandLineRunner {
     @Autowired
     private ArticleRepository articleRepository;
 
-    private void createPersons(){
+    private void createPersons() throws IOException {
         List<Person> persons = Arrays.asList(
-                Person.builder().id(1L).email("developpeurspring@gmail.com").firstName("developpeur").lastName("spring").password("dev123").build(),
-                Person.builder().id(2L).email("test@gmail.com").firstName("test").lastName("test").password("test123").build()
+                Person.builder().id(1L).picture(FileUtil.setDefaultProfilePicture()).email("developpeurspring@gmail.com").firstName("developpeur").lastName("spring").password("dev123").build(),
+                Person.builder().id(2L).picture(FileUtil.setDefaultProfilePicture()).email("test@gmail.com").firstName("test").lastName("test").password("test123").build()
         );
 
         persons.forEach(person -> {
@@ -52,14 +54,17 @@ public class DbInit implements CommandLineRunner {
                  */
 
                 person.setAccountVerified(true);
+                DailyExpense dailyExpense = new DailyExpense(personRepository.save(person));
 
-               articleRepository.save(Article.builder()
+                dailyExpense.setTotal(12.25f);
+
+                articleRepository.save(Article.builder()
                         .name("cereales")
                         .time(LocalDateTime.now())
                         .qty(1)
                         .price(12.25f)
                         .degreeOfUseFullness(DegreeOfUseFullness.LOW)
-                        .dailyExpense(dailyExpenseRepository.save(new DailyExpense(personRepository.save(person)))).build());
+                        .dailyExpense(dailyExpenseRepository.save(dailyExpense)).build());
 
                 //personService.createPerson(person);//Pour les tests avec front-end
             } catch (Exception e) {

@@ -12,6 +12,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DailyAnalytic implements Serializable {
+    private Long id;
     private Map<DegreeOfUseFullness,ArticleDetail> mostExpensiveArticlesByUseFullness,lessExpensiveArticlesByUseFullness;
     private ArticleDetail mostExpensiveArticle, lessExpensiveArticle;
     private Map<DegreeOfUseFullness,Float> totalByUseFullness;
