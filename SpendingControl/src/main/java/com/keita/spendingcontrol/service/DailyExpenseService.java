@@ -7,7 +7,6 @@ import com.keita.spendingcontrol.model.entity.Article;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.DailyExpenseRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 @Log
@@ -64,7 +65,7 @@ public class DailyExpenseService {
 
     public DailyExpenseDetail getDailyExpenseByDateForPerson(Long id, LocalDate date) {
         DailyExpense dailyExpense = findDailyExpenseByPersonIdAndDate(id, date);
-        return new DailyExpenseDetail(dailyExpense, articleService.getListArticleDetailForDailyExperience(dailyExpense.getId(),0),articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
+        return new DailyExpenseDetail(dailyExpense, articleService.getListArticleDetailForDailyExperience(dailyExpense.getId(), 0), articleService.mapListArticleByDegreeOfUseFullness(dailyExpense.getArticles()));
     }
 
     public DailyAnalytic getDailyAnalytic(Long id, LocalDate date) {
@@ -88,5 +89,11 @@ public class DailyExpenseService {
         return dailyExpenseRepository.findByPersonIdAndDate(id, date).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find daily expense with id : " + id + " ,and date : " + date));
     }
 
+
+    public List<Article> findAllArticleByPerson(Long personId) {
+
+        return dailyExpenseRepository.findAllByPersonId(personId)
+                .stream().map(DailyExpense::getArticles).flatMap(Collection::stream).collect(Collectors.toList());
+    }
 
 }

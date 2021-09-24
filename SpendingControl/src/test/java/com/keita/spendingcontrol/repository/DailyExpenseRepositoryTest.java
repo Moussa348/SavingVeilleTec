@@ -74,4 +74,16 @@ public class DailyExpenseRepositoryTest {
         //ASSERT
         assertTrue(dailyExpenseFounded);
     }
+
+    @Test
+    void findAllByPersonId(){
+        //ARRANGE
+        Long id = 1L;
+
+        //ACT
+        List<DailyExpense> dailyExpenses = dailyExpenseRepository.findAllByPersonId(id);
+
+        //ASSERT
+        assertEquals(4,dailyExpenses.size());
+    }
 }

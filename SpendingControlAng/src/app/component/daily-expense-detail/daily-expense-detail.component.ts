@@ -28,15 +28,20 @@ import { ChartType } from 'chart.js/auto';
 })
 export class DailyExpenseDetailComponent implements OnInit {
   id = getId();
+  
   label = "Total Price Of Article By Usefulness $";
   label2 = "Most Expensive Article By Usefulness $";
   label3 = "Less Expensive Article By Usefulness $";
+  
   type:ChartType = "bar";
+  
   chartId = "totalByUseFullnessChart";
   chartId2 = "mapArticle";
-  hasAnAnalytic = true;
+  
   colors1 = ['rgba(255, 99, 71, 0.6)','rgba(255, 167, 0, 0.5)','rgba(17, 16, 17, 0.5)','rgba(255, 99, 71, 1)','rgba(255, 167, 0, 1)','rgba(17, 16, 17, 1)']
   colors2 = ['rgba(120, 0, 255, 0.1)','rgba(255, 167, 0, 0.5)','rgba(17, 16, 17, 0.5)','rgba(120, 0, 255, 1)','rgba(255, 167, 0, 1)','rgba(17, 16, 17, 1)']
+  
+  hasAnAnalytic = true;
   dailyAnalytic : DailyAnalytic = new DailyAnalytic();
   model: NgbDate = this.calendar.getToday();
   date: NgbDate;
@@ -87,4 +92,5 @@ export class DailyExpenseDetailComponent implements OnInit {
   isDailyAnalyticCharged(){
     return this.dailyAnalytic.totalPrice > 0;
   }
+
 }

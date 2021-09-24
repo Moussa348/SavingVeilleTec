@@ -155,4 +155,26 @@ public class DailyExpenseServiceTest {
         //ASSERT
         assertThrows(ResponseStatusException.class, () -> dailyExpenseService.findDailyExpenseByPersonIdAndDate(id, date));
     }
+
+    @Test
+    void findAllArticleByPerson() {
+        //ARRANGE
+        Person person = Person.builder().id(1L).email("francois@gmail.com").build();
+        List<DailyExpense> dailyExpenses = Arrays.asList(
+                DailyExpense.builder().total(20.0f).person(person).build(),
+                DailyExpense.builder().total(20.0f).person(person).build(),
+                DailyExpense.builder().total(20.0f).person(person).build(),
+                DailyExpense.builder().total(20.0f).person(person).build()
+        );
+        dailyExpenses.forEach(dailyExpense -> {
+            dailyExpense.getArticles().add(Article.builder().build());
+            dailyExpense.getArticles().add(Article.builder().build());
+        });
+
+        when(dailyExpenseRepository.findAllByPersonId(person.getId())).thenReturn(dailyExpenses);
+        //ACT
+        List<Article> articles = dailyExpenseService.findAllArticleByPerson(person.getId());
+        //ASSERT
+        assertEquals(8,articles.size());
+    }
 }

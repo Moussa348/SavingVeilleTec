@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface DailyExpenseRepository extends JpaRepository<DailyExpense,Long> {
     List<DailyExpense> findAllByPersonIdAndDateBetween(Long id, LocalDate date1,LocalDate date2);
     Optional<DailyExpense> findByPersonIdAndDate(Long id, LocalDate date);
-
+    List<DailyExpense> findAllByPersonId(Long id);
 }

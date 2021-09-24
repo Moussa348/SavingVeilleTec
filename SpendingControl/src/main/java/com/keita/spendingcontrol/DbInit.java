@@ -46,9 +46,12 @@ public class DbInit implements CommandLineRunner {
         persons.forEach(person -> {
             try {
 
+                /*
+                et ca pour les controller
 
                 person.setAccountVerified(true);
 
+                 */
                articleRepository.save(Article.builder()
                         .name("cereales").id(1L)
                         .time(LocalDateTime.now())
@@ -57,9 +60,7 @@ public class DbInit implements CommandLineRunner {
                         .degreeOfUseFullness(DegreeOfUseFullness.LOW)
                         .dailyExpense(dailyExpenseRepository.save(new DailyExpense(personRepository.save(person)))).build());
 
-                /*
-                personService.createPerson(person);
-                 */
+                //personService.createPerson(person);//Pour les tests avec front-end
             } catch (Exception e) {
                 e.printStackTrace();
             }
