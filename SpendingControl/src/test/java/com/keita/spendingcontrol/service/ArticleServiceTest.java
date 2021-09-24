@@ -15,14 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @Log
 @ExtendWith(MockitoExtension.class)
@@ -96,9 +95,13 @@ public class ArticleServiceTest {
         //ARRANGE
         Long id = 1L;
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(Person.builder().id(1L).build()).build();
-        dailyExpense.setArticles(Arrays.asList(Article.builder().name("cereales").build(),Article.builder().name("magnoc").build()));
+        List<Article> articles = Arrays.asList(
+                Article.builder().name("poire").dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("poire").dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build(),
+                Article.builder().name("chips").dailyExpense(dailyExpense).degreeOfUseFullness(DegreeOfUseFullness.LOW).build()
+        );
 
-        when(dailyExpenseService.findDailyExpenseByPersonIdAndDate(id, LocalDate.now())).thenReturn(dailyExpense);
+        when(dailyExpenseService.findAllArticleByPerson(id)).thenReturn(articles);
 
         //ACT
         List<String> articleNames = articleService.getListArticleNameInDailyExpenseByPersonId(id);

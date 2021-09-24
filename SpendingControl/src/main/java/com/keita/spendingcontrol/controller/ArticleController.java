@@ -4,6 +4,7 @@ import com.keita.spendingcontrol.model.dto.ArticleDetail;
 import com.keita.spendingcontrol.model.enums.DegreeOfUseFullness;
 import com.keita.spendingcontrol.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class ArticleController {
     }
 
     @GetMapping("/getListArticleDetailForDailyExperience")
-    @PreAuthorize("@authorizationService.isConnected(#id)")
+   // @PreAuthorize("@authorizationService.isConnected(#id)")
     public List<ArticleDetail> getListArticleDetailForDailyExperience(
             @RequestParam("id")Long id,
             @RequestParam("noPage")Integer noPage){

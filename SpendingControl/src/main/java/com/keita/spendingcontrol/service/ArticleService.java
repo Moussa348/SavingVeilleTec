@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,8 @@ public class ArticleService {
 
 
     public List<String> getListArticleNameInDailyExpenseByPersonId(Long personId){
-        return dailyExpenseService.findDailyExpenseByPersonIdAndDate(personId, LocalDate.now())
-                .getArticles().stream().map(Article::getName).collect(Collectors.toList());
+        return new ArrayList<>(dailyExpenseService.findAllArticleByPerson(personId)
+                .stream().map(Article::getName).collect(Collectors.toSet()));
     }
     public void increaseArticleQty(Long id,ArticleDetail articleDetail){
         Article article = articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find article with name : " + articleDetail.getName()));
