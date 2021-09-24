@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     @GetMapping("/getListArticleDetailForDailyExperience")
-   // @PreAuthorize("@authorizationService.isConnected(#id)")
+    @PostAuthorize("@authorizationService.listBelongToUserConnected(returnObject)")
     public List<ArticleDetail> getListArticleDetailForDailyExperience(
             @RequestParam("id")Long id,
             @RequestParam("noPage")Integer noPage){

@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -60,19 +61,20 @@ public class AuthorizationServiceTest {
     @Test
     void listDoNotBelongToUserConnected() {
         //ARRANGE
-        Person person1 = Person.builder().id(2L).roles("USER").build();
+        Person person1 = Person.builder().id(1L).roles("USER").build();
+        Person person2 = Person.builder().id(2L).roles("USER").build();
         DailyExpense dailyExpense1 = DailyExpense.builder().id(1L).person(person1).build();
         List<ArticleDetail> articleDetails1 = Arrays.asList(
                 new ArticleDetail(Article.builder().dailyExpense(dailyExpense1).degreeOfUseFullness(DegreeOfUseFullness.LOW).build()),
                 new ArticleDetail(Article.builder().dailyExpense(dailyExpense1).degreeOfUseFullness(DegreeOfUseFullness.LOW).build())
         );
-        String token = "Bearer " + jwtService.generate(person1);
+        String token = "Bearer " + jwtService.generate(person2);
         SecurityContextHolder.getContext().setAuthentication(new JwtAuthentication(jwtService.verify(token)));
 
         //ACT
         boolean listBelongToUserConnected = authorizationService.listBelongToUserConnected(articleDetails1);
 
         //ASSERT
-        assertTrue(listBelongToUserConnected);
+        assertFalse(listBelongToUserConnected);
     }
 }

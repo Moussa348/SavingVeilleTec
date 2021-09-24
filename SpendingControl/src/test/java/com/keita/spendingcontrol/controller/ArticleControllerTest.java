@@ -39,7 +39,7 @@ public class ArticleControllerTest {
     JwtService jwtService;
 
     @Test
-    void getListArticleDetailForDailyExperienceByDegreeOfUseFullness() throws Exception{
+    void getListArticleDetailForDailyExperienceByDegreeOfUseFullness() throws Exception {
         //ARRANGE
         Long id = 1L;
         DegreeOfUseFullness degreeOfUseFullness = DegreeOfUseFullness.LOW;
@@ -54,18 +54,18 @@ public class ArticleControllerTest {
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUseFullness")
                 .header(HttpHeaders.AUTHORIZATION, token1)
-                .param("id",id.toString())
+                .param("id", id.toString())
                 .param("degreeOfUtility", degreeOfUseFullness.toString())
-                .param("noPage",noPage.toString())
+                .param("noPage", noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
         MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperienceByDegreeOfUseFullness")
                 .header(HttpHeaders.AUTHORIZATION, token2)
-                .param("id",id.toString())
+                .param("id", id.toString())
                 .param("degreeOfUtility", degreeOfUseFullness.toString())
-                .param("noPage",noPage.toString())
+                .param("noPage", noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden()).andReturn();
@@ -77,7 +77,7 @@ public class ArticleControllerTest {
 
 
     @Test
-    void getListArticleDetailForDailyExperience() throws Exception{
+    void getListArticleDetailForDailyExperience() throws Exception {
         //ARRANGE
         Long id = 1L;
         Integer noPage = 0;
@@ -91,16 +91,16 @@ public class ArticleControllerTest {
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperience")
                 .header(HttpHeaders.AUTHORIZATION, token1)
-                .param("id",id.toString())
-                .param("noPage",noPage.toString())
+                .param("id", id.toString())
+                .param("noPage", noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
         MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleDetailForDailyExperience")
                 .header(HttpHeaders.AUTHORIZATION, token2)
-                .param("id",id.toString())
-                .param("noPage",noPage.toString())
+                .param("id", id.toString())
+                .param("noPage", noPage.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden()).andReturn();
@@ -112,10 +112,9 @@ public class ArticleControllerTest {
 
 
     @Test
-    void getListArticleNameInDailyExpenseByPersonId() throws Exception{
         //ARRANGE
+    void getListArticleNameInDailyExpenseByPersonId() throws Exception {
         Long id = 1L;
-        Integer noPage = 0;
 
         Person person1 = Person.builder().id(1L).roles("USER").build();
         String token1 = "Bearer " + jwtService.generate(person1);
@@ -126,14 +125,14 @@ public class ArticleControllerTest {
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleNameInDailyExpenseByPersonId/" + id)
                 .header(HttpHeaders.AUTHORIZATION, token1)
-                .param("id",id.toString())
+                .param("id", id.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
         MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.get("/article/getListArticleNameInDailyExpenseByPersonId/" + id)
                 .header(HttpHeaders.AUTHORIZATION, token2)
-                .param("id",id.toString())
+                .param("id", id.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden()).andReturn();
@@ -144,7 +143,7 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void increaseArticleQty() throws Exception{
+    void increaseArticleQty() throws Exception {
         //ARRANGE
         Long id = 1L;
         Person person1 = Person.builder().id(1L).roles("USER").build();
@@ -154,7 +153,7 @@ public class ArticleControllerTest {
         String token2 = "Bearer " + jwtService.generate(person2);
 
         DailyExpense dailyExpense = DailyExpense.builder().id(1L).person(person1).build();
-        ArticleDetail articleDetail =  new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).id(1L).name("cereales").dailyExpense(dailyExpense).qty(4).price(24.5f).build());
+        ArticleDetail articleDetail = new ArticleDetail(Article.builder().degreeOfUseFullness(DegreeOfUseFullness.LOW).id(1L).name("cereales").dailyExpense(dailyExpense).qty(4).price(24.5f).build());
 
         //ACT
 
@@ -173,7 +172,7 @@ public class ArticleControllerTest {
                 .andExpect(status().isForbidden()).andReturn();
 
         //ASSERT
-        assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
-        assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_OK, mvcResult1.getResponse().getStatus());
+        assertEquals(MockHttpServletResponse.SC_FORBIDDEN, mvcResult2.getResponse().getStatus());
     }
 }

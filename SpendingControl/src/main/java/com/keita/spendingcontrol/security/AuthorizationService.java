@@ -2,13 +2,15 @@ package com.keita.spendingcontrol.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.keita.spendingcontrol.model.dto.ArticleDetail;
-import com.keita.spendingcontrol.model.entity.Article;
+import lombok.extern.java.Log;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+@Log
 @Service
 public class AuthorizationService {
 
@@ -18,7 +20,7 @@ public class AuthorizationService {
     }
 
     public boolean listBelongToUserConnected(List<ArticleDetail> articleDetails){
-        return articleDetails.stream().map(articleDetail -> isConnected(articleDetail.getPersonId()))
-                .collect(Collectors.toSet()).size() == 1;
+        return !articleDetails.stream().map(articleDetail -> isConnected(articleDetail.getPersonId()))
+                .collect(Collectors.toSet()).contains(false);
     }
 }

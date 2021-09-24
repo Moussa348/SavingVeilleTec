@@ -48,10 +48,10 @@ public class DbInit implements CommandLineRunner {
 
                 /*
                 et ca pour les controller
+                 */
 
                 person.setAccountVerified(true);
 
-                 */
                articleRepository.save(Article.builder()
                         .name("cereales").id(1L)
                         .time(LocalDateTime.now())
