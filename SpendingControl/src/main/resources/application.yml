@@ -12,5 +12,5 @@ spring:
     active: test
 
 security:
-  jwt.duration: 2
+  jwt.duration: 30
 

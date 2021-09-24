@@ -132,7 +132,12 @@
         </div>
 
         <div class="m-4 flex-row d-flex justify-content-start">
-          <select class="form-select {{
+          <div class="flex-row text-start">
+            <label for="qty" class="form-label text-light text-start"
+              >Degree Of UseFullness</label
+            >
+          </div>
+          <select class="flex-row form-select {{
             isFieldTouched('degreeOfUseFullness')
               ? isFieldValid('degreeOfUseFullness')
                 ? 'is-valid'

@@ -86,7 +86,7 @@
     <div class="d-flex justify-content-center">
       <app-artilce-utility-chart
         *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
-        [type]="type"
+        [type]="'pie'"
         [chartId]="chartId"
         [labelName]="label"
         [mapArticlesUseFullness]="dailyAnalytic.totalByUseFullness"
@@ -95,7 +95,7 @@
 
       <app-artilce-utility-chart
         *ngIf="isDailyAnalyticTotalUseFullnessCharged()"
-        [type]="'pie'"
+        [type]="type"
         [chartId]="chartId + '2'"
         [labelName]="label"
         [mapArticlesUseFullness]="dailyAnalytic.totalByUseFullness"
@@ -117,112 +117,166 @@
     <div class="p-5"></div>
   </div>
 
-  <div class="row d-flex justify-content-center text-white">
-    <div class="col-lg-4">
-      <mat-divider class="border"></mat-divider>
-      <div class="p-2"></div>
-      <div class="row d-flex justify-content-center border blur shadow">
-        <h2 @fade class="lead text-center align-self-center">
-          Most Expensive Article By Degree Of UseFulness<i
-            class="fas fa-calendar-alt pl-1"
-          ></i>
-        </h2>
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="row d-flex justify-content-center text-white">
+          <div class="col-lg-4">
+            <mat-divider class="border"></mat-divider>
+            <div class="p-2"></div>
+            <div class="row d-flex justify-content-center border blur shadow">
+              <h2 @fade class="lead text-center align-self-center">
+                Most Expensive Article By Degree Of UseFulness<i
+                  class="fas fa-calendar-alt pl-1"
+                ></i>
+              </h2>
+            </div>
+
+            <div class="p-2"></div>
+            <mat-divider class="border"></mat-divider>
+            <div class="p-4"></div>
+          </div>
+        </div>
+
+        <div class="row w-100" style="width: 2000px !important">
+          <div class="d-flex justify-content-center">
+            <app-article-price-chart
+              *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
+              [type]="'pie'"
+              [colors]="colors1"
+              [chartId]="chartId2 + '1'"
+              [labelName]="label2"
+              [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
+            >
+            </app-article-price-chart>
+
+            <app-article-price-chart
+              *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
+              [type]="type"
+              [colors]="colors1"
+              [chartId]="chartId2 + '2'"
+              [labelName]="label2"
+              [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
+            >
+            </app-article-price-chart>
+
+            <app-article-price-chart
+              *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
+              [type]="'polarArea'"
+              [colors]="colors1"
+              [chartId]="chartId2 + '3'"
+              [labelName]="label2"
+              [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
+            >
+            </app-article-price-chart>
+          </div>
+        </div>
       </div>
+      <!--
 
-      <div class="p-2"></div>
-      <mat-divider class="border"></mat-divider>
-      <div class="p-4"></div>
-    </div>
-  </div>
+      <div class="flex-row">
+       <div class="p-5"></div>
+       </div>
+     -->
 
-  <div class="row w-100" style="width: 2000px !important">
-    <div class="d-flex justify-content-center">
-      <app-article-price-chart
-        *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
-        [type]="type"
-        [colors]="colors1"
-        [chartId]="chartId2 + '1'"
-        [labelName]="label2"
-        [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
-      >
-      </app-article-price-chart>
+      <div class="carousel-item">
+        <div class="row d-flex justify-content-center text-white">
+          <div class="col-lg-4">
+            <mat-divider class="border"></mat-divider>
+            <div class="p-2"></div>
+            <div class="row d-flex justify-content-center border blur shadow">
+              <h2 @fade class="lead text-center align-self-center">
+                Less Expensive Article By Degree Of UseFulness<i
+                  class="fas fa-calendar-alt pl-1"
+                ></i>
+              </h2>
+            </div>
 
-      <app-article-price-chart
-        *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
-        [type]="'pie'"
-        [colors]="colors1"
-        [chartId]="chartId2 + '2'"
-        [labelName]="label2"
-        [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
-      >
-      </app-article-price-chart>
+            <div class="p-2"></div>
+            <mat-divider class="border"></mat-divider>
+            <div class="p-4"></div>
+          </div>
+        </div>
 
-      <app-article-price-chart
-        *ngIf="isMostExpensiveArticlesByUseFullnessCharged()"
-        [type]="'polarArea'"
-        [colors]="colors1"
-        [chartId]="chartId2 + '3'"
-        [labelName]="label2"
-        [mapArticles]="dailyAnalytic.mostExpensiveArticlesByUseFullness"
-      >
-      </app-article-price-chart>
-    </div>
-  </div>
+        <div class="row w-100" style="width: 2000px !important">
+          <div class="d-flex justify-content-center">
+            <app-article-price-chart
+              *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
+              [type]="'pie'"
+              [colors]="colors2"
+              [chartId]="chartId2 + '4'"
+              [labelName]="label3"
+              [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
+            >
+            </app-article-price-chart>
 
-  <div class="flex-row">
-    <div class="p-5"></div>
-  </div>
+            <app-article-price-chart
+              *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
+              [type]="type"
+              [colors]="colors2"
+              [chartId]="chartId2 + '5'"
+              [labelName]="label3"
+              [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
+            >
+            </app-article-price-chart>
 
-  <div class="row d-flex justify-content-center text-white">
-    <div class="col-lg-4">
-      <mat-divider class="border"></mat-divider>
-      <div class="p-2"></div>
-      <div class="row d-flex justify-content-center border blur shadow">
-        <h2 @fade class="lead text-center align-self-center">
-          Less Expensive Article By Degree Of UseFulness<i
-            class="fas fa-calendar-alt pl-1"
-          ></i>
-        </h2>
+            <app-article-price-chart
+              *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
+              [type]="'polarArea'"
+              [colors]="colors2"
+              [chartId]="chartId2 + '6'"
+              [labelName]="label3"
+              [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
+            >
+            </app-article-price-chart>
+          </div>
+        </div>
       </div>
-
-      <div class="p-2"></div>
-      <mat-divider class="border"></mat-divider>
-      <div class="p-4"></div>
     </div>
-  </div>
 
-  <div class="row w-100" style="width: 2000px !important">
-    <div class="d-flex justify-content-center">
-      <app-article-price-chart
-        *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
-        [type]="type"
-        [colors]="colors2"
-        [chartId]="chartId2 + '4'"
-        [labelName]="label3"
-        [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
-      >
-      </app-article-price-chart>
-
-      <app-article-price-chart
-        *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
-        [type]="'pie'"
-        [colors]="colors2"
-        [chartId]="chartId2 + '5'"
-        [labelName]="label3"
-        [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
-      >
-      </app-article-price-chart>
-
-      <app-article-price-chart
-        *ngIf="isLEssExpensiveArticlesByUseFullnessCharged()"
-        [type]="'polarArea'"
-        [colors]="colors2"
-        [chartId]="chartId2 + '6'"
-        [labelName]="label3"
-        [mapArticles]="dailyAnalytic.lessExpensiveArticlesByUseFullness"
-      >
-      </app-article-price-chart>
+    <div class="flex-row">
+      <div class="p-5"></div>
     </div>
+
+    <button
+      class="carousel-control-prev text-light"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon text-light border rounded shadow" aria-hidden="true"></span>
+      <span class="visually-hidden text-light font">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon text-light border rounded shadow" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </div>
 
