@@ -37,6 +37,7 @@ export class DailyExpenseDetailComponent implements OnInit {
   id = getId();
 
   noPage = 0;
+  hasMoreContent = true;
   articles: Article[] = new Array();
 
   label = 'Total Price Of Article By Usefulness $';
@@ -135,8 +136,12 @@ export class DailyExpenseDetailComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          this.articles.push.apply(this.articles,data);
-          console.log(this.articles);
+          if(data.length > 0){
+            this.articles.push.apply(this.articles,data);
+            console.log(this.articles);
+          }else{
+            this.hasMoreContent = false;
+          }
         },
         (err) => {
           console.log(err);
@@ -146,5 +151,9 @@ export class DailyExpenseDetailComponent implements OnInit {
 
   isArticlesCharged() {
     return this.articles.length != 0;
+  }
+
+  listHasMoreContent(){
+    return this.hasMoreContent;
   }
 }

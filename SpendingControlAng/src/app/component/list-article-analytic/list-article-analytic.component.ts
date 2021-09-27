@@ -1,5 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -16,30 +23,27 @@ export class ListArticleAnalyticComponent implements OnInit {
   @Input() articleDetails: Article[] = new Array();
   filteredArticles$: Observable<Article[]>;
   filteredArticles2$: ReplaySubject<Article[]>;
-  initialSize ;
+  currentSize;
 
   constructor(
     private datePipe: DatePipe,
-    private dataExchangerService: DataExchangerService,
+    private dataExchangerService: DataExchangerService
   ) {
-    this.initialSize = this.articleDetails.length;
-    this.filteredArticles$ =this.filterInList('');
+    this.filteredArticles$ = this.filterInList('');
   }
 
   ngOnInit(): void {
+    this.currentSize = this.articleDetails.length;
   }
 
   ngDoCheck(): void {
-    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-    //Add 'implements DoCheck' to the class.
-    if(this.initialSize < this.articleDetails.length){
-      console.log(this.articleDetails);
+    if (this.currentSize < this.articleDetails.length) {
+      this.currentSize = this.articleDetails.length;
       this.filteredArticles$ = this.filterInList('');
     }
   }
 
-
-  filterInList(string){
+  filterInList(string) {
     return this.filter.valueChanges.pipe(
       startWith(string),
       map((text) => this.search(text))
