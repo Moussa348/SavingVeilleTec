@@ -39,6 +39,7 @@ import { DailyExpenseDetailComponent } from './component/daily-expense-detail/da
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ArticlePriceChartComponent } from './component/chart/article-price-chart/article-price-chart.component';
+import { ListArticleAnalyticComponent } from './component/list-article-analytic/list-article-analytic.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ArticlePriceChartComponent } from './component/chart/article-price-char
     AddingArticleComponent,
     DailyExpenseDetailComponent,
     ArticlePriceChartComponent,
+    ListArticleAnalyticComponent,
   ],
   imports: [
     BrowserModule,

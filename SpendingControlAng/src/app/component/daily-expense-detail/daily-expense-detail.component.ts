@@ -78,6 +78,7 @@ export class DailyExpenseDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDailyAnalytic(this.model);
+    this.loadMore();
   }
   selectToday() {
     this.model = this.calendar.getToday();
@@ -116,6 +117,11 @@ export class DailyExpenseDetailComponent implements OnInit {
 
   isDailyAnalyticCharged() {
     return this.dailyAnalytic.totalPrice > 0;
+  }
+
+  loadMore() {
+    this.getListArticles();
+    this.noPage++;
   }
 
   getListArticles() {

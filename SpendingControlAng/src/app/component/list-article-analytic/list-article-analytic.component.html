@@ -1,0 +1,68 @@
+<div class="row d-flex jusitfy-content-center">
+  <form>
+    <div class="form-group form-inline row d-flex">
+      <p class="text-sm-left pt-3 font-italic">
+        <u>Search:</u>
+      </p>
+      <input class="form-control ml-2" type="text" [formControl]="filter" />
+    </div>
+  </form>
+</div>
+
+<div
+  class="row d-flex jusitfy-content-center"
+  style="overflow-x: auto; overflow-y: auto"
+>
+  <table class="table table-striped shadow table-hover border">
+    <thead class="text-capitalize">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Time</th>
+        <th scope="col">Name</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Price</th>
+        <th scope="col">degreeOfUseFullness</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of filteredArticles$ | async; index as i">
+        <th scope="row">
+          <ngb-highlight
+            [result]="i + 1 | number"
+            [term]="filter.value"
+          ></ngb-highlight>
+        </th>
+        <td>
+            <ngb-highlight
+              [result]="task.name"
+              [term]="filter.value"
+            ></ngb-highlight>
+          </td>
+        <td>
+          <ngb-highlight
+            [result]="article.time | date:'shortTime'"
+            [term]="filter.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+            <ngb-highlight
+              [result]="article.qty"
+              [term]="filter.value"
+            ></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight
+              [result]="article.price"
+              [term]="filter.value"
+            ></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight
+              [result]="article.degreeOfUseFullness"
+              [term]="filter.value"
+            ></ngb-highlight>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
