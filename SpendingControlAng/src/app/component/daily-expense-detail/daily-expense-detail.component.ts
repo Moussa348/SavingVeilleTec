@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { DailyExpense } from 'src/app/model/daily-expense';
 import { DailyExpenseService } from 'src/app/service/daily-expense.service';
 import { getId } from 'src/app/util/jwtUtils';
@@ -19,6 +19,7 @@ import { DailyAnalytic } from 'src/app/model/daily-analytic';
 import { ChartType } from 'chart.js/auto';
 import { ArticleService } from 'src/app/service/article.service';
 import { Article } from 'src/app/model/article';
+import { DataExchangerService } from 'src/app/service/data-exchanger.service';
 
 @Component({
   selector: 'app-daily-expense-detail',
@@ -73,12 +74,13 @@ export class DailyExpenseDetailComponent implements OnInit {
     private dailyExpenseService: DailyExpenseService,
     private calendar: NgbCalendar,
     private datePipe: DatePipe,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private dataExchangerService : DataExchangerService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.getDailyAnalytic(this.model);
-    this.loadMore();
   }
   selectToday() {
     this.model = this.calendar.getToday();
@@ -94,6 +96,7 @@ export class DailyExpenseDetailComponent implements OnInit {
         this.hasAnAnalytic = true;
         this.dailyAnalytic = data;
         console.log(this.dailyAnalytic);
+        this.loadMore();
       },
       (err) => {
         this.hasAnAnalytic = false;
@@ -132,7 +135,8 @@ export class DailyExpenseDetailComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          this.articles = data;
+          this.articles.push.apply(this.articles,data);
+          console.log(this.articles);
         },
         (err) => {
           console.log(err);

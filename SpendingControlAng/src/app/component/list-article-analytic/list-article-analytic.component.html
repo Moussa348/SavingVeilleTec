@@ -1,31 +1,35 @@
-<div class="row d-flex jusitfy-content-center">
+<div class="row d-flex jusitfy-content-center" style="width: 1000px;">
   <form>
     <div class="form-group form-inline row d-flex">
-      <p class="text-sm-left pt-3 font-italic">
-        <u>Search:</u>
+      <p class="text-sm-left pt-3 font-italic text-capitalize text-light">
+        <u>Search: <i class="fas fa-search"></i></u>
       </p>
       <input class="form-control ml-2" type="text" [formControl]="filter" />
     </div>
   </form>
 </div>
 
+<div class="flex-row">
+  <div class="p-2"></div>
+</div>
+
 <div
   class="row d-flex jusitfy-content-center"
   style="overflow-x: auto; overflow-y: auto"
 >
-  <table class="table table-striped shadow table-hover border">
-    <thead class="text-capitalize">
+  <table class="table table-striped shadow table-hover border blur shadow-lg">
+    <thead class="text-capitalize text-">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Time</th>
-        <th scope="col">Name</th>
+        <th scope="col">Name <i class="fas fa-signature"></i></th>
+        <th scope="col">Time <i class="fas fa-clock"></i></th>
         <th scope="col">Qty</th>
-        <th scope="col">Price</th>
-        <th scope="col">degreeOfUseFullness</th>
+        <th scope="col">Price <i class="fas fa-money-bill-wave-alt"></i></th>
+        <th scope="col">degreeOfUseFullness <i class="fas fa-tag"></i></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let article of filteredArticles$ | async; index as i">
+      <tr *ngFor="let article of filteredArticles$ | async; index as i" class="text-light">
         <th scope="row">
           <ngb-highlight
             [result]="i + 1 | number"
@@ -34,7 +38,7 @@
         </th>
         <td>
             <ngb-highlight
-              [result]="task.name"
+              [result]="article.name"
               [term]="filter.value"
             ></ngb-highlight>
           </td>

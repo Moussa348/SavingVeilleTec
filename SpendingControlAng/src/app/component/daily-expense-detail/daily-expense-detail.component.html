@@ -147,7 +147,9 @@
             <div class="p-2"></div>
             <div class="row d-flex justify-content-center border blur shadow">
               <h2 @fade class="lead text-center align-self-center">
-                Most Expensive Article By Degree Of UseFulness<i class="fas fa-level-up-alt"></i>
+                Most Expensive Article By Degree Of UseFulness<i
+                  class="fas fa-level-up-alt"
+                ></i>
               </h2>
             </div>
 
@@ -205,7 +207,9 @@
             <div class="p-2"></div>
             <div class="row d-flex justify-content-center border blur shadow">
               <h2 @fade class="lead text-center align-self-center">
-                Less Expensive Article By Degree Of UseFulness<i class="fas fa-level-down-alt"></i>
+                Less Expensive Article By Degree Of UseFulness<i
+                  class="fas fa-level-down-alt"
+                ></i>
               </h2>
             </div>
 
@@ -261,7 +265,10 @@
       data-bs-target="#carouselExampleIndicators"
       data-bs-slide="prev"
     >
-      <span class="carousel-control-prev-icon text-light border rounded shadow" aria-hidden="true"></span>
+      <span
+        class="carousel-control-prev-icon text-light border rounded shadow"
+        aria-hidden="true"
+      ></span>
       <span class="visually-hidden text-light font">Previous</span>
     </button>
     <button
@@ -270,26 +277,34 @@
       data-bs-target="#carouselExampleIndicators"
       data-bs-slide="next"
     >
-      <span class="carousel-control-next-icon text-light border rounded shadow" aria-hidden="true"></span>
+      <span
+        class="carousel-control-next-icon text-light border rounded shadow"
+        aria-hidden="true"
+      ></span>
       <span class="visually-hidden">Next</span>
     </button>
   </div>
 
   <div class="flex-row d-flex justify-content-center">
-    <div class="flex-row d-flex justify-content-center">
-      <app-list-article-analytic></app-list-article-analytic>
-    </div>
+    <app-list-article-analytic
+      *ngIf="isArticlesCharged()"
+      [articleDetails]="articles"
+    ></app-list-article-analytic>
     <!--call a different method on click and show different text when noPage > 0-->
-    <button
-          class="btn btn-lg btn-dark rounded-pill border border-3 shadow p-4"
-          (click)="getListArticles()"
-        >
-          See List Article Details<i class="fas fa-cloud-download-alt pl-1"></i>
-        </button>
   </div>
 
-  <app-list-article-detail *ngIf="isArticlesCharged()" [articleDetails]="articles"></app-list-article-detail>
+  <div class="flex-row">
+    <div class="p-3"></div>
+  </div>
 
+  <div class="flex-row d-flex justify-content-center">
+    <button
+      class="btn btn-lg btn-dark rounded-pill border border-3 shadow p-4"
+      (click)="loadMore()"
+    >
+      See List Article Details<i class="fas fa-cloud-download-alt pl-1"></i>
+    </button>
+  </div>
 </div>
 
 <div

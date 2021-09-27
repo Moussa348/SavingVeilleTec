@@ -29,7 +29,6 @@ export class AddingArticleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.personId);
     this.setArticleFormGroup();
   }
 
