@@ -22,23 +22,25 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-@Profile("test")
-@Component
-@Order(1)
 @Log
+@Order(1)
+@Component
+@Profile("test")
 public class DbInit implements CommandLineRunner {
 
-    @Autowired
-    private PersonService personService;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final DailyExpenseRepository dailyExpenseRepository;
 
-    @Autowired
-    private DailyExpenseRepository dailyExpenseRepository;
+    private final ArticleRepository articleRepository;
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    public DbInit(PersonRepository personRepository,
+                  DailyExpenseRepository dailyExpenseRepository,
+                  ArticleRepository articleRepository) {
+        this.personRepository = personRepository;
+        this.dailyExpenseRepository = dailyExpenseRepository;
+        this.articleRepository = articleRepository;
+    }
 
     private void createPersons() throws IOException {
         List<Person> persons = Arrays.asList(
@@ -49,11 +51,10 @@ public class DbInit implements CommandLineRunner {
         persons.forEach(person -> {
             try {
 
-                /*
-                et ca pour les controller
-                 */
-
                 person.setAccountVerified(true);
+
+                personRepository.save(person);
+
                 DailyExpense dailyExpense = new DailyExpense(personRepository.save(person));
 
                 dailyExpense.setTotal(12.25f);
@@ -65,8 +66,6 @@ public class DbInit implements CommandLineRunner {
                         .price(12.25f)
                         .degreeOfUseFullness(DegreeOfUseFullness.LOW)
                         .dailyExpense(dailyExpenseRepository.save(dailyExpense)).build());
-
-                //personService.createPerson(person);//Pour les tests avec front-end
             } catch (Exception e) {
                 e.printStackTrace();
             }

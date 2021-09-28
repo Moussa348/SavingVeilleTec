@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,11 +42,11 @@ public class ArticleService {
                 .stream().map(ArticleDetail::new).collect(Collectors.toList());
     }
 
-
     public List<String> getListArticleNameInDailyExpenseByPersonId(Long personId){
         return new ArrayList<>(dailyExpenseService.findAllArticleByPerson(personId)
                 .stream().map(Article::getName).collect(Collectors.toSet()));
     }
+
     public void increaseArticleQty(Long id,ArticleDetail articleDetail){
         Article article = articleRepository.findByNameAndDailyExpenseId(articleDetail.getName(),id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find article with name : " + articleDetail.getName()));
 

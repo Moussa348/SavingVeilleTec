@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-@Service
 @Log
+@Service
 public class DailyExpenseService {
 
     @Autowired
@@ -34,7 +34,6 @@ public class DailyExpenseService {
 
     @Autowired
     private DailyAnalyticService dailyAnalyticService;
-
 
     public void createDailExpenseForPerson(Person person) {
         dailyExpenseRepository.save(new DailyExpense(person));
@@ -93,8 +92,6 @@ public class DailyExpenseService {
 
     public List<Article> findAllArticleByPerson(Long personId) {
 
-        return dailyExpenseRepository.findAllByPersonId(personId)
-                .stream().map(DailyExpense::getArticles).flatMap(Collection::stream).collect(Collectors.toList());
+        return dailyExpenseRepository.findAllByPersonId(personId).stream().map(DailyExpense::getArticles).flatMap(Collection::stream).collect(Collectors.toList());
     }
-
 }

@@ -35,7 +35,7 @@ public class PersonService {
     private EmailService emailService;
 
     public boolean createPerson(Person person) throws IOException, MessagingException {
-        if(!personRepository.existsByEmail(person.getEmail())){
+        if (!personRepository.existsByEmail(person.getEmail())) {
             person.setRegistrationDate(LocalDate.now());
             person.setRoles("USER");
             person.setPicture(FileUtil.setDefaultProfilePicture());
@@ -54,12 +54,12 @@ public class PersonService {
             person.setPicture(multipartFile.getBytes());
 
             personRepository.save(person);
-        }else
+        } else
             throw new IOException("This file is not an image");
     }
 
     //TODO --> send encryptedPassword
-    public void setPassword(Long id, String password){
+    public void setPassword(Long id, String password) {
         Person person = getPersonById(id);
 
         person.setPassword(password);
@@ -67,7 +67,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public void disableAccount(Long id){
+    public void disableAccount(Long id) {
         Person person = getPersonById(id);
 
         person.setActive(false);
@@ -75,9 +75,9 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public void confirmVerificationCode(String verificationCode){
+    public void confirmVerificationCode(String verificationCode) {
         Person person = personRepository.findByVerificationCode(verificationCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Can't find person with this verification code"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find person with this verification code"));
 
         person.setAccountVerified(true);
         person.setVerificationCode("");
@@ -86,8 +86,6 @@ public class PersonService {
     }
 
     //TODO delete all account unverified
-
-
     public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("image/jpeg");
 
@@ -96,26 +94,25 @@ public class PersonService {
         IOUtils.copy(inputStream, httpServletResponse.getOutputStream());
     }
 
-    public Person getPersonById(Long id){
+    public Person getPersonById(Long id) {
         return personRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find person with id: " + id));
     }
 
-
-    public PersonDetail getPersonDetail(Long id){
+    public PersonDetail getPersonDetail(Long id) {
         return new PersonDetail(getPersonById(id));
     }
 
     //TODO --> ajouter list d'articles avec le nom,quantité et le total
-    public Dashboard getPersonDashBoard(Long id){
-        return new Dashboard(getPersonById(id),dailyExpenseService.getDailyExpenseByDateForPerson(id,LocalDate.now()));
+    public Dashboard getPersonDashBoard(Long id) {
+        return new Dashboard(getPersonById(id), dailyExpenseService.getDailyExpenseByDateForPerson(id, LocalDate.now()));
     }
 
-    public List<Person> getListPerson(){
+    public List<Person> getListPerson() {
         return personRepository.findAllByActiveTrue();
     }
 
-    public Person findPersonByEmailAndPassword(String email,String password,HttpStatus httpStatus){
-        return personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email,password)
-                .orElseThrow( () -> new ResponseStatusException(httpStatus,"Can't find person with : " + email));
+    public Person findPersonByEmailAndPassword(String email, String password, HttpStatus httpStatus) {
+        return personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email, password)
+                .orElseThrow(() -> new ResponseStatusException(httpStatus, "Can't find person with : " + email));
     }
 }

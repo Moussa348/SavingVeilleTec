@@ -1,5 +1,6 @@
 package com.keita.spendingcontrol.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.keita.spendingcontrol.model.entity.Article;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Data
 public class ArticleDetail implements Serializable {
     private Long id,personId,dailyId;
+
     private LocalDateTime time;
     private String name;
     private Integer qty;
