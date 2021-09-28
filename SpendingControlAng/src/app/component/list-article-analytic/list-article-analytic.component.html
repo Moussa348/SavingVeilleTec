@@ -1,4 +1,4 @@
-<div class="row d-flex jusitfy-content-center" style="width: 1000px;">
+<div class="row d-flex jusitfy-content-center" style="width: 1000px">
   <form>
     <div class="form-group form-inline row d-flex">
       <p class="text-sm-left pt-3 font-italic text-capitalize text-light">
@@ -29,45 +29,60 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let article of filteredArticles$ | async; index as i" 
-      class="text-light {{isMostExpensive(article.name)? 'bg-danger':isLessExpensive(article.name)?'bg-success':'bg-transparent'}}"
+      <tr
+        *ngFor="let article of filteredArticles$ | async; index as i"
+        class="text-light {{
+          isMostExpensive(article.name)
+            ? 'bg-danger'
+            : isLessExpensive(article.name)
+            ? 'bg-success'
+            : 'bg-transparent'
+        }}"
       >
         <th scope="row">
           <ngb-highlight
             [result]="i + 1 | number"
             [term]="filter.value"
-          ></ngb-highlight>
+          ></ngb-highlight><i
+          class="fas {{
+            isMostExpensive(article.name)
+              ? 'fa-level-up-alt'
+              : isLessExpensive(article.name)
+              ? 'fa-level-down-alt'
+              : null
+          }}"
+        ></i>
         </th>
         <td>
-            <ngb-highlight
-              [result]="article.name"
-              [term]="filter.value"
-            ></ngb-highlight>
-          </td>
-        <td>
           <ngb-highlight
-            [result]="article.time | date:'shortTime'"
+            [result]="article.name"
             [term]="filter.value"
           ></ngb-highlight>
         </td>
         <td>
-            <ngb-highlight
-              [result]="article.qty"
-              [term]="filter.value"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="article.price"
-              [term]="filter.value"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="article.degreeOfUseFullness"
-              [term]="filter.value"
-            ></ngb-highlight>
-          </td>
+          <ngb-highlight
+            [result]="article.time | date: 'shortTime'"
+            [term]="filter.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="article.qty"
+            [term]="filter.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="article.price"
+            [term]="filter.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="article.degreeOfUseFullness"
+            [term]="filter.value"
+          ></ngb-highlight>
+        </td>
       </tr>
     </tbody>
   </table>

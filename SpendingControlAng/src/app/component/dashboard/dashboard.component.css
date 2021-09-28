@@ -2,6 +2,11 @@
   margin: 20px;
 }
 
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .dashboard-card {
   position: absolute;
   top: 15px;
