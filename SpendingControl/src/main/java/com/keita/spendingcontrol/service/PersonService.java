@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class PersonService {
@@ -114,5 +115,16 @@ public class PersonService {
     public Person findPersonByEmailAndPassword(String email, String password, HttpStatus httpStatus) {
         return personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email, password)
                 .orElseThrow(() -> new ResponseStatusException(httpStatus, "Can't find person with : " + email));
+    }
+
+    public Integer deleteAllUnVerifiedAccount(){
+        AtomicInteger counter = new AtomicInteger();
+
+        personRepository.findAllByAccountVerifiedFalse().forEach(person -> {
+            personRepository.deleteById(person.getId());
+            counter.getAndIncrement();
+        });
+
+        return counter.get();
     }
 }

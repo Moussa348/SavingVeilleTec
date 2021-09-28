@@ -209,4 +209,21 @@ public class PersonServiceTest {
         //ASSERT
         assertThrows(ResponseStatusException.class,() -> personService.findPersonByEmailAndPassword(email2,password2, HttpStatus.NOT_FOUND));
     }
+
+    @Test
+    void deleteAllUnVerifiedAccount(){
+        //ARRANGE
+        List<Person> persons = Arrays.asList(
+                Person.builder().build(),
+                Person.builder().build(),
+                Person.builder().build()
+        );
+        when(personRepository.findAllByAccountVerifiedFalse()).thenReturn(persons);
+
+        //ACT
+        Integer nbrOfUnVerifiedAccountDeleted = personService.deleteAllUnVerifiedAccount();
+
+        //ASSERT
+        assertEquals(persons.size(),nbrOfUnVerifiedAccountDeleted);
+    }
 }
