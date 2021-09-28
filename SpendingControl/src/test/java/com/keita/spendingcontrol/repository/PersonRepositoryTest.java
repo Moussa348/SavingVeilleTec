@@ -107,4 +107,13 @@ public class PersonRepositoryTest {
         assertTrue(personExistWithVerificationCode1);
         assertFalse(personExistWithVerificationCode2);
     }
+
+    @Test
+    void findAllByAccountVerifiedFalse(){
+        //ACT
+        List<Person> personsWithUnVerifiedAccount = personRepository.findAllByAccountVerifiedFalse();
+
+        //ASSERT
+        assertEquals(2,personsWithUnVerifiedAccount.size());
+    }
 }

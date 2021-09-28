@@ -18,7 +18,7 @@ public class PoolService {
         this.dailyExpenseService = dailyExpenseService;
     }
 
-    @Scheduled(cron = "00 00 0 ? * *")
+    @Scheduled(cron = "00 00 1 ? * *")
     public void createDailyExpenseForEveryPerson(){
         log.info("Nbr Of Daily Expenses created : " + dailyExpenseService.createDailyExpenseForEveryPerson());
     }

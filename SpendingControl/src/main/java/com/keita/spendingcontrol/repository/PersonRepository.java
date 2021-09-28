@@ -14,4 +14,5 @@ public interface PersonRepository extends JpaRepository<Person,Long> {
     Optional<Person> findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(String email,String password);
     Optional<Person> findByEmailAndPassword(String email,String password);
     Optional<Person> findByVerificationCode(String verificationCode);
+    List<Person> findAllByAccountVerifiedFalse();
 }
