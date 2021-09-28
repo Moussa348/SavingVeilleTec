@@ -14,12 +14,21 @@ public class PoolService {
 
     private final DailyExpenseService dailyExpenseService;
 
-    public PoolService(DailyExpenseService dailyExpenseService) {
+    private final PersonService personService;
+
+    public PoolService(DailyExpenseService dailyExpenseService, PersonService personService) {
         this.dailyExpenseService = dailyExpenseService;
+        this.personService = personService;
     }
 
-    @Scheduled(cron = "00 00 1 ? * *")
+    @Scheduled(cron = "00 02 1 ? * *")
     public void createDailyExpenseForEveryPerson(){
-        log.info("Nbr Of Daily Expenses created : " + dailyExpenseService.createDailyExpenseForEveryPerson());
+        log.info("NBR OF DAILY EXPENSES CREATED : " + dailyExpenseService.createDailyExpenseForEveryPerson());
+    }
+
+    @Scheduled(cron = "00 00 0 ? * *")
+    public void deleteAllUnverifiedAccount(){
+        log.info("NBR OF UNVERIFIED ACCOUNT DELETED : " + personService.deleteAllUnverifiedAccount());
+
     }
 }

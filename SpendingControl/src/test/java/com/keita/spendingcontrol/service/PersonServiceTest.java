@@ -211,7 +211,7 @@ public class PersonServiceTest {
     }
 
     @Test
-    void deleteAllUnVerifiedAccount(){
+    void deleteAllUnverifiedAccount(){
         //ARRANGE
         List<Person> persons = Arrays.asList(
                 Person.builder().build(),
@@ -221,7 +221,7 @@ public class PersonServiceTest {
         when(personRepository.findAllByAccountVerifiedFalse()).thenReturn(persons);
 
         //ACT
-        Integer nbrOfUnVerifiedAccountDeleted = personService.deleteAllUnVerifiedAccount();
+        Integer nbrOfUnVerifiedAccountDeleted = personService.deleteAllUnverifiedAccount();
 
         //ASSERT
         assertEquals(persons.size(),nbrOfUnVerifiedAccountDeleted);

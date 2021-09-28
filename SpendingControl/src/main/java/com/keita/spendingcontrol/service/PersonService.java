@@ -117,7 +117,7 @@ public class PersonService {
                 .orElseThrow(() -> new ResponseStatusException(httpStatus, "Can't find person with : " + email));
     }
 
-    public Integer deleteAllUnVerifiedAccount(){
+    public Integer deleteAllUnverifiedAccount(){
         AtomicInteger counter = new AtomicInteger();
 
         personRepository.findAllByAccountVerifiedFalse().forEach(person -> {
