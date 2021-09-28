@@ -21,6 +21,8 @@ import { DataExchangerService } from 'src/app/service/data-exchanger.service';
 export class ListArticleAnalyticComponent implements OnInit {
   filter = new FormControl('');
   @Input() articleDetails: Article[] = new Array();
+  @Input() mostExpensiveArticleName;
+  @Input() lessExpensiveArticleName;
   filteredArticles$: Observable<Article[]>;
   filteredArticles2$: ReplaySubject<Article[]>;
   currentSize;
@@ -33,6 +35,8 @@ export class ListArticleAnalyticComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.mostExpensiveArticleName);
+    console.log(this.lessExpensiveArticleName);
     this.currentSize = this.articleDetails.length;
   }
 
@@ -61,5 +65,13 @@ export class ListArticleAnalyticComponent implements OnInit {
         article.degreeOfUseFullness.toLowerCase().includes(term)
       );
     });
+  }
+
+  isMostExpensive(name:string){
+    return name == this.mostExpensiveArticleName;
+  }
+
+  isLessExpensive(name:string){
+    return name == this.lessExpensiveArticleName;
   }
 }

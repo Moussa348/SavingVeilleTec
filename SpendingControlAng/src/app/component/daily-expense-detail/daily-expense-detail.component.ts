@@ -156,4 +156,8 @@ export class DailyExpenseDetailComponent implements OnInit {
   listHasMoreContent(){
     return this.hasMoreContent;
   }
+
+  getArticleName(article:Article){
+    return article.name;
+  }
 }

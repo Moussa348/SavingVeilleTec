@@ -29,7 +29,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let article of filteredArticles$ | async; index as i" class="text-light">
+      <tr *ngFor="let article of filteredArticles$ | async; index as i" 
+      class="text-light {{isMostExpensive(article.name)? 'bg-danger':isLessExpensive(article.name)?'bg-success':'bg-transparent'}}"
+      >
         <th scope="row">
           <ngb-highlight
             [result]="i + 1 | number"
