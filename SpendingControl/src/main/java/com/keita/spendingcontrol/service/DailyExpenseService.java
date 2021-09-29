@@ -39,7 +39,6 @@ public class DailyExpenseService {
         dailyExpenseRepository.save(new DailyExpense(person));
     }
 
-    //TODO --> call into pooler
     public Integer createDailyExpenseForEveryPerson() {
         AtomicInteger counter = new AtomicInteger();
 

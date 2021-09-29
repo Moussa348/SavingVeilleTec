@@ -41,7 +41,7 @@ public class PersonControllerTest {
     @Test
     void createPerson() throws Exception{
         //ARRANGE
-        Person person1 = Person.builder().firstName("asdasdas").lastName("dsadasd").email("developpeurspring@gmail.com").password("reda123").build();
+        Person person1 = Person.builder().firstName("asdasdas").lastName("dsadasd").email("test@gmail.com").password("reda123").build();
 
         //ACT
         MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.post("/person/createPerson")

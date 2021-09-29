@@ -42,6 +42,7 @@ public class ArticleService {
                 .stream().map(ArticleDetail::new).collect(Collectors.toList());
     }
 
+    //TODO --> need to change it so i get only the name of articles of current daily expense
     public List<String> getListArticleNameInDailyExpenseByPersonId(Long personId){
         return new ArrayList<>(dailyExpenseService.findAllArticleByPerson(personId)
                 .stream().map(Article::getName).collect(Collectors.toSet()));

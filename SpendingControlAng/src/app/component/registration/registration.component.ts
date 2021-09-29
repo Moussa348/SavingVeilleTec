@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   person: Person = new Person();
-  registered = "pending";
+  registered = 'pending';
 
   constructor(private personService: PersonService, private router: Router) {}
 
@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
 
   setRegistrationForm() {
     this.registrationForm = new FormGroup({
-      email: new FormControl('',  [Validators.required,Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required]),
@@ -45,7 +45,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   createPerson() {
-    this.registrationForm.get
     this.person.firstName = this.registrationForm.get('firstName').value;
     this.person.lastName = this.registrationForm.get('lastName').value;
     this.person.email = this.registrationForm.get('email').value;
@@ -56,26 +55,31 @@ export class RegistrationComponent implements OnInit {
     if (this.validateSamePassword() && this.registrationForm.valid) {
       console.log(this.person);
       this.personService.createPerson(this.person).subscribe((data) => {
-        this.registered = data?"true":"false";
+        this.registered = data ? 'true' : 'false';
       });
     }
   }
 
   validateSamePassword() {
-   const password = this.registrationForm.get('password').value;
-   const passwordAgain = this.registrationForm.get('passwordAgain').value;
-    return (passwordAgain != "" && passwordAgain != "") && 
-    (password == passwordAgain)&& 
-    (password.length >= 8 && password.length <=40) && 
-    (passwordAgain.length >= 8 && passwordAgain.length <=40) ;
+    const password = this.registrationForm.get('password').value;
+    const passwordAgain = this.registrationForm.get('passwordAgain').value;
+
+    return (
+      passwordAgain != '' &&
+      passwordAgain != '' &&
+      password == passwordAgain &&
+      password.length >= 8 &&
+      password.length <= 40 &&
+      passwordAgain.length >= 8 &&
+      passwordAgain.length <= 40
+    );
   }
 
-  validateField(formControlName){
+  validateField(formControlName) {
     return this.registrationForm.get(formControlName).valid;
   }
 
-  isFieldTouched(formControlName){
+  isFieldTouched(formControlName) {
     return this.registrationForm.get(formControlName).touched;
   }
-
 }

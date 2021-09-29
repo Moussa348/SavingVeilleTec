@@ -65,6 +65,10 @@ export class AuthComponent implements OnInit {
     }
   }
 
+  validatePassword(){
+    return this.authFormGroup.get('password').value.length >=8;
+  }
+
   validateField(formControlName){
     return this.authFormGroup.get(formControlName).valid;
   }
@@ -79,5 +83,9 @@ export class AuthComponent implements OnInit {
 
   logout() {
     this.authGuardService.logout();
+  }
+
+  formIsInvalid(){
+    return this.authFormGroup.invalid && !this.validatePassword();
   }
 }

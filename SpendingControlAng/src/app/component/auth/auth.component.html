@@ -74,9 +74,10 @@
             class="form-control {{
               isFieldTouched('password')
                 ? validateField('password')
-                  ? 'is-valid'
+                  ? validatePassword()? 'is-valid'
                   : 'is-invalid'
                 : ''
+                :''
             }} rounded-pill border shadow"
             formControlName="password"
             placeholder="min 8 character and max 40 character"
@@ -98,6 +99,7 @@
             pb-2
           "
           type="submit"
+          [disabled]="formIsInvalid()"
         >
           Login<i class="fas fa-sign-in-alt"></i>
         </button>

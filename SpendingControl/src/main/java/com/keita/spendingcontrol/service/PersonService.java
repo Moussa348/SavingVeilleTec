@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,9 +40,12 @@ public class PersonService {
         if (!personRepository.existsByEmail(person.getEmail())) {
             person.setRegistrationDate(LocalDate.now());
             person.setRoles("USER");
+            person.setActive(true);
             person.setPicture(FileUtil.setDefaultProfilePicture());
             person.setVerificationCode(RandomString.make(20));
-            emailService.confirmRegistration(personRepository.save(person));
+
+            emailService.confirmRegistration(personRepository.saveAndFlush(person));
+
             return true;
         }
         return false;
@@ -76,6 +80,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
+    @Transactional
     public void confirmVerificationCode(String verificationCode) {
         Person person = personRepository.findByVerificationCode(verificationCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find person with this verification code"));
@@ -83,10 +88,9 @@ public class PersonService {
         person.setAccountVerified(true);
         person.setVerificationCode("");
 
-        dailyExpenseService.createDailExpenseForPerson(personRepository.save(person));
+        dailyExpenseService.createDailExpenseForPerson(person);
     }
 
-    //TODO delete all account unverified
     public void getPicture(Long id, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("image/jpeg");
 
@@ -103,7 +107,6 @@ public class PersonService {
         return new PersonDetail(getPersonById(id));
     }
 
-    //TODO --> ajouter list d'articles avec le nom,quantité et le total
     public Dashboard getPersonDashBoard(Long id) {
         return new Dashboard(getPersonById(id), dailyExpenseService.getDailyExpenseByDateForPerson(id, LocalDate.now()));
     }
