@@ -14,12 +14,12 @@ export class ArticlePriceChartComponent implements OnInit {
   @Input() mapArticles: Map<string, Article> = new Map();
   @Input() colors = [];
   myChart;
+
   constructor() {}
 
   ngOnInit(): void {
     console.log(this.colors);
   }
-
   ngOnDestroy(): void {
     this.myChart.destroy();
   }

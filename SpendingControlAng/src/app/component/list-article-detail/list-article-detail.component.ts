@@ -22,6 +22,8 @@ export class ListArticleDetailComponent implements OnInit {
     console.log(this.articleDetails)
   }
 
+
+
   isListArticlesCharged(){
     return this.articleDetails.length != 0;
   }

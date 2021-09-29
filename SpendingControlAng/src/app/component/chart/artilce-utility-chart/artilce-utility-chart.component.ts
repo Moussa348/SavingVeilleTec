@@ -12,11 +12,27 @@ export class ArtilceUtilityChartComponent implements OnInit {
   @Input() chartId = "";
   @Input() type:ChartType = "line";
   @Input() mapArticlesUseFullness:Map<string,number> = new Map();
+  mapArticlesClone:Map<string,number> = new Map() ;
    myChart;
 
   constructor() {}
   ngOnInit(): void {
+    this.setMapClone();
   }
+
+  ngDoCheck(): void {
+    if(
+      this.mapArticlesClone['LOW'] != this.mapArticlesUseFullness['LOW'] ||
+      this.mapArticlesClone['MEDIUM'] != this.mapArticlesUseFullness['MEDIUM'] ||
+      this.mapArticlesClone['HIGH'] != this.mapArticlesUseFullness['HIGH'] 
+      ){
+        console.log(this.mapArticlesClone);
+        console.log(this.mapArticlesUseFullness);
+        this.setFieldAndUpdate();
+        this.mapArticlesClone = this.mapArticlesUseFullness;
+    }
+  }
+
 
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -28,6 +44,20 @@ export class ArtilceUtilityChartComponent implements OnInit {
   ngOnDestroy(): void {
     this.myChart.destroy();
     
+  }
+
+  setFieldAndUpdate(){
+    this.myChart.data.datasets[0].data[0] = this.mapArticlesUseFullness['LOW'];
+    this.myChart.data.datasets[0].data[1] = this.mapArticlesUseFullness['MEDIUM'];
+    this.myChart.data.datasets[0].data[2] = this.mapArticlesUseFullness['HIGH'];
+
+    this.myChart.update();
+  }
+
+  setMapClone () {
+    this.mapArticlesClone['LOW'] = this.mapArticlesUseFullness['LOW'];
+    this.mapArticlesClone['MEDIUM'] = this.mapArticlesUseFullness['MEDIUM'];
+    this.mapArticlesClone['HIGH'] = this.mapArticlesUseFullness['HIGH'];
   }
 
   setChart() {

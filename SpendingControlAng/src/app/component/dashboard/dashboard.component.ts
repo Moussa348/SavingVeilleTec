@@ -80,10 +80,16 @@ export class DashboardComponent {
       });
 
       modalRef.componentInstance.personId = this.dashboard.personDetail.id;
+     
       modalRef.componentInstance.addedArticle.subscribe( addedArticle =>{
-        console.log(addedArticle);
+        const degreeOfUseFullness = addedArticle.degreeOfUseFullness;
+        
         this.dashboard.dailyExpenseDetail.articleDetails.push(addedArticle);
-        console.log(this.dashboard.dailyExpenseDetail.mapArticlesUseFullness.get(addedArticle.degreeOfUseFullness));
-      })
+        this.dashboard.dailyExpenseDetail.total += addedArticle.price;
+        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] = 
+        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] + 1;
+      });
+
+
   }
 }

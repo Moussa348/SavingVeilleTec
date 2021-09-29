@@ -21,12 +21,12 @@ public class PoolService {
         this.personService = personService;
     }
 
-    @Scheduled(cron = "00 02 1 ? * *")
+    @Scheduled(cron = "00 00 0 ? * *")
     public void createDailyExpenseForEveryPerson(){
         log.info("NBR OF DAILY EXPENSES CREATED : " + dailyExpenseService.createDailyExpenseForEveryPerson());
     }
 
-    @Scheduled(cron = "00 00 0 ? * *")
+    @Scheduled(cron = "00 00 1 ? * *")
     public void deleteAllUnverifiedAccount(){
         log.info("NBR OF UNVERIFIED ACCOUNT DELETED : " + personService.deleteAllUnverifiedAccount());
 
