@@ -87,7 +87,7 @@ export class DashboardComponent {
         this.dashboard.dailyExpenseDetail.articleDetails.push(addedArticle);
         this.dashboard.dailyExpenseDetail.total += addedArticle.price;
         this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] = 
-        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] + 1;
+        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] + addedArticle.qty;
       });
 
 
