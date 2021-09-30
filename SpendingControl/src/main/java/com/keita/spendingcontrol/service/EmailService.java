@@ -36,4 +36,28 @@ public class EmailService {
 
         javaMailSender.send(mimeMessageHelper.getMimeMessage());
     }
+
+    public void fareWellMessage(Person person) throws MessagingException{
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
+
+        mimeMessageHelper.setTo(person.getEmail());
+        mimeMessageHelper.setSubject(person.getLastName() + ", " + person.getFirstName() + " we are sorry to hear that you will be leaving us...");
+
+        String content = "Dear [[name]],<br>"
+                + "We hope that you enjoyed the time spent with us.<br>"
+                + "We hope that we were able to help you with this application.<br>"
+                + "Be sure to minimize your expenses, if you need help, we will always be there for you!<br>"
+                + "<br>"
+                + "Take Care,[[name]]"
+                + "<br>"
+                + "Spending Control Inc.";
+
+
+        content = content.replace("[[name]]",person.getFirstName());
+
+        mimeMessageHelper.setText(content,true);
+
+        javaMailSender.send(mimeMessageHelper.getMimeMessage());
+    }
 }

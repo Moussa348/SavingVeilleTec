@@ -38,4 +38,19 @@ public class EmailServiceTest {
         //ASSERT
         verify(javaMailSender,times(1)).send(mimeMessage);
     }
+
+    @Test
+    void fareWellMessage() throws MessagingException {
+        //ARRANGE
+        MimeMessage mimeMessage = new MimeMessage((Session)null);
+        Person person = Person.builder().email("tasadsa@gmail.com").firstName("massou").lastName("massou").build();
+
+        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
+
+        //ACT
+        emailService.fareWellMessage(person);
+
+        //ASSERT
+        verify(javaMailSender,times(1)).send(mimeMessage);
+    }
 }
