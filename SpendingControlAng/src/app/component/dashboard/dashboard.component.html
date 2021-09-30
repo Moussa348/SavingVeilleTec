@@ -48,9 +48,11 @@
             <div class="d-flex justify-content-start">
               <div class="order-1 pl-5 btn">
                 <img
+                @fade
                   [src]="['http://localhost:4444/person/getPicture/' + id]"
                   alt="vaccinCovid"
                   class="rounded-circle shadow border"
+                  (click)="goToUserSettings()"
                 />
               </div>
               <div class="order-2 p-3 align-self-center text-dark">

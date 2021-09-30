@@ -14,6 +14,7 @@ import { getId } from 'src/app/util/jwtUtils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddingArticleComponent } from '../adding-article/adding-article.component';
 import { ChartType } from 'chart.js/auto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,16 +30,17 @@ import { ChartType } from 'chart.js/auto';
 })
 export class DashboardComponent {
   id = getId();
-  label = "# of article by usefulness";
-  type:ChartType = "pie";
-  chartId = "articleUtilityChart";
+  label = '# of article by usefulness';
+  type: ChartType = 'pie';
+  chartId = 'articleUtilityChart';
   todayDate = new Date();
   dashboard: Dashboard = new Dashboard();
-  
+
   constructor(
     private personService: PersonService,
-    private modalService : NgbModal
-    ) {}
+    private modalService: NgbModal,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getDashboard();
@@ -56,40 +58,46 @@ export class DashboardComponent {
     );
   }
 
-  getArticlesMap() :Map<string,number>{
-      return this.dashboard.dailyExpenseDetail.mapArticlesUseFullness;
+  getArticlesMap(): Map<string, number> {
+    return this.dashboard.dailyExpenseDetail.mapArticlesUseFullness;
   }
 
-  isArticlesMapCharged():boolean{
+  isArticlesMapCharged(): boolean {
     return this.dashboard.dailyExpenseDetail.mapArticlesUseFullness.size != 0;
   }
 
-  isListArticlesCharged(){
+  isListArticlesCharged() {
     return this.dashboard.dailyExpenseDetail.articleDetails.length != 0;
   }
 
-  getListArticles(){
+  getListArticles() {
     return this.dashboard.dailyExpenseDetail.articleDetails;
   }
 
   openAddingArticle() {
+    const modalRef = this.modalService.open(AddingArticleComponent, {
+      centered: true,
+      scrollable: true,
+    });
 
-      const modalRef = this.modalService.open(AddingArticleComponent, {
-        centered: true,
-        scrollable: true,
-      });
+    modalRef.componentInstance.personId = this.dashboard.personDetail.id;
 
-      modalRef.componentInstance.personId = this.dashboard.personDetail.id;
-     
-      modalRef.componentInstance.addedArticle.subscribe( addedArticle =>{
-        const degreeOfUseFullness = addedArticle.degreeOfUseFullness;
-        
-        this.dashboard.dailyExpenseDetail.articleDetails.push(addedArticle);
-        this.dashboard.dailyExpenseDetail.total += addedArticle.price;
-        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] = 
-        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[degreeOfUseFullness] + addedArticle.qty;
-      });
+    modalRef.componentInstance.addedArticle.subscribe((addedArticle) => {
+      const degreeOfUseFullness = addedArticle.degreeOfUseFullness;
 
+      this.dashboard.dailyExpenseDetail.articleDetails.push(addedArticle);
+      this.dashboard.dailyExpenseDetail.articleDetails.reverse();
+      this.dashboard.dailyExpenseDetail.total += addedArticle.price;
+      this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[
+        degreeOfUseFullness
+      ] =
+        this.dashboard.dailyExpenseDetail.mapArticlesUseFullness[
+          degreeOfUseFullness
+        ] + addedArticle.qty;
+    });
+  }
 
+  goToUserSettings(){
+    this.router.navigate(['/userSettings']);
   }
 }
