@@ -5,7 +5,6 @@ import com.keita.spendingcontrol.model.dto.Dashboard;
 import com.keita.spendingcontrol.model.dto.PersonDetail;
 import com.keita.spendingcontrol.model.entity.Person;
 import com.keita.spendingcontrol.repository.PersonRepository;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -45,10 +44,15 @@ public class PersonServiceTest {
     void createPerson() throws IOException, MessagingException {
         //ARRANGE
         Person person1 = Person.builder().email("araa@gmail.com").build();
+
         when(personRepository.existsByEmail(person1.getEmail())).thenReturn(false);
+        when(personRepository.save(person1)).thenReturn(person1);
 
         Person person2 = Person.builder().email("dasdads@gmail.com").build();
+
         when(personRepository.existsByEmail(person2.getEmail())).thenReturn(true);
+
+        doNothing().when(emailService).confirmRegistration(any(Person.class));
 
         //ACT
         boolean person1HasBeenCreated = personService.createPerson(person1);
@@ -79,10 +83,13 @@ public class PersonServiceTest {
     }
 
     @Test
-    void disableAccount(){
+    void disableAccount() throws MessagingException {
         //ARRANGE
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
+
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
+        when(personRepository.save(any(Person.class))).thenReturn(person1);
+        doNothing().when(emailService).fareWellMessage(any(Person.class));
 
         //ACT
         personService.disableAccount(person1.getId());
@@ -92,7 +99,7 @@ public class PersonServiceTest {
     }
 
     @Test
-    void confirmVerificationCode(){
+    void confirmVerificationCode() {
         //ARRANGE
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").verificationCode("dasdadas").build();
         when(personRepository.findByVerificationCode(person1.getVerificationCode())).thenReturn(Optional.of(person1));
@@ -105,21 +112,21 @@ public class PersonServiceTest {
 
         //ASSERT
         assertTrue(person1.isAccountVerified());
-        assertThrows(ResponseStatusException.class,()->personService.confirmVerificationCode(person2.getVerificationCode()));
+        assertThrows(ResponseStatusException.class, () -> personService.confirmVerificationCode(person2.getVerificationCode()));
     }
 
     @Test
-    void setPassword(){
+    void setPassword() {
         //ARRANGE
         String newPassword = "taaa";
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araaa").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
 
         //ACT
-        personService.setPassword(person1.getId(),newPassword);
+        personService.setPassword(person1.getId(), newPassword);
 
         //ASSERT
-        assertEquals(newPassword,person1.getPassword());
+        assertEquals(newPassword, person1.getPassword());
     }
 
     @Test
@@ -139,7 +146,7 @@ public class PersonServiceTest {
     }
 
     @Test
-    void getPersonById(){
+    void getPersonById() {
         //ARRANGE
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
@@ -152,11 +159,11 @@ public class PersonServiceTest {
 
         //ASSERT
         assertNotNull(person);
-        assertThrows(ResponseStatusException.class,() -> personService.getPersonById(person2.getId()));
+        assertThrows(ResponseStatusException.class, () -> personService.getPersonById(person2.getId()));
     }
 
     @Test
-    void getPersonDetail(){
+    void getPersonDetail() {
         //ARRANGE
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
@@ -165,11 +172,11 @@ public class PersonServiceTest {
         PersonDetail personDetail1 = personService.getPersonDetail(person1.getId());
 
         //ASSERT
-        assertEquals(person1.getEmail(),personDetail1.getEmail());
+        assertEquals(person1.getEmail(), personDetail1.getEmail());
     }
 
     @Test
-    void getPersonDashBoard(){
+    void getPersonDashBoard() {
         //ARRANGE
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").build();
         when(personRepository.findById(person1.getId())).thenReturn(Optional.of(person1));
@@ -179,11 +186,11 @@ public class PersonServiceTest {
         Dashboard dashboard = personService.getPersonDashBoard(person1.getId());
 
         //ASSERT
-       assertNotNull(dashboard);
+        assertNotNull(dashboard);
     }
 
     @Test
-    void getListPerson(){
+    void getListPerson() {
         //ARRANGE
         List<Person> persons = Arrays.asList(
                 Person.builder().email("francois@gmail.com").build(),
@@ -196,22 +203,22 @@ public class PersonServiceTest {
         List<Person> listPersons = personService.getListPerson();
 
         //ASSERT
-        assertEquals(3,listPersons.size());
+        assertEquals(3, listPersons.size());
     }
 
     @Test
-    void findPersonByEmailAndPassword(){
+    void findPersonByEmailAndPassword() {
         //ARRANGE
         String email2 = "adadasdasd";
         String password2 = "adadasdasd";
-        when(personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email2,password2)).thenReturn(Optional.empty());
+        when(personRepository.findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(email2, password2)).thenReturn(Optional.empty());
 
         //ASSERT
-        assertThrows(ResponseStatusException.class,() -> personService.findPersonByEmailAndPassword(email2,password2, HttpStatus.NOT_FOUND));
+        assertThrows(ResponseStatusException.class, () -> personService.findPersonByEmailAndPassword(email2, password2, HttpStatus.NOT_FOUND));
     }
 
     @Test
-    void deleteAllUnverifiedAccount(){
+    void deleteAllUnverifiedAccount() {
         //ARRANGE
         List<Person> persons = Arrays.asList(
                 Person.builder().build(),
@@ -224,6 +231,6 @@ public class PersonServiceTest {
         Integer nbrOfUnVerifiedAccountDeleted = personService.deleteAllUnverifiedAccount();
 
         //ASSERT
-        assertEquals(persons.size(),nbrOfUnVerifiedAccountDeleted);
+        assertEquals(persons.size(), nbrOfUnVerifiedAccountDeleted);
     }
 }

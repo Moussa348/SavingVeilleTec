@@ -44,7 +44,7 @@ public class PersonService {
             person.setPicture(FileUtil.setDefaultProfilePicture());
             person.setVerificationCode(RandomString.make(20));
 
-            emailService.confirmRegistration(personRepository.saveAndFlush(person));
+            emailService.confirmRegistration(personRepository.save(person));
 
             return true;
         }
@@ -72,12 +72,12 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public void disableAccount(Long id) {
+    public void disableAccount(Long id) throws MessagingException {
         Person person = getPersonById(id);
 
         person.setActive(false);
 
-        personRepository.save(person);
+        emailService.fareWellMessage(personRepository.save(person));
     }
 
     @Transactional

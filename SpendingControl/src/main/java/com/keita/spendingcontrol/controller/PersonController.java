@@ -42,7 +42,7 @@ public class PersonController {
 
     @PatchMapping("/disableAccount/{id}")
     @PreAuthorize("@authorizationService.isConnected(#id)")
-    public void disableAccount(@PathVariable Long id) {
+    public void disableAccount(@PathVariable Long id) throws MessagingException {
         personService.disableAccount(id);
     }
 
