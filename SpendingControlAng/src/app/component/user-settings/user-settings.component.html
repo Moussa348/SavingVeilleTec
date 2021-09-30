@@ -25,18 +25,29 @@
   </div>
 
   <div class="flex-row d-flex justify-content-center">
-    <div class="card shadow-lg border rounded blur bg-transparent">
       <img
         [src]="['http://localhost:4444/person/getPicture/' + id]"
         alt="vaccinCovid"
-        class="rounded shadow border border border"
+        class="rounded-circle shadow border"
       />
-    </div>
   </div>
 
   <div class="flex-row">
       <div class="p-5"></div>
   </div>
+
+  <div class="flex-row d-flex justify-content-center">
+    <button
+      class="btn btn-lg btn-danger rounded-pill border border-3 shadow p-4"
+      (click)="disableAccount()"
+    >
+      Disable Account <i class="fas fa-user-alt-slash"></i>
+    </button>
+  </div>
+
+  <div class="flex-row">
+    <div class="p-5"></div>
+</div>
 
   <div class="flex-row d-flex justify-content-center">
     <div class="card container bg-transparent blur shadow-lg border rounded">
@@ -48,7 +59,7 @@
             >
           </div>
           <div class="flex-row">
-            <input class="form-control" type="file" id="picture" />
+            <input class="form-control" formControlName="picture" type="file" id="picture" />
           </div>
         </div>
 

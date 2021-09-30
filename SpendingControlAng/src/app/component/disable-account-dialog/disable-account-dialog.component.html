@@ -1,0 +1,38 @@
+<div
+  class="bg-dark border text-light container-fluid modal-dialog-scrollable"
+  style="overflow-x: auto; overflow-y: auto"
+>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">
+      <u> Disable Account <i class="fas fa-user-alt-slash"></i> </u>
+    </h4>
+
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"><i class="fas fa-times text-danger"></i></span>
+    </button>
+  </div>
+
+  <div class="modal-body bg-dark m-2">
+    <div class="card shadow text-light bg-dark border">
+      <div class="m-2 flex-row d-flex justify-content-center">
+        <h3 class="text-uppercase text-warning">
+          Are you sure you want disable your account?
+        </h3>
+      </div>
+      <div class="flex-row d-flex justify-content-center">
+        <i class="fas fa-exclamation-triangle text-warning fa-3x"></i>
+      </div>
+
+      <div class="flex-row m-2"></div>
+
+      <div class="flex-row d-flex justify-content-center m-4">
+        <button class="btn btn-danger border rounded-pill" (click)="sendConfirmation()">YES</button>
+      </div>
+    </div>
+  </div>
+</div>

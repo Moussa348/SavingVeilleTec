@@ -8,6 +8,10 @@ import {
 } from '@angular/animations';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getId } from 'src/app/util/jwtUtils';
+import { PersonService } from 'src/app/service/person.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DisableAccountDialogComponent } from '../disable-account-dialog/disable-account-dialog.component';
+import { AuthGuardService } from 'src/app/service/auth-guard.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -19,12 +23,15 @@ import { getId } from 'src/app/util/jwtUtils';
 
       transition(':enter, :leave', [animate(1000)]),
     ]),
-  ]
+  ],
 })
 export class UserSettingsComponent implements OnInit {
   registrationForm: FormGroup;
   id = getId();
-  constructor() { }
+  constructor(
+    private personService: PersonService,
+    private authGuardService : AuthGuardService,
+    private modalService : NgbModal) {}
 
   ngOnInit(): void {
     this.setRegistrationForm();
@@ -32,11 +39,27 @@ export class UserSettingsComponent implements OnInit {
 
   setRegistrationForm() {
     this.registrationForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
+      picture: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       passwordAgain: new FormControl('', [Validators.required]),
+    });
+  }
+
+  disableAccount() {
+    this.openDisableAccountDialog();
+  }
+  
+  openDisableAccountDialog(){
+    const modalRef = this.modalService.open(DisableAccountDialogComponent, {
+      centered: true,
+      scrollable: true,
+    });
+    
+    modalRef.componentInstance.choice.subscribe(choice =>{
+      if(choice){
+        this.personService.disableAccount(this.id).subscribe();
+        this.authGuardService.logout();
+      }
     });
   }
 
@@ -62,5 +85,4 @@ export class UserSettingsComponent implements OnInit {
   isFieldTouched(formControlName) {
     return this.registrationForm.get(formControlName).touched;
   }
-
 }

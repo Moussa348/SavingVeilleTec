@@ -53,7 +53,7 @@ public class PersonService {
 
     public void setPicture(Long id, MultipartFile multipartFile) throws IOException {
         Person person = getPersonById(id);
-        //TODO --> check if multipartFile is really an image or else throw IOException
+
         if (FileUtil.isFileAnImage(Objects.requireNonNull(multipartFile.getOriginalFilename()))) {
 
             person.setPicture(multipartFile.getBytes());

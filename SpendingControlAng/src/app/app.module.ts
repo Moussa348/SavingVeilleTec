@@ -41,6 +41,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ArticlePriceChartComponent } from './component/chart/article-price-chart/article-price-chart.component';
 import { ListArticleAnalyticComponent } from './component/list-article-analytic/list-article-analytic.component';
 import { UserSettingsComponent } from './component/user-settings/user-settings.component';
+import { DisableAccountDialogComponent } from './component/disable-account-dialog/disable-account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { UserSettingsComponent } from './component/user-settings/user-settings.c
     ArticlePriceChartComponent,
     ListArticleAnalyticComponent,
     UserSettingsComponent,
+    DisableAccountDialogComponent,
   ],
   imports: [
     BrowserModule,
