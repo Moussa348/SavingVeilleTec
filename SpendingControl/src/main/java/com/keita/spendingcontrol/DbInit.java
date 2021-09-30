@@ -45,7 +45,7 @@ public class DbInit implements CommandLineRunner {
     private void createPersons() throws IOException {
         List<Person> persons = Arrays.asList(
                 //Person.builder().id(1L).picture(FileUtil.setDefaultProfilePicture()).email("developpeurspring@gmail.com").firstName("developpeur").lastName("spring").password("dev123").build(),
-                Person.builder().id(1L).picture(FileUtil.setDefaultProfilePicture()).email("test@gmail.com").firstName("test").lastName("test").password("test123").build()
+                Person.builder().id(1L).picture(FileUtil.setDefaultProfilePicture()).email("test@gmail.com").firstName("test").lastName("test").password("test1234").build()
         );
 
         persons.forEach(person -> {

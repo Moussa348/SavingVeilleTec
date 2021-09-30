@@ -17,7 +17,6 @@ export class DisableAccountDialogComponent implements OnInit {
 
   sendConfirmation(){
     this.choice.emit(true);
+    this.activeModal.close();
   }
-
-
 }

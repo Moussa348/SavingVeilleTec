@@ -12,6 +12,7 @@ import { PersonService } from 'src/app/service/person.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DisableAccountDialogComponent } from '../disable-account-dialog/disable-account-dialog.component';
 import { AuthGuardService } from 'src/app/service/auth-guard.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-settings',
@@ -28,10 +29,13 @@ import { AuthGuardService } from 'src/app/service/auth-guard.service';
 export class UserSettingsComponent implements OnInit {
   registrationForm: FormGroup;
   id = getId();
+
   constructor(
     private personService: PersonService,
-    private authGuardService : AuthGuardService,
-    private modalService : NgbModal) {}
+    private authGuardService: AuthGuardService,
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.setRegistrationForm();
@@ -48,17 +52,18 @@ export class UserSettingsComponent implements OnInit {
   disableAccount() {
     this.openDisableAccountDialog();
   }
-  
-  openDisableAccountDialog(){
+
+  openDisableAccountDialog() {
     const modalRef = this.modalService.open(DisableAccountDialogComponent, {
       centered: true,
       scrollable: true,
     });
-    
-    modalRef.componentInstance.choice.subscribe(choice =>{
-      if(choice){
+
+    modalRef.componentInstance.choice.subscribe((choice) => {
+      if (choice) {
         this.personService.disableAccount(this.id).subscribe();
         this.authGuardService.logout();
+        this.router.navigate(['/authentication']);
       }
     });
   }
