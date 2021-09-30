@@ -99,7 +99,7 @@
             pb-2
           "
           type="submit"
-          [disabled]="formIsInvalid()"
+          [disabled]="!isFormValid()"
         >
           Login<i class="fas fa-sign-in-alt"></i>
         </button>

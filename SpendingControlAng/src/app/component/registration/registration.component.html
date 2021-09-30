@@ -124,10 +124,11 @@
                 class="form-control {{
                   isFieldTouched('password')
                     ? validateField('password')
-                      ? validateSamePassword()? 'is-valid'
-                      : 'is-invalid'
+                      ? validateSamePassword()
+                        ? 'is-valid'
+                        : 'is-invalid'
+                      : ''
                     : ''
-                    :''
                 }}"
                 formControlName="password"
                 placeholder="min 8 character and max 40 character"
@@ -151,10 +152,11 @@
                 class="form-control {{
                   isFieldTouched('passwordAgain')
                     ? validateField('passwordAgain')
-                      ? validateSamePassword()? 'is-valid'
-                      : 'is-invalid'
+                      ? validateSamePassword()
+                        ? 'is-valid'
+                        : 'is-invalid'
+                      : ''
                     : ''
-                    :''
                 }}"
                 id="passwordAgain"
                 min="8"
@@ -181,7 +183,7 @@
                 text-capitalize
                 rounded-pill
               "
-              [disabled]="registrationForm.invalid"
+              [disabled]="!isFormValid()"
             >
               register<i class="fas fa-user-plus"></i>
             </button>
@@ -204,7 +206,11 @@
         @fade
       >
         <div
-          class="text-center text-justify text-light m-5 text-wrap text-break text-justify"
+          class="
+            text-center text-justify text-light
+            m-5
+            text-wrap text-break text-justify
+          "
           *ngIf="registered == 'false'"
         >
           <div class="flex-row">
@@ -215,9 +221,10 @@
           </div>
           <div class="flex-row">
             <p>
-              If you see this message it means, the email that you used is already
-              associated to an account, if it is your account please go to the login page and reset your password or
-              you can create a new account with a different...
+              If you see this message it means, the email that you used is
+              already associated to an account, if it is your account please go
+              to the login page and reset your password or you can create a new
+              account with a different...
             </p>
           </div>
           <div class="flex-row d-flex justify-content-evenly">
@@ -248,23 +255,27 @@
         </div>
 
         <div
-        class="text-center text-justify text-light m-5 text-wrap text-break text-justify"
-        *ngIf="registered == 'pending'"
+          class="
+            text-center text-justify text-light
+            m-5
+            text-wrap text-break text-justify
+          "
+          *ngIf="registered == 'pending'"
         >
-        <h1 class="text-capitalize">
-          Wait a moment...
-          <i class="fas fa-meh-rolling-eyes text-warning fa-2x"></i>
-        </h1>
+          <h1 class="text-capitalize">
+            Wait a moment...
+            <i class="fas fa-meh-rolling-eyes text-warning fa-2x"></i>
+          </h1>
 
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border text-warning" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-warning" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
-        </div>
         </div>
 
         <div
-          class="text-center text-justify text-light m-5 text-wrap text-break "
+          class="text-center text-justify text-light m-5 text-wrap text-break"
           *ngIf="registered == 'true'"
         >
           <div class="flex-row">
@@ -274,23 +285,13 @@
             </h1>
           </div>
 
-            <div class="flex-row">
-              <p>
-                Go check your mail to confirm your account!<i class="fas fa-envelope text-warning"></i>
-              </p>
-            </div>
-
-            <div class="flex-row d-flex justify-content-center">
-  
-              <div>
-                <button
-                  class="btn btn-dark rounded-pill border border-3 shadow"
-                  [routerLink]="['/authentication']"
-                >
-                  Authentication<i class="fas fa-sign-in-alt pl-1"></i>
-                </button>
-              </div>
-            </div>
+          <div class="flex-row">
+            <p>
+              Go check your mail to confirm your account!<i
+                class="fas fa-envelope text-warning"
+              ></i>
+            </p>
+          </div>
         </div>
       </mat-card>
     </mat-step>

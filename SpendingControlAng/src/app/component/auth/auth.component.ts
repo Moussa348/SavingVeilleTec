@@ -85,7 +85,7 @@ export class AuthComponent implements OnInit {
     this.authGuardService.logout();
   }
 
-  formIsInvalid(){
-    return this.authFormGroup.invalid && !this.validatePassword();
+  isFormValid(){
+    return this.authFormGroup.valid && this.validatePassword();
   }
 }

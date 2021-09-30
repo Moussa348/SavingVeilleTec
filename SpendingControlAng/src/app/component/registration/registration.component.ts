@@ -82,4 +82,8 @@ export class RegistrationComponent implements OnInit {
   isFieldTouched(formControlName) {
     return this.registrationForm.get(formControlName).touched;
   }
+
+  isFormValid(){
+    return this.registrationForm.valid && this.validateSamePassword();
+  }
 }
