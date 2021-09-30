@@ -40,6 +40,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ArticlePriceChartComponent } from './component/chart/article-price-chart/article-price-chart.component';
 import { ListArticleAnalyticComponent } from './component/list-article-analytic/list-article-analytic.component';
+import { UserSettingsComponent } from './component/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { ListArticleAnalyticComponent } from './component/list-article-analytic/
     DailyExpenseDetailComponent,
     ArticlePriceChartComponent,
     ListArticleAnalyticComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,

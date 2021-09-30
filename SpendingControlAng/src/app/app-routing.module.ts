@@ -9,10 +9,12 @@ import { HomeComponent } from './component/home/home.component';
 import { NavComponent } from './component/nav/nav.component';
 import { RegistrationVerifyCodeComponent } from './component/registration-verify-code/registration-verify-code.component';
 import { RegistrationComponent } from './component/registration/registration.component';
+import { UserSettingsComponent } from './component/user-settings/user-settings.component';
 import { WelcomeComponent } from './component/welcome/welcome.component';
 import { AuthGuardService } from './service/auth-guard.service';
 
 const routes: Routes = [
+  {path:'userSettings',component:UserSettingsComponent,canActivate:[AuthGuardService]},
   {path:'dailyExpenseDetail',component:DailyExpenseDetailComponent,canActivate:[AuthGuardService]},
   {path:'registrationVerifyCode/:code',component:RegistrationVerifyCodeComponent},
   {path:'registration',component:RegistrationComponent},
