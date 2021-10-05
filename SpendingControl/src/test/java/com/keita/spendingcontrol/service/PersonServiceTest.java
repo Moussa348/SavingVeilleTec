@@ -218,6 +218,17 @@ public class PersonServiceTest {
     }
 
     @Test
+    void findPersonByEmail() {
+        //ARRANGE
+        String email2 = "adadasdasd";
+        String password2 = "adadasdasd";
+        when(personRepository.findByEmail(email2)).thenReturn(Optional.empty());
+
+        //ASSERT
+        assertThrows(ResponseStatusException.class, () -> personService.findPersonByEmail(email2));
+    }
+
+    @Test
     void deleteAllUnverifiedAccount() {
         //ARRANGE
         List<Person> persons = Arrays.asList(

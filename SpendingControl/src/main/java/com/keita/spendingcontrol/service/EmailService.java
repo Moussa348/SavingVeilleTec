@@ -37,6 +37,28 @@ public class EmailService {
         javaMailSender.send(mimeMessageHelper.getMimeMessage());
     }
 
+    public void resetPassword(Person person) throws MessagingException{
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        mimeMessageHelper.setTo(person.getEmail());
+        mimeMessageHelper.setSubject(person.getLastName() + ", " + person.getFirstName() + " please confirm your email to reset your password");
+
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to reset your password:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">RESET</a></h3>"
+                + "Thank you,<br>"
+                + "Spending Control Inc.";
+
+
+        content = content.replace("[[name]]", person.getFirstName());
+        content = content.replace("[[URL]]", "http://localhost:5001/registrationVerifyCode/" + person.getVerificationCode());
+
+        mimeMessageHelper.setText(content, true);
+
+        javaMailSender.send(mimeMessageHelper.getMimeMessage());
+    }
+
     public void fareWellMessage(Person person) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);

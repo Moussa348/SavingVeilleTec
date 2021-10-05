@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person,Long> {
     boolean existsByEmail(String email);
     List<Person> findAllByActiveTrue();
+    Optional<Person> findByEmail(String email);
     Optional<Person> findByEmailAndPasswordAndActiveTrueAndAccountVerifiedTrue(String email,String password);
     Optional<Person> findByEmailAndPassword(String email,String password);
     Optional<Person> findByVerificationCode(String verificationCode);

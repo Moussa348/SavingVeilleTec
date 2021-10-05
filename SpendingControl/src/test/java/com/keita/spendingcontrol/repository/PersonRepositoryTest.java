@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
@@ -16,15 +17,15 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Log
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Log
 public class PersonRepositoryTest {
 
     @Autowired
     PersonRepository personRepository;
 
-    @BeforeAll()
+    @BeforeEach()
     void init(){
         List<Person> persons = Arrays.asList(
                 Person.builder().email("francois@gmail.com").password("francois123").build(),
@@ -73,6 +74,18 @@ public class PersonRepositoryTest {
 
         //ASSERT
         assertTrue(person.isPresent());
+    }
+
+    @Test
+    void findByEmail(){
+        //ARRANGE
+        String email1 = "francois@gmail.com";
+
+        //ACT
+        boolean personExistWithEmail = personRepository.findByEmail(email1).isPresent();
+
+        //ASSERT
+        assertTrue(personExistWithEmail);
     }
 
     @Test

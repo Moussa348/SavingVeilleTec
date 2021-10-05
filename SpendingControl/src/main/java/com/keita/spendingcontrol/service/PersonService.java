@@ -120,6 +120,11 @@ public class PersonService {
                 .orElseThrow(() -> new ResponseStatusException(httpStatus, "Can't find person with : " + email));
     }
 
+    public Person findPersonByEmail(String email) {
+        return personRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find person with : " + email));
+    }
+
     public Integer deleteAllUnverifiedAccount(){
         AtomicInteger counter = new AtomicInteger();
 

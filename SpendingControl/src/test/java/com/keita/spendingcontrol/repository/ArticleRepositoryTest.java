@@ -21,9 +21,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Log
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Log
 public class ArticleRepositoryTest {
 
     @Autowired
@@ -41,8 +41,8 @@ public class ArticleRepositoryTest {
         dailyExpenseRepository.saveAllAndFlush(dailyExpenses);
         List<Article> articles = Arrays.asList(
                 Article.builder().name("cereales").id(1L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
-                Article.builder().id(2L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
-                Article.builder().id(3L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
+                Article.builder().name("pear").id(2L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
+                Article.builder().name("apple").id(3L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
         );
 
         articleRepository.saveAll(articles);

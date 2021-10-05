@@ -91,6 +91,10 @@ public class DailyExpenseService {
 
     public List<Article> findAllArticleByPerson(Long personId) {
 
-        return dailyExpenseRepository.findAllByPersonId(personId).stream().map(DailyExpense::getArticles).flatMap(Collection::stream).collect(Collectors.toList());
+        return dailyExpenseRepository.findAllByPersonId(personId)
+                .stream()
+                .map(DailyExpense::getArticles)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }

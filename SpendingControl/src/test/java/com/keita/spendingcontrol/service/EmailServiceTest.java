@@ -53,4 +53,20 @@ public class EmailServiceTest {
         //ASSERT
         verify(javaMailSender,times(1)).send(mimeMessage);
     }
+
+
+    @Test
+    void resetPassword() throws MessagingException {
+        //ARRANGE
+        MimeMessage mimeMessage = new MimeMessage((Session)null);
+        Person person = Person.builder().email("tasadsa@gmail.com").verificationCode(RandomString.make(20)).firstName("massou").lastName("massou").build();
+
+        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
+
+        //ACT
+        emailService.resetPassword(person);
+
+        //ASSERT
+        verify(javaMailSender,times(1)).send(mimeMessage);
+    }
 }
