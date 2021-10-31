@@ -4,12 +4,10 @@ package com.keita.spendingcontrol.repository;
 import com.keita.spendingcontrol.model.entity.DailyExpense;
 import com.keita.spendingcontrol.model.entity.Person;
 import lombok.extern.java.Log;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
@@ -32,7 +30,11 @@ public class DailyExpenseRepositoryTest {
 
     @BeforeAll
     void init(){
-        Person person = Person.builder().id(1L).email("francois@gmail.com").build();
+        Person person = Person.builder().id(1L).email("nada@gmail.com").build();
+
+        person.setActive(false);
+
+        person.setAccountVerified(true);
 
         personRepository.save(person);
 
@@ -46,7 +48,9 @@ public class DailyExpenseRepositoryTest {
         dailyExpenses.get(3).setDate(LocalDate.now().minusWeeks(3));
 
         dailyExpenseRepository.saveAll(dailyExpenses);
+
     }
+
 
     @Test
     void findAllByPersonIdAndDateBetween(){

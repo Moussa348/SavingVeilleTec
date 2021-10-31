@@ -25,7 +25,7 @@ public class PersonRepositoryTest {
     @Autowired
     PersonRepository personRepository;
 
-    @BeforeAll()
+    @BeforeAll
     void init(){
         List<Person> persons = Arrays.asList(
                 Person.builder().email("francois@gmail.com").password("francois123").build(),
