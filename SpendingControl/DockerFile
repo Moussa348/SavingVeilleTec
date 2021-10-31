@@ -1,0 +1,5 @@
+FROM openjdk:11
+WORKDIR /usr/local/bin/api
+ADD . .
+RUN ./mvnw -f pom.xml clean package
+CMD ["java","-jar","-Dspring.profiles.active=${environment}","./target/SpendingControl.jar"]

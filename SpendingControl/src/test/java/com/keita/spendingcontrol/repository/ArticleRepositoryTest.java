@@ -34,17 +34,15 @@ public class ArticleRepositoryTest {
 
     @BeforeAll()
     void init() {
-
         List<DailyExpense> dailyExpenses = Arrays.asList(
                 DailyExpense.builder().build()
         );
-        dailyExpenseRepository.saveAllAndFlush(dailyExpenses);
+        dailyExpenseRepository.saveAll(dailyExpenses);
         List<Article> articles = Arrays.asList(
                 Article.builder().name("cereales").id(1L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
                 Article.builder().name("pear").id(2L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.LOW).dailyExpense(dailyExpenses.get(0)).build(),
                 Article.builder().name("apple").id(3L).time(LocalDateTime.now()).degreeOfUseFullness(DegreeOfUseFullness.MEDIUM).dailyExpense(dailyExpenses.get(0)).build()
         );
-
         articleRepository.saveAll(articles);
     }
 

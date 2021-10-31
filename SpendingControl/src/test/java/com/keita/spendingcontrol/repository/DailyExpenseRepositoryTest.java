@@ -18,9 +18,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Log
 @DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Log
 public class DailyExpenseRepositoryTest {
 
     @Autowired

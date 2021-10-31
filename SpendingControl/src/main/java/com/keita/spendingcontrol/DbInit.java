@@ -25,7 +25,7 @@ import java.util.List;
 @Log
 @Order(1)
 @Component
-@Profile("test")
+@Profile("dev")
 public class DbInit implements CommandLineRunner {
 
     private final PersonRepository personRepository;
