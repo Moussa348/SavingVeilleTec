@@ -25,16 +25,16 @@
   </div>
 
   <div class="flex-row d-flex justify-content-center">
-      <img
+    <img
       @fade
-        [src]="['http://localhost:4444/person/getPicture/' + id]"
-        alt="vaccinCovid"
-        class="rounded-circle shadow border"
-      />
+      [src]="['http://localhost:4444/person/getPicture/' + id]"
+      alt="vaccinCovid"
+      class="rounded-circle shadow border"
+    />
   </div>
 
   <div class="flex-row">
-      <div class="p-5"></div>
+    <div class="p-5"></div>
   </div>
 
   <div class="flex-row d-flex justify-content-center">
@@ -48,11 +48,11 @@
 
   <div class="flex-row">
     <div class="p-5"></div>
-</div>
+  </div>
 
   <div class="flex-row d-flex justify-content-center">
     <div class="card container bg-transparent blur shadow-lg border rounded">
-      <form [formGroup]="registrationForm">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
         <div class="m-3">
           <div class="flex-row text-start">
             <label for="picture" class="form-label text-light text-start"
@@ -60,11 +60,39 @@
             >
           </div>
           <div class="flex-row">
-            <input class="form-control" formControlName="picture" type="file" id="picture" />
+            <input
+              class="form-control"
+              (change)="onFileChanged($event)"
+              formControlName="picture"
+              type="file"
+              id="picture"
+            />
           </div>
         </div>
 
-        <div class="m-3">
+        <div class="form-check m-3">
+          <div class="flex-row text-start text-dark font-weight-bold">
+            <input
+              class="form-check-input"
+              [value]="true"
+              formControlName="updatePassword"
+              type="checkbox"
+              id="disabledFieldsetCheck"
+            />
+            <label
+              class="form-check-label"
+              class="text-dark font-weight-bold"
+              for="disabledFieldsetCheck"
+            >
+              Update Password?
+            </label>
+          </div>
+        </div>
+
+        <div
+          class="m-3"
+          *ngIf="registrationForm.get('updatePassword').value == true"
+        >
           <div class="flex-row text-start">
             <label for="exampleInputPassword1" class="form-label text-light"
               >New Password</label
@@ -91,7 +119,10 @@
           </div>
         </div>
 
-        <div class="m-3">
+        <div
+          class="m-3"
+          *ngIf="registrationForm.get('updatePassword').value == true"
+        >
           <div class="flex-row text-start">
             <label for="passwordAgain" class="form-label text-light"
               >ConfirmNew Password</label
@@ -119,13 +150,19 @@
             <span class="text-light">{{ passAgain.value.length }} / 40</span>
           </div>
         </div>
+        <div class="d-flex justify-content-center mb-3">
+          <button class="btn btn-success rounded-pill border border-3 shadow">
+            EDIT<i class="fas fa-sign-out-alt pl-1"></i>
+          </button>
+        </div>
+
       </form>
     </div>
   </div>
 </div>
 
 <div class="flex-row">
-    <div class="p-5"></div>
-    <div class="p-5"></div>
-  </div>
-  <app-footer class="position-sticky"></app-footer>
+  <div class="p-5"></div>
+  <div class="p-5"></div>
+</div>
+<app-footer class="position-sticky"></app-footer>

@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
 })
 export class UserSettingsComponent implements OnInit {
   registrationForm: FormGroup;
+  selectedFile:File;
   id = getId();
 
   constructor(
@@ -43,9 +44,10 @@ export class UserSettingsComponent implements OnInit {
 
   setRegistrationForm() {
     this.registrationForm = new FormGroup({
-      picture: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      passwordAgain: new FormControl('', [Validators.required]),
+      picture: new FormControl('',),
+      password: new FormControl('', ),
+      passwordAgain: new FormControl('',),
+      updatePassword: new FormControl('')
     });
   }
 
@@ -83,11 +85,29 @@ export class UserSettingsComponent implements OnInit {
     );
   }
 
+  onFileChanged($event){
+    this.selectedFile = $event.target.files[0];
+
+  }
+  
+  uploadFile(){
+    console.log(this.selectedFile + " " + this.id);
+    const formData = new FormData();
+    formData.append("multipartFile",this.selectedFile);
+
+    this.personService.setPicture(this.id,formData).subscribe();
+  }
+
   validateField(formControlName) {
     return this.registrationForm.get(formControlName).valid;
   }
 
   isFieldTouched(formControlName) {
     return this.registrationForm.get(formControlName).touched;
+  }
+
+  onSubmit(){
+    console.log(this.id);
+    this.uploadFile();
   }
 }

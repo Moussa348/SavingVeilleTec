@@ -116,7 +116,7 @@ public class PersonServiceTest {
     }
 
     @Test
-    void setPassword() {
+    void setPasswordWithId() {
         //ARRANGE
         String newPassword = "taaa";
         Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araaa").build();
@@ -124,6 +124,20 @@ public class PersonServiceTest {
 
         //ACT
         personService.setPassword(person1.getId(), newPassword);
+
+        //ASSERT
+        assertEquals(newPassword, person1.getPassword());
+    }
+
+    @Test
+    void setPasswordEmail() {
+        //ARRANGE
+        String newPassword = "taaa";
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araaa").build();
+        when(personRepository.findByEmail(person1.getEmail())).thenReturn(Optional.of(person1));
+
+        //ACT
+        personService.setPassword(person1.getEmail(), newPassword);
 
         //ASSERT
         assertEquals(newPassword, person1.getPassword());

@@ -34,10 +34,15 @@ public class PersonController {
         personService.setPicture(id, multipartFile);
     }
 
-    @PatchMapping("/setPassword")
+    @PatchMapping("/setPasswordWithId")
     @PreAuthorize("@authorizationService.isConnected(#id)")
     public void setPassword(@RequestParam("id") Long id, @RequestParam("password") String password) {
         personService.setPassword(id, password);
+    }
+
+    @PatchMapping("/setPasswordWithEmail")
+    public void setPassword(@RequestParam("email") String email, @RequestParam("password") String password) {
+        personService.setPassword(email, password);
     }
 
     @PatchMapping("/disableAccount/{id}")
@@ -48,7 +53,7 @@ public class PersonController {
 
     @PatchMapping("/confirmVerificationCode/{verificationCode}")
     public void confirmVerificationCode(@PathVariable String verificationCode) {
-        personService.confirmVerificationCode(verificationCode);
+         personService.confirmVerificationCode(verificationCode);
     }
 
     @GetMapping("/getPicture/{id}")

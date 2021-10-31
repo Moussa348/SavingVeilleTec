@@ -2,8 +2,12 @@
     backdrop-filter: blur(10px);
   }
 
-  .btn:hover{
+  .btn-dark:hover{
     background-color: green;
+  }
+
+  .btn-info:hover{
+  opacity: 0.5;
   }
 
   .fa-bars:hover{

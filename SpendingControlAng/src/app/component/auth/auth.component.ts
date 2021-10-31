@@ -11,6 +11,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-password-dialog.component';
 
 @Component({
   selector: 'app-auth',
@@ -26,11 +28,13 @@ import {
 })
 export class AuthComponent implements OnInit {
   authFormGroup: FormGroup;
+  modalRef
 
   constructor(
     private router:Router,
     private authService:AuthService,
-    private authGuardService : AuthGuardService
+    private authGuardService : AuthGuardService,
+    private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +46,15 @@ export class AuthComponent implements OnInit {
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
+  }
+
+  
+  open() {
+    const modalRef = this.modalService.open(ResetPasswordDialogComponent, {
+      centered: true,
+      scrollable: true,
+    });
+
   }
 
   onSubmit() {
@@ -88,4 +101,6 @@ export class AuthComponent implements OnInit {
   isFormValid(){
     return this.authFormGroup.valid && this.validatePassword();
   }
+
+  
 }

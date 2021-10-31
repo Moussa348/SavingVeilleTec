@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: test
+    password: test
+    url: jdbc:h2:~/SpendingControlTestingDB
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      path: /SpendingControlTestingDB
+      enabled: true
+      settings:
+        web-allow-others: true
+
+server:
+  port: 4444

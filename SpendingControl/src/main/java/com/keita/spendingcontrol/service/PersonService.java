@@ -72,6 +72,14 @@ public class PersonService {
         personRepository.save(person);
     }
 
+    public void setPassword(String email, String password) {
+        Person person = findPersonByEmail(email);
+
+        person.setPassword(password);
+
+        personRepository.save(person);
+    }
+
     public void disableAccount(Long id) throws MessagingException {
         Person person = getPersonById(id);
 

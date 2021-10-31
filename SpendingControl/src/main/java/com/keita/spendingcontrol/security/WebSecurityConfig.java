@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/person/createPerson/**",
                 "/dailyExpense/dasdad",
                 "/person/confirmVerificationCode/**",
+                "/person/setPasswordWithEmail/**",
                 "/auth/resetPassword/**",
                 "/SpendingControlTestingDB/**")
                 .permitAll()

@@ -15,13 +15,23 @@ export class PersonService {
     return this.http.post<boolean>(this.url + 'createPerson',person);
   }
 
-  setPicture(id){
+  setPicture(id,file){
+    const params = new HttpParams().set("id",id).set("multipartFile",file);
+    let options = {params:params};
+
+    return this.http.patch(this.url + "setPicture/",options);
   }
 
-  setPassword(id,password){
+  setPasswordWithId(id,password){
     const params = new HttpParams().set("id",id).set("password",password);
     const options = {params:params};
-    return this.http.patch(this.url + 'setPassword',options);
+    return this.http.patch(this.url + 'setPasswordWithId',options);
+  }
+
+  setPasswordEmail(email,password){
+    const params = new HttpParams().set("email",email).set("password",password);
+    const options = {params:params};
+    return this.http.patch(this.url + 'setPasswordWithEmail',options);
   }
 
   confirmVerificationCode(verificationCode){

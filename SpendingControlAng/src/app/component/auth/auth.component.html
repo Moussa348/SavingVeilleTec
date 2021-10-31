@@ -1,31 +1,30 @@
 <app-nav></app-nav>
 
 <div class="container" @fade>
-
-    <div class="p-5"></div>
-    <div class="p-4"></div>
-    <mat-divider class="border border-3"></mat-divider>
-    <div class="p-4"></div>
-    <div
-      class="
-        row
-        d-flex
-        justify-content-center
-        text-uppercase
-        font-weight-bold
-        text-light
-        text-center
-      "
-    >
-      <h1 style="font-family: 'Times New Roman', Times, serif">
-       Authentication<i class="fas {{isLoggedIn()?'fa-unlock':'fa-user-lock'}}"></i
-        >
-      </h1>
-    </div>
-    <div class="p-4"></div>
-    <mat-divider class="border border-3"></mat-divider>
-    <div class="p-5"></div>
-    <div class="p-2"></div>
+  <div class="p-5"></div>
+  <div class="p-4"></div>
+  <mat-divider class="border border-3"></mat-divider>
+  <div class="p-4"></div>
+  <div
+    class="
+      row
+      d-flex
+      justify-content-center
+      text-uppercase
+      font-weight-bold
+      text-light text-center
+    "
+  >
+    <h1 style="font-family: 'Times New Roman', Times, serif">
+      Authentication<i
+        class="fas {{ isLoggedIn() ? 'fa-unlock' : 'fa-user-lock' }}"
+      ></i>
+    </h1>
+  </div>
+  <div class="p-4"></div>
+  <mat-divider class="border border-3"></mat-divider>
+  <div class="p-5"></div>
+  <div class="p-2"></div>
 
   <mat-card class="shadow-lg blur bg-transparent container border rounded">
     <div class="p-4"></div>
@@ -74,10 +73,11 @@
             class="form-control {{
               isFieldTouched('password')
                 ? validateField('password')
-                  ? validatePassword()? 'is-valid'
-                  : 'is-invalid'
+                  ? validatePassword()
+                    ? 'is-valid'
+                    : 'is-invalid'
+                  : ''
                 : ''
-                :''
             }} rounded-pill border shadow"
             formControlName="password"
             placeholder="min 8 character and max 40 character"
@@ -101,7 +101,25 @@
           type="submit"
           [disabled]="!isFormValid()"
         >
-          Login<i class="fas fa-sign-in-alt"></i>
+          Login <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </div>
+      <div class="flex-row d-flex justify-content-center mt-2 text-light">
+        <button
+          class="
+            btn btn-info
+            border border-2
+            shadow
+            rounded-pill
+            pl-4
+            pr-4
+            pt-2
+            pb-2
+            text-light
+          "
+          (click)="open()"
+        >
+          Reset Password <i class="fas fa-key"></i>
         </button>
       </div>
     </form>
@@ -109,7 +127,7 @@
     <div class="text-center text-justify text-light" *ngIf="isLoggedIn()">
       <h1>You are already logged! Do you want to log out?</h1>
       <button
-      type="submit"
+        type="submit"
         class="btn btn-danger rounded-pill border border-3 shadow"
         (click)="logout()"
       >
@@ -120,9 +138,8 @@
   </mat-card>
 </div>
 
-
 <div class="flex-row">
-    <div class="p-5"></div>
-    <div class="p-5"></div>
-  </div>
-  <app-footer class="position-sticky"></app-footer>
+  <div class="p-5"></div>
+  <div class="p-5"></div>
+</div>
+<app-footer class="position-sticky"></app-footer>

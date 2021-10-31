@@ -1,4 +1,3 @@
-
 export const needZeroAtEnd = (number) => {
     let decimalPart = (number + "").split(".")[1];
     

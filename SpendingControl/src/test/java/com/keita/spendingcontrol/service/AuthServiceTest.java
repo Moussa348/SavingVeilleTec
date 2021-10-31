@@ -44,4 +44,22 @@ public class AuthServiceTest {
         assertNotNull(token);
         assertThrows(ResponseStatusException.class,()->authService.login(person2.getEmail(),person2.getPassword()));
     }
+
+    @Test
+    void resetPassword(){
+        //ARRANGE
+        Person person1 = Person.builder().id(1L).email("araa@gmail.com").password("araa").build();
+        when(jwtService.generate(person1)).thenReturn("dsadasdasdas");
+        when(personService.findPersonByEmailAndPassword(person1.getEmail(),person1.getPassword(), HttpStatus.UNAUTHORIZED)).thenReturn(person1);
+
+        Person person2 = Person.builder().id(2L).email("bbbbb@gmail.com").password("bbbb").build();
+        when(personService.findPersonByEmailAndPassword(person2.getEmail(),person2.getPassword(),HttpStatus.UNAUTHORIZED)).thenThrow(ResponseStatusException.class);
+
+        //ACT
+        String token = authService.login(person1.getEmail(),person1.getPassword());
+
+        //ASSERT
+        assertNotNull(token);
+        assertThrows(ResponseStatusException.class,()->authService.login(person2.getEmail(),person2.getPassword()));
+    }
 }

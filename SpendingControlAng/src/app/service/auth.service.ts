@@ -16,4 +16,8 @@ export class AuthService {
     let options ={responseType: 'text'}
     return this.http.get(this.url + "/login",{params:params,responseType:'text'})
   }
+
+  resetPassword(email){
+    return this.http.get(this.url + '/resetPassword/' + email);
+  }
 }

@@ -9,7 +9,7 @@ spring:
       starttls.enable: true
       starttls.required: true
   profiles:
-    active: test
+    active: dev
 
 security:
   jwt.duration: 30

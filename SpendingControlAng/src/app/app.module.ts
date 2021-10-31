@@ -42,6 +42,8 @@ import { ArticlePriceChartComponent } from './component/chart/article-price-char
 import { ListArticleAnalyticComponent } from './component/list-article-analytic/list-article-analytic.component';
 import { UserSettingsComponent } from './component/user-settings/user-settings.component';
 import { DisableAccountDialogComponent } from './component/disable-account-dialog/disable-account-dialog.component';
+import { ResetPasswordDialogComponent } from './component/reset-password-dialog/reset-password-dialog.component';
+import { ResetPasswordVerificationComponent } from './component/reset-password-verification/reset-password-verification.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { DisableAccountDialogComponent } from './component/disable-account-dialo
     ListArticleAnalyticComponent,
     UserSettingsComponent,
     DisableAccountDialogComponent,
+    ResetPasswordDialogComponent,
+    ResetPasswordVerificationComponent,
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PersonControllerTest {
@@ -109,7 +109,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    void setPassword() throws Exception{
+    void setPasswordWithId() throws Exception{
         //ARRANGE
         Long id = 1L;
         String newPassword = "araaaaa";
@@ -121,7 +121,7 @@ public class PersonControllerTest {
         String token2 = "Bearer " + jwtService.generate(person2);
 
         //ACT
-        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPassword")
+        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPasswordWithId")
                 .header(HttpHeaders.AUTHORIZATION, token1)
                 .param("id",id.toString())
                 .param("password",newPassword)
@@ -129,7 +129,7 @@ public class PersonControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPassword")
+        MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPasswordWithId")
                 .header(HttpHeaders.AUTHORIZATION, token2)
                 .param("id",id.toString())
                 .param("password",newPassword)
@@ -140,6 +140,24 @@ public class PersonControllerTest {
         //ASSERT
         assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
         assertEquals(MockHttpServletResponse.SC_FORBIDDEN,mvcResult2.getResponse().getStatus());
+    }
+
+    @Test
+    void setPasswordWithEmail() throws Exception{
+        //ARRANGE
+        String email = "test@gmail.com";
+        String newPassword = "araaaaa";
+
+        //ACT
+        MvcResult mvcResult1 = mockMvc.perform(MockMvcRequestBuilders.patch("/person/setPasswordWithEmail")
+                .param("email",email)
+                .param("password",newPassword)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andReturn();
+
+        //ASSERT
+        assertEquals(MockHttpServletResponse.SC_OK,mvcResult1.getResponse().getStatus());
     }
 
     @Test
