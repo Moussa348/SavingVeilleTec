@@ -3,12 +3,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Article } from '../model/article';
 import { DailyExpense } from '../model/daily-expense';
 import { DailyAnalytic } from '../model/daily-analytic';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DailyExpenseService {
-  url = "http://localhost:4444/dailyExpense/"
+  url = `${environment.link}/dailyExpense/`;
 
   constructor( private http:HttpClient ) { }
 

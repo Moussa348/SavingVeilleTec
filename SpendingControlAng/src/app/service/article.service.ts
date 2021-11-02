@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Article } from '../model/article';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
-  url = "http://localhost:4444/article/"
+  url = `${environment.link}/article/`;
 
   constructor( private http:HttpClient ) { }
 

@@ -2,12 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Dashboard } from '../model/dashboard';
 import { Person } from '../model/person';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
-  url = "http://localhost:4444/person/"
+  url = `${environment.link}/person/`;
 
   constructor(private http:HttpClient) { }
 

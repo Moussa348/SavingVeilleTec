@@ -88,6 +88,9 @@
             "browserTarget": "SpendingControlAng:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "SpendingControlAng:build:dev"
+            },
             "production": {
               "browserTarget": "SpendingControlAng:build:production"
             }
