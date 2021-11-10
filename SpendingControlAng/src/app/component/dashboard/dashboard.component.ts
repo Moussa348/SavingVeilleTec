@@ -15,6 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddingArticleComponent } from '../adding-article/adding-article.component';
 import { ChartType } from 'chart.js/auto';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,7 @@ export class DashboardComponent {
   chartId = 'articleUtilityChart';
   todayDate = new Date();
   dashboard: Dashboard = new Dashboard();
+  url = environment.link;
 
   constructor(
     private personService: PersonService,

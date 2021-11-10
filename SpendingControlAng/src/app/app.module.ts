@@ -7,6 +7,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ALLOWED_URLS,STORAGE_KEY } from './util/constant';
+import { ALLOWED_URLS_DEV } from 'src/environments/environment.dev';
+import { ALLOWED_URLS_PROD } from 'src/environments/environment.prod';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WelcomeComponent } from './component/welcome/welcome.component';
@@ -84,7 +86,7 @@ import { ResetPasswordVerificationComponent } from './component/reset-password-v
         tokenGetter: () => {
           return sessionStorage.getItem(STORAGE_KEY);
         },
-        allowedDomains:ALLOWED_URLS
+        allowedDomains: ALLOWED_URLS_DEV.concat(ALLOWED_URLS_PROD)
       },
     }),
     BrowserAnimationsModule,

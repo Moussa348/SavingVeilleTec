@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 
-<div class="container" >
+<div class="container">
   <div class="row">
     <div class="p-5"></div>
     <mat-divider class="text-light border border-3"></mat-divider>
@@ -48,8 +48,8 @@
             <div class="d-flex justify-content-start">
               <div class="order-1 pl-5 btn">
                 <img
-                @fade
-                  [src]="['http://localhost:4444/person/getPicture/' + id]"
+                  @fade
+                  [src]="[url + '/person/getPicture/' + id]"
                   alt="vaccinCovid"
                   class="rounded-circle shadow border"
                   (click)="goToUserSettings()"
@@ -73,29 +73,51 @@
 
                 <p class="text-capitalize font-weight-bold">
                   Today's date :
-                  {{ todayDate | date
-                  }}<i class="fas fa-clock"></i>
+                  {{ todayDate | date }}<i class="fas fa-clock"></i>
                 </p>
               </div>
 
               <div class="order-3 align-items-center" style="height: 200px">
-
-                <div class="flex-row d-flex justify-content-end" style="padding-right: 50px;">
-                  <h3 class="text-capitalize"><u>Today's total :</u> {{dashboard.dailyExpenseDetail.total.toFixed(2)}} <i class="fas fa-coins"></i></h3>
+                <div
+                  class="flex-row d-flex justify-content-end"
+                  style="padding-right: 50px"
+                >
+                  <h3 class="text-capitalize">
+                    <u>Today's total :</u>
+                    {{ dashboard.dailyExpenseDetail.total.toFixed(2) }}
+                    <i class="fas fa-coins"></i>
+                  </h3>
                 </div>
-                <div class="flex-row d-flex justify-content-end pb-4" style="padding-right: 60px;">
+                <div
+                  class="flex-row d-flex justify-content-end pb-4"
+                  style="padding-right: 60px"
+                >
                   <button
-                    class="btn btn-outline-warning border shadow rounded-pill p-3"
-
+                    class="
+                      btn btn-outline-warning
+                      border
+                      shadow
+                      rounded-pill
+                      p-3
+                    "
                     (click)="openAddingArticle()"
                   >
                     Add An Expense <i class="fas fa-plus-circle"></i>
                   </button>
                 </div>
-                <div class="flex-row d-flex justify-content-end" style="padding-right: 50px;">
+                <div
+                  class="flex-row d-flex justify-content-end"
+                  style="padding-right: 50px"
+                >
                   <button
-                  [routerLink]="['/dailyExpenseDetail']"
-                    class="btn btn-outline-primary border shadow rounded-pill p-3"
+                    [routerLink]="['/dailyExpenseDetail']"
+                    class="
+                      btn btn-outline-primary
+                      border
+                      shadow
+                      rounded-pill
+                      p-3
+                    "
                   >
                     See Expense Detail <i class="fas fa-list-ul"></i>
                   </button>
@@ -172,18 +194,26 @@
             shadow
             border
           "
-          style="overflow-y: auto;overflow-x:auto;"
+          style="overflow-y: auto; overflow-x: auto"
         >
           <div class="flex-row d-flex justify-content-center">
-            <h2 class="text-center" @fade placement="bottom" ngbTooltip="To see more click on see expense detail">
-              <u>Recent Articles Bought <i class="fas fa-hand-holding-usd"></i></u>
+            <h2
+              class="text-center"
+              @fade
+              placement="bottom"
+              ngbTooltip="To see more click on see expense detail"
+            >
+              <u
+                >Recent Articles Bought <i class="fas fa-hand-holding-usd"></i
+              ></u>
             </h2>
           </div>
 
-          <div
-          >
-
-          <app-list-article-detail *ngIf="isListArticlesCharged()" [articleDetails]="getListArticles()"></app-list-article-detail>
+          <div>
+            <app-list-article-detail
+              *ngIf="isListArticlesCharged()"
+              [articleDetails]="getListArticles()"
+            ></app-list-article-detail>
             <!--ng if if nothing show paragraph if something show name article qty price and maybe img-->
           </div>
         </mat-card>

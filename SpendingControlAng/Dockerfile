@@ -6,8 +6,9 @@ ENV environement  $environement
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN node_modules/.bin/ng build --configuration=${environement}
+RUN npm run build:${environement}
 
-#stage 2
 FROM nginx:1.16.0-alpine
 COPY --from=node /app/dist/SpendingControlAng /usr/share/nginx/html
+EXPOSE 5001
+CMD ["nginx","-g","daemon off;"]

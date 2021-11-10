@@ -1,4 +1,10 @@
+const host = "192.168.0.184";
+const port = "4445";
+
 export const environment = {
-  production: true,
-  link: "http://localhost:4445"
+  production:true,
+  link: `http://${host}:${port}`
 };
+
+export const STORAGE_KEY = 'token';
+export const ALLOWED_URLS_PROD = [host + ":" + port];
