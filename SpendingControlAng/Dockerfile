@@ -1,14 +1,15 @@
 #stage 1
-FROM node:latest as node
-ARG environement
+FROM node:16-alpine as node
+ARG environment
 
-ENV environement  $environement
+ENV environment $environment
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm run build:${environement}
+RUN node_modules/.bin/ng build --configuration=dev
 
 FROM nginx:1.16.0-alpine
 COPY --from=node /app/dist/SpendingControlAng /usr/share/nginx/html
-EXPOSE 5001
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=node /app/dist/SpendingControlAng /etc/nginx/conf.d
 CMD ["nginx","-g","daemon off;"]
