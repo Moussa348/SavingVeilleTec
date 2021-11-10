@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/person")
-@CrossOrigin(origins = "http://localhost:5001")
+@CrossOrigin(origins = {"http://localhost:5001","http://192.168.0.184:5001"})
 public class PersonController {
 
     private final PersonService personService;
