@@ -11,6 +11,10 @@ spring:
   profiles:
     active: dev
 
+server:
+  error:
+    include-message: always
+
 security:
   jwt.duration: 30
 
