@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  spendingcontrol-api-prod:
+    build: .
+    container_name: spendingcontrol-api-prod
+    environment:
+      - environment=prod
+    ports:
+      - 4445:4445
