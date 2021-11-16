@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  spendingcontrol-api-dev:
+    build: .
+    image: spendingcontrol
+    container_name: spendingcontrol-api-dev
+    environment:
+      - environment=dev
+    ports:
+      - 4444:4444
